@@ -10,8 +10,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { Counter } from './features/counter/Counter';
 import Tables from './features/tables';
+import NewTable from './features/tables/NewTable';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,7 +66,7 @@ function App() {
                 <Link to="/">Mesas</Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
-                <Link to="/counter">Comidas</Link>
+                <Link to="/">Comidas</Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
                 <Link to="/">Bebidas</Link>
@@ -79,8 +79,8 @@ function App() {
         </AppBar>
 
         <Switch>
-          <Route path="/counter">
-            <Counter />
+          <Route path="/new-table">
+            <NewTable />
           </Route>
           <Route path="/">
             <Tables />
