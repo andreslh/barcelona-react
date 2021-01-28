@@ -11,6 +11,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 import { Counter } from './features/counter/Counter';
+import Tables from './features/tables';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -78,10 +79,12 @@ function App() {
         </AppBar>
 
         <Switch>
+          <Route path="/">
+            <Tables />
+          </Route>
           <Route path="/counter">
             <Counter />
           </Route>
-          <Route path="/">Home</Route>
         </Switch>
       </Container>
     </Router>
