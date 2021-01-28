@@ -8,10 +8,10 @@ export const mockTables = (mock) =>
     },
     {
       id: 2,
-      name: 'Andres',
+      name: 'Facundo',
     },
     {
       id: 3,
-      name: 'Andres',
+      name: 'Eduardo',
     },
   ]);

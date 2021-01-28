@@ -24,7 +24,11 @@ describe('TablesList', () => {
 
     await waitFor(() => {
       expect(mock.history.get).toHaveLength(1);
-      expect(screen.getAllByTestId('table').length).toBe(3);
     });
+
+    expect(screen.getAllByTestId('table').length).toBe(3);
+    expect(screen.getByText('Andres')).toBeInTheDocument();
+    expect(screen.getByText('Facundo')).toBeInTheDocument();
+    expect(screen.getByText('Eduardo')).toBeInTheDocument();
   });
 });
