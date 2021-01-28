@@ -1,0 +1,7 @@
+.table-list-active td {
+  font-weight: bold;
+}
+
+.table-list-normal td:hover {
+  text-decoration: underline;
+}

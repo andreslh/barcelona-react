@@ -13,6 +13,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Tables from './features/tables';
 import NewTable from './features/tables/NewTable';
 
+import './App.css';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -38,7 +40,7 @@ function App() {
   return (
     <Router>
       <Container>
-        <AppBar position="static">
+        <AppBar classes={{ root: 'barcelona-app-bar' }} position="static">
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
               Barcelona

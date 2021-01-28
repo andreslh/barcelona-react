@@ -9,11 +9,14 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import { fetch, selectTables } from './tablesSlice';
+import { fetch, selectActive, selectTables } from './tablesSlice';
 import { GET_TABLES } from '../../app/routes';
+
+import './TablesList.css';
 
 export default function TablesList() {
   const tables = useSelector(selectTables);
+  const active = useSelector(selectActive);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,18 +31,28 @@ export default function TablesList() {
         <TableHead>
           <TableRow>
             <TableCell align="left">
-              <b>Mesas activas</b>
+              <b>Mesas abiertas</b>
             </TableCell>
             <TableCell />
           </TableRow>
         </TableHead>
+
         <TableBody>
-          {tables.map((row) => (
-            <TableRow key={row.id} data-testid="table">
-              <TableCell component="th" scope="row" size="small">
-                {row.id}
+          {tables.map((table) => (
+            <TableRow
+              key={table.id}
+              data-testid="table"
+              classes={{
+                root:
+                  active?.id === table.id
+                    ? 'table-list-active'
+                    : 'table-list-normal',
+              }}
+            >
+              <TableCell scope="row" size="small">
+                {table.id}
               </TableCell>
-              <TableCell align="left">{row.name}</TableCell>
+              <TableCell align="left">{table.name}</TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -16,7 +16,7 @@ const Tables = () => {
     <Box pt={3}>
       <Grid container justify="flex-end">
         <Box pb={3}>
-          <Button variant="contained" color="primary" onClick={handleClick}>
+          <Button variant="contained" color="default" onClick={handleClick}>
             Nueva mesa
           </Button>
         </Box>
