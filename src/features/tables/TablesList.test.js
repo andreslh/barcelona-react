@@ -1,36 +1,30 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import store from '../../app/store';
 import TablesList from './TablesList';
 
-jest.mock(
-  './sampleTables.json',
-  () => [
-    {
-      id: 1,
-      name: 'Andres',
-    },
-    {
-      id: 2,
-      name: 'Andres',
-    },
-    {
-      id: 3,
-      name: 'Andres',
-    },
-  ],
-  { virtual: true }
-);
+import createApiMock from '../../app/createApiMock';
+import { mockTables } from './mocks/tables';
 
 describe('TablesList', () => {
-  it('it shows the right amount of tables', () => {
-    const { getAllByTestId } = render(
+  let mock;
+
+  beforeEach(() => {
+    mock = createApiMock();
+    mockTables(mock);
+  });
+
+  it('it shows the right amount of tables', async () => {
+    render(
       <Provider store={store}>
         <TablesList />
       </Provider>
     );
 
-    expect(getAllByTestId(/table/i).length).toBe(3);
+    await waitFor(() => {
+      expect(mock.history.get).toHaveLength(1);
+      expect(screen.getAllByTestId('table').length).toBe(3);
+    });
   });
 });

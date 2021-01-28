@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -8,16 +9,17 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import sampleTables from './sampleTables.json';
-
 import { fetch, selectTables } from './tablesSlice';
+import { GET_TABLES } from '../../app/routes';
 
 export default function TablesList() {
   const tables = useSelector(selectTables);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetch(sampleTables));
+    axios.get(GET_TABLES).then((res) => {
+      dispatch(fetch(res.data));
+    });
   }, [dispatch]);
 
   return (
