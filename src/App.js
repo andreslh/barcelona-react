@@ -79,11 +79,11 @@ function App() {
         </AppBar>
 
         <Switch>
-          <Route path="/">
-            <Tables />
-          </Route>
           <Route path="/counter">
             <Counter />
+          </Route>
+          <Route path="/">
+            <Tables />
           </Route>
         </Switch>
       </Container>

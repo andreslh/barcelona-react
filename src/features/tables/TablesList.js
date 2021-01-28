@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,19 +8,18 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-function createData(id, name) {
-  return { id, name };
-}
+import sampleTables from './sampleTables.json';
 
-const rows = [
-  createData(1, 'Andres'),
-  createData(2, 'Ice cream sandwich'),
-  createData(3, 'Eclair'),
-  createData(4, 'Cupcake'),
-  createData(5, 'Gingerbread'),
-];
+import { fetch, selectTables } from './tablesSlice';
 
-export default function BasicTable() {
+export default function TablesList() {
+  const tables = useSelector(selectTables);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetch(sampleTables));
+  }, [dispatch]);
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="active tables">
@@ -32,8 +32,8 @@ export default function BasicTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
+          {tables.map((row) => (
+            <TableRow key={row.id} data-testid="table">
               <TableCell component="th" scope="row" size="small">
                 {row.id}
               </TableCell>
