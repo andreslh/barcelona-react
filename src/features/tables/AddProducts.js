@@ -195,7 +195,7 @@ export default function AddProducts() {
     });
 
     categoriesList.push(
-      <Accordion key={catIndex}>
+      <Accordion key={catIndex} defaultExpanded={catIndex === 0}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls={`panel${category.id}-content`}
