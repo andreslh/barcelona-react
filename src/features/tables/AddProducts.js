@@ -125,12 +125,13 @@ export default function AddProducts() {
       const productsElements = [];
       subcategory.products.forEach((product) => {
         productsElements.push(
-          <TableRow key={product.id} data-testid="product">
+          <TableRow data-testid="product" key={product.id}>
             <TableCell align="left">
               <FormGroup row>
                 <FormControlLabel
                   control={
                     <Checkbox
+                      data-testid={`product-checkbox-${product.id}`}
                       checked={getProductChecked(product.id)}
                       onChange={() => handleProductChecked(product.id)}
                       name={`${product.id}-${product.name}`}
@@ -144,6 +145,7 @@ export default function AddProducts() {
               <Grid container justify="flex-start" alignItems="center">
                 <TextField
                   id="outlined-basic"
+                  data-testid={`product-quantity-${product.id}`}
                   variant="outlined"
                   value={getProductQuantity(product.id)}
                   type="number"
@@ -158,6 +160,7 @@ export default function AddProducts() {
                 <Box>
                   <RemoveCircleOutlineIcon
                     fontSize="large"
+                    data-testid={`product-reduce-quantity-${product.id}`}
                     classes={{ root: 'pointer' }}
                     onClick={() => {
                       handleProductQuantity(product.id, false);
@@ -165,6 +168,7 @@ export default function AddProducts() {
                   />
                   <AddCircleOutlineIcon
                     fontSize="large"
+                    data-testid={`product-add-quantity-${product.id}`}
                     classes={{ root: 'pointer' }}
                     onClick={() => {
                       handleProductQuantity(product.id, true);
@@ -178,7 +182,13 @@ export default function AddProducts() {
       });
 
       subcategories.push(
-        <Grid item xs={6} key={subcategory.id}>
+        <Grid
+          data-testid="subcategory"
+          item
+          xs={12}
+          md={6}
+          key={subcategory.id}
+        >
           <h4>{subcategory.name}</h4>
           <Table aria-label="active tables">
             <TableHead>
@@ -195,7 +205,11 @@ export default function AddProducts() {
     });
 
     categoriesList.push(
-      <Accordion key={catIndex} defaultExpanded={catIndex === 0}>
+      <Accordion
+        data-testid="category"
+        key={catIndex}
+        defaultExpanded={catIndex === 0}
+      >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls={`panel${category.id}-content`}
@@ -248,6 +262,7 @@ export default function AddProducts() {
       <Grid container justify="space-between" component={Paper}>
         <Box pr={3} m={2}>
           <Button
+            data-testid="add-products-button"
             variant="contained"
             color="primary"
             onClick={handleAddProducts}

@@ -1,0 +1,115 @@
+import React from 'react';
+import { render, screen, waitFor } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+import { MemoryRouter } from 'react-router-dom';
+
+import createApiMock from '../../app/createApiMock';
+import { mockAddProducts } from './mocks/tables';
+import AddProducts from './AddProducts';
+import activeTable from './mocks/activeTable.json';
+import products from '../products/mocks/products.json';
+import { fireEvent } from '@testing-library/dom';
+
+const mockHistoryPush = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useHistory: () => ({
+    push: mockHistoryPush,
+  }),
+}));
+
+const mockStore = configureStore();
+const store = mockStore({
+  tables: {
+    active: activeTable,
+  },
+  products: {
+    data: products,
+  },
+});
+
+describe('AddProducts', () => {
+  let mock;
+
+  beforeEach(() => {
+    mock = createApiMock();
+    mockAddProducts(mock);
+
+    render(
+      <MemoryRouter>
+        <Provider store={store}>
+          <AddProducts />
+        </Provider>
+      </MemoryRouter>
+    );
+  });
+
+  it('it renders the right amount of categories, subcategories and products', () => {
+    expect(screen.getAllByTestId('category').length).toBe(2);
+    expect(screen.getAllByTestId('subcategory').length).toBe(4);
+    expect(screen.getAllByTestId('product').length).toBe(8);
+  });
+
+  it('it handles product checking', () => {
+    const checkbox = screen.getByLabelText('IPA');
+    fireEvent.click(checkbox);
+    expect(checkbox).toBeChecked();
+  });
+
+  it('it handles product unchecking', () => {
+    const checkbox = screen.getByLabelText('IPA');
+    fireEvent.click(checkbox);
+    expect(checkbox).toBeChecked();
+    fireEvent.click(checkbox);
+    expect(checkbox).not.toBeChecked();
+  });
+
+  it('it handles product quantity addition', () => {
+    expect(screen.queryByDisplayValue('2')).not.toBeInTheDocument();
+    const addQuantityButton = screen.getByTestId('product-add-quantity-1');
+    fireEvent.click(addQuantityButton);
+    expect(screen.getByDisplayValue('2')).toBeInTheDocument();
+  });
+
+  it('it handles product quantity reduction', () => {
+    const addQuantityButton = screen.getByTestId('product-add-quantity-1');
+    fireEvent.click(addQuantityButton);
+    expect(screen.getByDisplayValue('2')).toBeInTheDocument();
+    const reduceQuantityButton = screen.getByTestId(
+      'product-reduce-quantity-1'
+    );
+    fireEvent.click(reduceQuantityButton);
+    expect(screen.queryByDisplayValue('2')).not.toBeInTheDocument();
+  });
+
+  it('it handles product quantity change by input', () => {
+    const input = screen.getAllByDisplayValue('1')[0];
+    fireEvent.change(input, { target: { value: '5' } });
+    expect(screen.getByDisplayValue('5')).toBeInTheDocument();
+  });
+
+  it('it handles product quantity minimum', () => {
+    const input = screen.getAllByDisplayValue('1')[0];
+    fireEvent.change(input, { target: { value: '0' } });
+    expect(screen.queryByDisplayValue('0')).not.toBeInTheDocument();
+  });
+
+  it('it submits the selected products to api and redirects', async () => {
+    const checkbox = screen.getByLabelText('Muzzarella');
+    fireEvent.click(checkbox);
+    const input = screen.getAllByDisplayValue('1')[0];
+    fireEvent.change(input, { target: { value: '5' } });
+
+    const button = screen.getByTestId('add-products-button');
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(mock.history.put).toHaveLength(1);
+    });
+
+    expect(mock.history.put[0].data).toBe('[{"id":1,"quantity":"5"}]');
+    expect(mockHistoryPush).toHaveBeenCalledWith('/tables/1');
+  });
+});
