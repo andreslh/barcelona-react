@@ -7,6 +7,7 @@ import store from '../../app/store';
 import createApiMock from '../../app/createApiMock';
 import { mockActiveTable, mockTables } from './mocks/tables';
 import Tables from './Tables';
+import { mockProducts } from '../products/mocks/products';
 
 describe('Tables', () => {
   let mock;
@@ -14,8 +15,24 @@ describe('Tables', () => {
   beforeEach(() => {
     mock = createApiMock();
     mockTables(mock);
+    mockProducts(mock);
     mockActiveTable(mock, 1);
     mockActiveTable(mock, 2);
+  });
+
+  it('it requests first table as active if no param is passed', async () => {
+    render(
+      <MemoryRouter>
+        <Provider store={store}>
+          <Tables />
+        </Provider>
+      </MemoryRouter>
+    );
+
+    await waitFor(() => {
+      expect(mock.history.get).toHaveLength(3);
+      expect(mock.history.get[2].url).toContain('/tables/1');
+    });
   });
 
   it('it requests tables and active data', async () => {
@@ -30,25 +47,11 @@ describe('Tables', () => {
     );
 
     await waitFor(() => {
-      expect(mock.history.get).toHaveLength(2);
+      expect(mock.history.get).toHaveLength(3);
     });
 
     expect(screen.getAllByTestId('table').length).toBe(3);
     expect(screen.getAllByTestId('product').length).toBe(3);
-    expect(mock.history.get[1].url).toContain('/tables/2');
-  });
-
-  it('it requests first table as active if no param is passed', async () => {
-    render(
-      <MemoryRouter>
-        <Provider store={store}>
-          <Tables />
-        </Provider>
-      </MemoryRouter>
-    );
-
-    await waitFor(() => {
-      expect(mock.history.get[1].url).toContain('/tables/1');
-    });
+    expect(mock.history.get[2].url).toContain('/tables/2');
   });
 });

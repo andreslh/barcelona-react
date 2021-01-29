@@ -7,7 +7,7 @@ export const tablesSlice = createSlice({
     active: {},
   },
   reducers: {
-    fetch: (state, action) => {
+    setTables: (state, action) => {
       state.data = action.payload;
     },
     setActive: (state, action) => {
@@ -16,7 +16,7 @@ export const tablesSlice = createSlice({
   },
 });
 
-export const { fetch, setActive } = tablesSlice.actions;
+export const { setTables, setActive } = tablesSlice.actions;
 
 export const selectTables = (state) => state.tables.data;
 export const selectActive = (state) => state.tables.active;

@@ -1,0 +1,70 @@
+[
+  {
+    "id": 1,
+    "name": "Comidas",
+    "subcategories": [
+      {
+        "id": 1,
+        "name": "Pizzas",
+        "products": [
+          {
+            "id": 1,
+            "name": "Muzzarella"
+          },
+          {
+            "id": 2,
+            "name": "Caprese"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Burguers",
+        "products": [
+          {
+            "id": 1,
+            "name": "Queen"
+          },
+          {
+            "id": 2,
+            "name": "Beatles"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Bebidas",
+    "subcategories": [
+      {
+        "id": 1,
+        "name": "Cervezas",
+        "products": [
+          {
+            "id": 1,
+            "name": "IPA"
+          },
+          {
+            "id": 2,
+            "name": "Porter"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Tragos",
+        "products": [
+          {
+            "id": 1,
+            "name": "Cuba Libre"
+          },
+          {
+            "id": 2,
+            "name": "Mojito"
+          }
+        ]
+      }
+    ]
+  }
+]

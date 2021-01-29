@@ -8,30 +8,50 @@ import Grid from '@material-ui/core/Grid';
 
 import ActiveTable from './ActiveTable';
 import TablesList from './TablesList';
-import { GET_TABLES } from '../../app/routes';
-import { fetch, selectTables, setActive } from './tablesSlice';
+import { GET_PRODUCTS, GET_TABLES } from '../../app/routes';
+import {
+  setTables,
+  selectTables,
+  setActive,
+  selectActive,
+} from './tablesSlice';
+import { selectProducts, setProducts } from '../products/productsSlice';
 
 const Tables = () => {
   const history = useHistory();
   const { active } = useParams();
   const tables = useSelector(selectTables);
+  const activeTable = useSelector(selectActive);
+  const products = useSelector(selectProducts);
   const dispatch = useDispatch();
 
   useEffect(() => {
     axios.get(GET_TABLES).then((res) => {
-      dispatch(fetch(res.data));
+      dispatch(setTables(res.data));
     });
   }, [dispatch]);
 
   useEffect(() => {
-    if (tables.length) {
+    if (!products.length) {
+      axios.get(GET_PRODUCTS).then((res) => {
+        dispatch(setProducts(res.data));
+      });
+    }
+  }, [dispatch, products]);
+
+  useEffect(() => {
+    if (
+      tables.length &&
+      ((active && active !== activeTable?.id?.toString()) ||
+        (!active && !activeTable?.id))
+    ) {
       axios
         .get(`${GET_TABLES}/${active ? active : tables[0].id}`)
         .then((res) => {
           dispatch(setActive(res.data));
         });
     }
-  }, [dispatch, active, tables]);
+  }, [dispatch, active, tables, activeTable, activeTable?.id]);
 
   function handleClick() {
     history.push('/new-table');

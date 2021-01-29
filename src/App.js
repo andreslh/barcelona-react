@@ -12,6 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import Tables from './features/tables';
 import NewTable from './features/tables/NewTable';
+import AddProducts from './features/tables/AddProducts';
 
 import './App.css';
 
@@ -85,6 +86,9 @@ function App() {
         </Route>
         <Route path="/tables/:active">
           <Tables />
+        </Route>
+        <Route path="/add-products">
+          <AddProducts />
         </Route>
         <Route path="/">
           <Tables />

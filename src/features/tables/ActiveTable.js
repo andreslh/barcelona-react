@@ -12,9 +12,15 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 import { selectActive } from './tablesSlice';
+import { useHistory } from 'react-router-dom';
 
 export default function ActiveTable() {
+  const history = useHistory();
   const table = useSelector(selectActive);
+
+  function handleClick() {
+    history.push('/add-products');
+  }
 
   return (
     (table && table.id && (
@@ -26,7 +32,7 @@ export default function ActiveTable() {
             </h4>
           </Box>
           <Box pr={3} m={2}>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={handleClick}>
               Agregar productos
             </Button>
           </Box>
