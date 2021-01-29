@@ -1,12 +1,37 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { Box, Button, Grid } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import axios from 'axios';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 import ActiveTable from './ActiveTable';
 import TablesList from './TablesList';
+import { GET_TABLES } from '../../app/routes';
+import { fetch, selectTables, setActive } from './tablesSlice';
 
 const Tables = () => {
   const history = useHistory();
+  const { active } = useParams();
+  const tables = useSelector(selectTables);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    axios.get(GET_TABLES).then((res) => {
+      dispatch(fetch(res.data));
+    });
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (tables.length) {
+      axios
+        .get(`${GET_TABLES}/${active ? active : tables[0].id}`)
+        .then((res) => {
+          dispatch(setActive(res.data));
+        });
+    }
+  }, [dispatch, active, tables]);
 
   function handleClick() {
     history.push('/new-table');
@@ -26,7 +51,7 @@ const Tables = () => {
           <TablesList />
         </Grid>
         <Grid item xs={12} md={9}>
-          <ActiveTable />
+          <ActiveTable id={active} />
         </Grid>
       </Grid>
     </Box>

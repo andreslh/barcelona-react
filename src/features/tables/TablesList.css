@@ -2,6 +2,12 @@
   font-weight: bold;
 }
 
+.table-list-active td a,
+.table-list-normal td a {
+  text-decoration: none;
+  color: #000;
+}
+
 .table-list-normal td:hover {
   text-decoration: underline;
 }

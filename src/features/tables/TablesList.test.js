@@ -1,30 +1,27 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import store from '../../app/store';
+import configureStore from 'redux-mock-store';
+import { MemoryRouter } from 'react-router-dom';
+
 import TablesList from './TablesList';
+import tables from './mocks/tables.json';
 
-import createApiMock from '../../app/createApiMock';
-import { mockTables } from './mocks/tables';
-
+const mockStore = configureStore();
+const store = mockStore({
+  tables: {
+    data: tables,
+  },
+});
 describe('TablesList', () => {
-  let mock;
-
-  beforeEach(() => {
-    mock = createApiMock();
-    mockTables(mock);
-  });
-
   it('it shows the right amount of tables', async () => {
     render(
-      <Provider store={store}>
-        <TablesList />
-      </Provider>
+      <MemoryRouter>
+        <Provider store={store}>
+          <TablesList />
+        </Provider>
+      </MemoryRouter>
     );
-
-    await waitFor(() => {
-      expect(mock.history.get).toHaveLength(1);
-    });
 
     expect(screen.getAllByTestId('table').length).toBe(3);
     expect(screen.getByText('Andres')).toBeInTheDocument();

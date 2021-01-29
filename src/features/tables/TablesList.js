@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -9,21 +8,14 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import { fetch, selectActive, selectTables } from './tablesSlice';
-import { GET_TABLES } from '../../app/routes';
+import { selectActive, selectTables } from './tablesSlice';
 
 import './TablesList.css';
+import { Link } from 'react-router-dom';
 
 export default function TablesList() {
   const tables = useSelector(selectTables);
   const active = useSelector(selectActive);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    axios.get(GET_TABLES).then((res) => {
-      dispatch(fetch(res.data));
-    });
-  }, [dispatch]);
 
   return (
     <TableContainer component={Paper}>
@@ -44,7 +36,7 @@ export default function TablesList() {
               data-testid="table"
               classes={{
                 root:
-                  active?.id === table.id
+                  active?.id === table.id.toString()
                     ? 'table-list-active'
                     : 'table-list-normal',
               }}
@@ -52,7 +44,9 @@ export default function TablesList() {
               <TableCell scope="row" size="small">
                 {table.id}
               </TableCell>
-              <TableCell align="left">{table.name}</TableCell>
+              <TableCell align="left">
+                <Link to={`/tables/${table.id}`}>{table.name}</Link>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

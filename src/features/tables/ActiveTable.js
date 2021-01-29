@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -8,20 +7,14 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
-import { setActive, selectActive } from './tablesSlice';
-import { GET_TABLES } from '../../app/routes';
-import { Box, Button, Grid } from '@material-ui/core';
+import { selectActive } from './tablesSlice';
 
 export default function ActiveTable() {
   const table = useSelector(selectActive);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    axios.get(GET_TABLES + '/1').then((res) => {
-      dispatch(setActive(res.data));
-    });
-  }, [dispatch]);
 
   return (
     (table && table.id && (
@@ -58,8 +51,8 @@ export default function ActiveTable() {
                 </TableCell>
                 <TableCell align="left">{product.quantity}</TableCell>
                 <TableCell align="left">{product.name}</TableCell>
-                <TableCell align="left">{product.price}</TableCell>
-                <TableCell align="left">{product.total}</TableCell>
+                <TableCell align="left">${product.price}</TableCell>
+                <TableCell align="left">${product.total}</TableCell>
                 <TableCell align="left">
                   <Button variant="contained">Eliminar</Button>
                 </TableCell>
