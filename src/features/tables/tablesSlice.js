@@ -13,10 +13,13 @@ export const tablesSlice = createSlice({
     setActive: (state, action) => {
       state.active = action.payload;
     },
+    clearActive: (state) => {
+      state.active = {};
+    },
   },
 });
 
-export const { setTables, setActive } = tablesSlice.actions;
+export const { setTables, setActive, clearActive } = tablesSlice.actions;
 
 export const selectTables = (state) => state.tables.data;
 export const selectActive = (state) => state.tables.active;
