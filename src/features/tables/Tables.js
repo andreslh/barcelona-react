@@ -14,8 +14,10 @@ import {
   selectTables,
   setActive,
   selectActive,
+  deleteTable,
 } from './tablesSlice';
 import { selectProducts, setProducts } from '../products/productsSlice';
+import { isActiveParamValid } from './utils';
 
 const Tables = () => {
   const history = useHistory();
@@ -40,11 +42,7 @@ const Tables = () => {
   }, [dispatch, products]);
 
   useEffect(() => {
-    if (
-      tables.length &&
-      ((active && active !== activeTable?.id?.toString()) ||
-        (!active && !activeTable?.id))
-    ) {
+    if (tables.length && isActiveParamValid(active, activeTable, tables)) {
       axios
         .get(`${GET_TABLES}/${active ? active : tables[0].id}`)
         .then((res) => {
@@ -53,7 +51,15 @@ const Tables = () => {
     }
   }, [dispatch, active, tables, activeTable, activeTable?.id]);
 
-  function handleClick() {
+  function onDeleteTable() {
+    const nextActiveTable = tables.find(
+      (table) => table.id.toString() !== activeTable.id
+    );
+    dispatch(deleteTable(activeTable.id));
+    history.push(`/tables/${nextActiveTable.id}`);
+  }
+
+  function handleCreateTable() {
     history.push('/new-table');
   }
 
@@ -61,7 +67,11 @@ const Tables = () => {
     <Box pt={3}>
       <Grid container justify="flex-end">
         <Box pb={3}>
-          <Button variant="contained" color="default" onClick={handleClick}>
+          <Button
+            variant="contained"
+            color="default"
+            onClick={handleCreateTable}
+          >
             Nueva mesa
           </Button>
         </Box>
@@ -71,7 +81,7 @@ const Tables = () => {
           <TablesList />
         </Grid>
         <Grid item xs={12} md={9}>
-          <ActiveTable id={active} />
+          <ActiveTable id={active} onDelete={onDeleteTable} />
         </Grid>
       </Grid>
     </Box>

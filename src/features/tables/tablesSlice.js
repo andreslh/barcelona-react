@@ -10,6 +10,11 @@ export const tablesSlice = createSlice({
     setTables: (state, action) => {
       state.data = action.payload;
     },
+    deleteTable: (state, action) => {
+      state.data = state.data.filter(
+        (table) => table.id.toString() !== action.payload
+      );
+    },
     setActive: (state, action) => {
       state.active = action.payload;
     },
@@ -19,7 +24,12 @@ export const tablesSlice = createSlice({
   },
 });
 
-export const { setTables, setActive, clearActive } = tablesSlice.actions;
+export const {
+  setTables,
+  setActive,
+  clearActive,
+  deleteTable,
+} = tablesSlice.actions;
 
 export const selectTables = (state) => state.tables.data;
 export const selectActive = (state) => state.tables.active;
