@@ -35,7 +35,9 @@ export default function AddProducts() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!addedProducts.length) {
+    if (!categories.length) {
+      history.push('/');
+    } else if (!addedProducts.length) {
       setAddedProducts(
         categories.reduce((acc, category) => {
           return [
@@ -54,7 +56,7 @@ export default function AddProducts() {
         }, [])
       );
     }
-  }, [addedProducts, categories]);
+  }, [addedProducts, history, categories]);
 
   const handleCancel = () => {
     history.push(`/tables/${table.id}`);
@@ -117,6 +119,9 @@ export default function AddProducts() {
         history.push(`/tables/${table.id}`);
       });
   };
+
+  const hasProductsToAdd = addedProducts.filter((product) => product.checked)
+    .length;
 
   const categoriesList = [];
   categories.forEach((category, catIndex) => {
@@ -246,6 +251,7 @@ export default function AddProducts() {
           </Box>
           <Box pr={3} m={2}>
             <Button
+              disabled={!hasProductsToAdd}
               ml={2}
               variant="contained"
               color="primary"
@@ -262,6 +268,7 @@ export default function AddProducts() {
       <Grid container justify="space-between" component={Paper}>
         <Box pr={3} m={2}>
           <Button
+            disabled={!hasProductsToAdd}
             data-testid="add-products-button"
             variant="contained"
             color="primary"

@@ -30,6 +30,15 @@ const store = mockStore({
   },
 });
 
+const emptyStore = mockStore({
+  tables: {
+    active: {},
+  },
+  products: {
+    data: [],
+  },
+});
+
 describe('AddProducts', () => {
   let mock;
 
@@ -64,6 +73,16 @@ describe('AddProducts', () => {
     expect(checkbox).toBeChecked();
     fireEvent.click(checkbox);
     expect(checkbox).not.toBeChecked();
+  });
+
+  it('it enables and disables add button correctly with at least 1 product to add', () => {
+    const checkbox = screen.getByLabelText('IPA');
+    const button = screen.getByTestId('add-products-button');
+    expect(button).toBeDisabled();
+    fireEvent.click(checkbox);
+    expect(button).toBeEnabled();
+    fireEvent.click(checkbox);
+    expect(button).toBeDisabled();
   });
 
   it('it handles product quantity addition', () => {
@@ -111,5 +130,19 @@ describe('AddProducts', () => {
 
     expect(mock.history.put[0].data).toBe('[{"id":1,"quantity":"5"}]');
     expect(mockHistoryPush).toHaveBeenCalledWith('/tables/1');
+  });
+});
+
+describe('AddProducts with empty store', () => {
+  it('redirects to home if page was refreshed', () => {
+    render(
+      <MemoryRouter>
+        <Provider store={emptyStore}>
+          <AddProducts />
+        </Provider>
+      </MemoryRouter>
+    );
+
+    expect(mockHistoryPush).toHaveBeenCalledWith('/');
   });
 });
