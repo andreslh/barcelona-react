@@ -2,6 +2,7 @@ import {
   ADD_PRODUCTS,
   COMPLETE_TABLE,
   DELETE_TABLE,
+  DELETE_TABLE_PRODUCT,
   GET_TABLES,
 } from '../../../app/routes';
 import activeTable from './activeTable.json';
@@ -20,3 +21,8 @@ export const mockCompleteTable = (mock) =>
 
 export const mockDeleteTable = (mock) =>
   mock.onDelete(DELETE_TABLE.replace(':id', 1)).reply(200);
+
+export const mockDeleteTableProduct = (mock) =>
+  mock
+    .onDelete(DELETE_TABLE_PRODUCT.replace(':id', 1).replace(':productId', 14))
+    .reply(200);

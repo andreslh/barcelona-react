@@ -6,7 +6,11 @@ import configureStore from 'redux-mock-store';
 import activeTable from './mocks/activeTable.json';
 import ActiveTable from './ActiveTable';
 import createApiMock from '../../app/createApiMock';
-import { mockCompleteTable, mockDeleteTable } from './mocks/tables';
+import {
+  mockCompleteTable,
+  mockDeleteTable,
+  mockDeleteTableProduct,
+} from './mocks/tables';
 
 const mockShowMessage = jest.fn();
 const mockOnDelete = jest.fn();
@@ -33,6 +37,7 @@ describe('ActiveTable', () => {
     mock = createApiMock();
     mockDeleteTable(mock);
     mockCompleteTable(mock);
+    mockDeleteTableProduct(mock);
   });
 
   it('it shows the right amount and name of products', async () => {
@@ -137,6 +142,53 @@ describe('ActiveTable', () => {
         'Mesa cerrada correctamente'
       );
       expect(mock.history.put.length).toBe(1);
+    });
+  });
+
+  describe('delete product from table modal', () => {
+    const DELETE_PRODUCT_TEXT = 'Eliminar producto';
+
+    beforeEach(() => {
+      render(
+        <Provider store={store}>
+          <ActiveTable onDelete={mockOnDelete} onComplete={mockOnComplete} />
+        </Provider>
+      );
+    });
+
+    it('it shows modal on button click', () => {
+      const button = screen.getAllByTestId('delete-table-product')[2];
+      fireEvent.click(button);
+      expect(screen.getByText(DELETE_PRODUCT_TEXT)).toBeInTheDocument();
+    });
+
+    it('it closes modal on cancel button click', async () => {
+      const button = screen.getAllByTestId('delete-table-product')[2];
+      fireEvent.click(button);
+      expect(screen.getByText(DELETE_PRODUCT_TEXT)).toBeInTheDocument();
+      const closeModalButton = screen.getByTestId('cancel-modal-button');
+      fireEvent.click(closeModalButton);
+
+      await waitFor(() => {
+        expect(screen.queryByText(DELETE_PRODUCT_TEXT)).not.toBeInTheDocument();
+      });
+    });
+
+    it('it sends complete request and fires onComplete props after', async () => {
+      const button = screen.getAllByTestId('delete-table-product')[2];
+      fireEvent.click(button);
+      expect(screen.getByText(DELETE_PRODUCT_TEXT)).toBeInTheDocument();
+      const confirmModalButton = screen.getByTestId('confirm-modal-button');
+      fireEvent.click(confirmModalButton);
+
+      await waitFor(() => {
+        expect(screen.queryByText(DELETE_PRODUCT_TEXT)).not.toBeInTheDocument();
+      });
+
+      expect(mockShowMessage).toHaveBeenCalledWith(
+        'Producto eliminado correctamente'
+      );
+      expect(mock.history.delete.length).toBe(1);
     });
   });
 });

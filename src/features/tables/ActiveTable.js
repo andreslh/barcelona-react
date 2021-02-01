@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -13,17 +13,24 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { useSnackbar } from 'material-ui-snackbar-provider';
 
-import { selectActive } from './tablesSlice';
+import { deleteTableProduct, selectActive } from './tablesSlice';
 import { useHistory } from 'react-router-dom';
 import Modal from '../../components/Modal';
-import { DELETE_TABLE, COMPLETE_TABLE } from '../../app/routes';
+import {
+  DELETE_TABLE,
+  COMPLETE_TABLE,
+  DELETE_TABLE_PRODUCT,
+} from '../../app/routes';
 
 export default function ActiveTable({ onDelete, onComplete }) {
   const history = useHistory();
+  const dispatch = useDispatch();
   const snackbar = useSnackbar();
   const table = useSelector(selectActive);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDeleteProductModal, setShowDeleteProductModal] = useState(false);
   const [showCompleteModal, setShowCompleteModal] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
 
   const handleDeleteModal = () => {
     setShowDeleteModal(!showDeleteModal);
@@ -33,12 +40,31 @@ export default function ActiveTable({ onDelete, onComplete }) {
     setShowCompleteModal(!showCompleteModal);
   };
 
+  const handleDeleteProductModal = () => {
+    setShowDeleteProductModal(!showDeleteProductModal);
+  };
+
   const handleConfirmDeleteModal = () => {
     axios.delete(DELETE_TABLE.replace(':id', table.id)).then(() => {
       setShowDeleteModal(false);
       onDelete();
       snackbar.showMessage('Mesa eliminada correctamente');
     });
+  };
+
+  const handleConfirmDeleteProductModal = () => {
+    axios
+      .delete(
+        DELETE_TABLE_PRODUCT.replace(':id', table.id).replace(
+          ':productId',
+          productToDelete
+        )
+      )
+      .then(() => {
+        setShowDeleteProductModal(false);
+        dispatch(deleteTableProduct(productToDelete));
+        snackbar.showMessage('Producto eliminado correctamente');
+      });
   };
 
   const handleConfirmCompleteModal = () => {
@@ -101,7 +127,16 @@ export default function ActiveTable({ onDelete, onComplete }) {
                   <TableCell align="left">${product.price}</TableCell>
                   <TableCell align="left">${product.total}</TableCell>
                   <TableCell align="left">
-                    <Button variant="contained">Eliminar</Button>
+                    <Button
+                      data-testid="delete-table-product"
+                      variant="contained"
+                      onClick={() => {
+                        setProductToDelete(product.id);
+                        handleDeleteProductModal();
+                      }}
+                    >
+                      Eliminar
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -152,6 +187,16 @@ export default function ActiveTable({ onDelete, onComplete }) {
           handleClose={handleCompleteModal}
           handleConfirm={handleConfirmCompleteModal}
           open={showCompleteModal}
+        />
+
+        <Modal
+          title="Eliminar producto"
+          body="¿Estás seguro de eliminar el producto?"
+          cancelButton="Cancelar"
+          confirmButton="Confirmar"
+          handleClose={handleDeleteProductModal}
+          handleConfirm={handleConfirmDeleteProductModal}
+          open={showDeleteProductModal}
         />
       </>
     )) ||
