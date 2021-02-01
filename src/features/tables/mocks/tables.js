@@ -1,4 +1,9 @@
-import { ADD_PRODUCTS, GET_TABLES } from '../../../app/routes';
+import {
+  ADD_PRODUCTS,
+  COMPLETE_TABLE,
+  DELETE_TABLE,
+  GET_TABLES,
+} from '../../../app/routes';
 import activeTable from './activeTable.json';
 import tables from './tables.json';
 
@@ -9,3 +14,9 @@ export const mockActiveTable = (mock, id) =>
 
 export const mockAddProducts = (mock) =>
   mock.onPut(ADD_PRODUCTS.replace(':id', 1)).reply(200);
+
+export const mockCompleteTable = (mock) =>
+  mock.onPut(COMPLETE_TABLE.replace(':id', 1)).reply(200);
+
+export const mockDeleteTable = (mock) =>
+  mock.onDelete(DELETE_TABLE.replace(':id', 1)).reply(200);

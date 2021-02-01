@@ -29,10 +29,19 @@ export default function Modal({
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="primary">
+        <Button
+          data-testid="cancel-modal-button"
+          onClick={handleClose}
+          color="primary"
+        >
           {cancelButton}
         </Button>
-        <Button onClick={handleConfirm} color="primary" autoFocus>
+        <Button
+          data-testid="confirm-modal-button"
+          onClick={handleConfirm}
+          color="primary"
+          autoFocus
+        >
           {confirmButton}
         </Button>
       </DialogActions>

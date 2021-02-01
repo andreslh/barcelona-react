@@ -49,7 +49,7 @@ export default function ActiveTable({ onDelete, onComplete }) {
     });
   };
 
-  function handleClick() {
+  function handleAddProducts() {
     history.push('/add-products');
   }
 
@@ -64,7 +64,11 @@ export default function ActiveTable({ onDelete, onComplete }) {
               </h4>
             </Box>
             <Box pr={3} m={2}>
-              <Button variant="contained" color="primary" onClick={handleClick}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleAddProducts}
+              >
                 Agregar productos
               </Button>
             </Box>
@@ -110,6 +114,7 @@ export default function ActiveTable({ onDelete, onComplete }) {
             </Box>
             <Box pr={3} m={2}>
               <Button
+                data-testid="complete-table"
                 variant="contained"
                 color="primary"
                 onClick={handleCompleteModal}
@@ -118,7 +123,11 @@ export default function ActiveTable({ onDelete, onComplete }) {
               </Button>
             </Box>
             <Box pr={3} m={2}>
-              <Button color="default" onClick={handleDeleteModal}>
+              <Button
+                data-testid="delete-table"
+                color="default"
+                onClick={handleDeleteModal}
+              >
                 Eliminar
               </Button>
             </Box>
@@ -127,7 +136,7 @@ export default function ActiveTable({ onDelete, onComplete }) {
 
         <Modal
           title="Eliminar mesa"
-          body="Estas seguro de eliminar la mesa?"
+          body="¿Estás seguro de eliminar la mesa?"
           cancelButton="Cancelar"
           confirmButton="Confirmar"
           handleClose={handleDeleteModal}
@@ -137,7 +146,7 @@ export default function ActiveTable({ onDelete, onComplete }) {
 
         <Modal
           title="Cerrar mesa"
-          body="Estas seguro de cerrar la mesa?"
+          body="¿Estás seguro de cerrar la mesa?"
           cancelButton="Cancelar"
           confirmButton="Confirmar"
           handleClose={handleCompleteModal}
