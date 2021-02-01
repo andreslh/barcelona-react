@@ -1,5 +1,6 @@
 import {
   ADD_PRODUCTS,
+  ADD_TABLE,
   COMPLETE_TABLE,
   DELETE_TABLE,
   DELETE_TABLE_PRODUCT,
@@ -26,3 +27,8 @@ export const mockDeleteTableProduct = (mock) =>
   mock
     .onDelete(DELETE_TABLE_PRODUCT.replace(':id', 1).replace(':productId', 14))
     .reply(200);
+
+export const mockAddTable = (mock) =>
+  mock.onPost(ADD_TABLE).reply(200, {
+    id: 5,
+  });
