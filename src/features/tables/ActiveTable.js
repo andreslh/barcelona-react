@@ -11,25 +11,41 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import { useSnackbar } from 'material-ui-snackbar-provider';
 
 import { selectActive } from './tablesSlice';
 import { useHistory } from 'react-router-dom';
 import Modal from '../../components/Modal';
-import { DELETE_TABLE } from '../../app/routes';
+import { DELETE_TABLE, COMPLETE_TABLE } from '../../app/routes';
 
-export default function ActiveTable({ onDelete }) {
+export default function ActiveTable({ onDelete, onComplete }) {
   const history = useHistory();
+  const snackbar = useSnackbar();
   const table = useSelector(selectActive);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showCompleteModal, setShowCompleteModal] = useState(false);
 
   const handleDeleteModal = () => {
     setShowDeleteModal(!showDeleteModal);
+  };
+
+  const handleCompleteModal = () => {
+    setShowCompleteModal(!showCompleteModal);
   };
 
   const handleConfirmDeleteModal = () => {
     axios.delete(DELETE_TABLE.replace(':id', table.id)).then(() => {
       setShowDeleteModal(false);
       onDelete();
+      snackbar.showMessage('Mesa eliminada correctamente');
+    });
+  };
+
+  const handleConfirmCompleteModal = () => {
+    axios.put(COMPLETE_TABLE.replace(':id', table.id)).then(() => {
+      setShowCompleteModal(false);
+      onComplete();
+      snackbar.showMessage('Mesa cerrada correctamente');
     });
   };
 
@@ -93,7 +109,11 @@ export default function ActiveTable({ onDelete }) {
               <h4>Total: ${table.total}</h4>
             </Box>
             <Box pr={3} m={2}>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleCompleteModal}
+              >
                 Cerrar mesa
               </Button>
             </Box>
@@ -113,6 +133,16 @@ export default function ActiveTable({ onDelete }) {
           handleClose={handleDeleteModal}
           handleConfirm={handleConfirmDeleteModal}
           open={showDeleteModal}
+        />
+
+        <Modal
+          title="Cerrar mesa"
+          body="Estas seguro de cerrar la mesa?"
+          cancelButton="Cancelar"
+          confirmButton="Confirmar"
+          handleClose={handleCompleteModal}
+          handleConfirm={handleConfirmCompleteModal}
+          open={showCompleteModal}
         />
       </>
     )) ||

@@ -51,12 +51,16 @@ const Tables = () => {
     }
   }, [dispatch, active, tables, activeTable, activeTable?.id]);
 
-  function onDeleteTable() {
+  function onDeleteOrCompleteTable() {
     const nextActiveTable = tables.find(
       (table) => table.id.toString() !== activeTable.id
     );
     dispatch(deleteTable(activeTable.id));
-    history.push(`/tables/${nextActiveTable.id}`);
+    if (nextActiveTable) {
+      history.push(`/tables/${nextActiveTable.id}`);
+    } else {
+      history.push('/');
+    }
   }
 
   function handleCreateTable() {
@@ -76,14 +80,21 @@ const Tables = () => {
           </Button>
         </Box>
       </Grid>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={3}>
-          <TablesList />
+      {(tables.length && (
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={3}>
+            <TablesList />
+          </Grid>
+          <Grid item xs={12} md={9}>
+            <ActiveTable
+              id={active}
+              onDelete={onDeleteOrCompleteTable}
+              onComplete={onDeleteOrCompleteTable}
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={9}>
-          <ActiveTable id={active} onDelete={onDeleteTable} />
-        </Grid>
-      </Grid>
+      )) ||
+        null}
     </Box>
   );
 };

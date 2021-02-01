@@ -5,15 +5,18 @@ import './index.css';
 import App from './App';
 import store from './app/store';
 import { Provider } from 'react-redux';
+import { SnackbarProvider } from 'material-ui-snackbar-provider';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </Router>
+    <SnackbarProvider SnackbarProps={{ autoHideDuration: 2000 }}>
+      <Router>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </Router>
+    </SnackbarProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
