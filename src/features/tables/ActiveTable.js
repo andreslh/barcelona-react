@@ -83,7 +83,7 @@ export default function ActiveTable({ onDelete, onComplete }) {
     (table && table.id && (
       <>
         <TableContainer component={Paper}>
-          <Grid container justify="space-between" component={Paper}>
+          <Grid container justify='space-between' component={Paper}>
             <Box pl={3}>
               <h4>
                 Mesa: {table.id} - {table.name}
@@ -91,45 +91,45 @@ export default function ActiveTable({ onDelete, onComplete }) {
             </Box>
             <Box pr={3} m={2}>
               <Button
-                variant="contained"
-                color="primary"
+                variant='contained'
+                color='primary'
                 onClick={handleAddProducts}
               >
                 Agregar productos
               </Button>
             </Box>
           </Grid>
-          <Table aria-label="active tables">
+          <Table aria-label='active tables'>
             <TableHead>
               <TableRow>
-                <TableCell align="left">ID</TableCell>
-                <TableCell align="left">Cantidad</TableCell>
-                <TableCell align="left">Producto</TableCell>
-                <TableCell align="left">P. Unidad</TableCell>
-                <TableCell align="left">P. Total</TableCell>
-                <TableCell align="left"></TableCell>
+                <TableCell align='left'>ID</TableCell>
+                <TableCell align='left'>Cantidad</TableCell>
+                <TableCell align='left'>Producto</TableCell>
+                <TableCell align='left'>P. Unidad</TableCell>
+                <TableCell align='left'>P. Total</TableCell>
+                <TableCell align='left'></TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
               {table.products.map((product) => (
-                <TableRow key={product.id} data-testid="product">
+                <TableRow key={product.id} data-testid='product'>
                   <TableCell
-                    align="left"
-                    component="th"
-                    scope="row"
-                    size="small"
+                    align='left'
+                    component='th'
+                    scope='row'
+                    size='small'
                   >
                     {product.id}
                   </TableCell>
-                  <TableCell align="left">{product.quantity}</TableCell>
-                  <TableCell align="left">{product.name}</TableCell>
-                  <TableCell align="left">${product.price}</TableCell>
-                  <TableCell align="left">${product.total}</TableCell>
-                  <TableCell align="left">
+                  <TableCell align='left'>{product.quantity}</TableCell>
+                  <TableCell align='left'>{product.name}</TableCell>
+                  <TableCell align='left'>${product.price}</TableCell>
+                  <TableCell align='left'>${product.total}</TableCell>
+                  <TableCell align='left'>
                     <Button
-                      data-testid="delete-table-product"
-                      variant="contained"
+                      data-testid='delete-table-product'
+                      variant='contained'
                       onClick={() => {
                         setProductToDelete(product.id);
                         handleDeleteProductModal();
@@ -143,15 +143,15 @@ export default function ActiveTable({ onDelete, onComplete }) {
             </TableBody>
           </Table>
 
-          <Grid container justify="space-between" component={Paper}>
+          <Grid container justify='space-between' component={Paper}>
             <Box pl={3}>
               <h4>Total: ${table.total}</h4>
             </Box>
             <Box pr={3} m={2}>
               <Button
-                data-testid="complete-table"
-                variant="contained"
-                color="primary"
+                data-testid='complete-table'
+                variant='contained'
+                color='primary'
                 onClick={handleCompleteModal}
               >
                 Cerrar mesa
@@ -159,8 +159,8 @@ export default function ActiveTable({ onDelete, onComplete }) {
             </Box>
             <Box pr={3} m={2}>
               <Button
-                data-testid="delete-table"
-                color="default"
+                data-testid='delete-table'
+                color='default'
                 onClick={handleDeleteModal}
               >
                 Eliminar
@@ -170,30 +170,30 @@ export default function ActiveTable({ onDelete, onComplete }) {
         </TableContainer>
 
         <Modal
-          title="Eliminar mesa"
-          body="¿Estás seguro de eliminar la mesa?"
-          cancelButton="Cancelar"
-          confirmButton="Confirmar"
+          title='Eliminar mesa'
+          body='¿Estás seguro de eliminar la mesa?'
+          cancelButton='Cancelar'
+          confirmButton='Confirmar'
           handleClose={handleDeleteModal}
           handleConfirm={handleConfirmDeleteModal}
           open={showDeleteModal}
         />
 
         <Modal
-          title="Cerrar mesa"
-          body="¿Estás seguro de cerrar la mesa?"
-          cancelButton="Cancelar"
-          confirmButton="Confirmar"
+          title='Cerrar mesa'
+          body='¿Estás seguro de cerrar la mesa?'
+          cancelButton='Cancelar'
+          confirmButton='Confirmar'
           handleClose={handleCompleteModal}
           handleConfirm={handleConfirmCompleteModal}
           open={showCompleteModal}
         />
 
         <Modal
-          title="Eliminar producto"
-          body="¿Estás seguro de eliminar el producto?"
-          cancelButton="Cancelar"
-          confirmButton="Confirmar"
+          title='Eliminar producto'
+          body='¿Estás seguro de eliminar el producto?'
+          cancelButton='Cancelar'
+          confirmButton='Confirmar'
           handleClose={handleDeleteProductModal}
           handleConfirm={handleConfirmDeleteProductModal}
           open={showDeleteProductModal}

@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 
 import ActiveTable from './ActiveTable';
 import TablesList from './TablesList';
-import { GET_PRODUCTS, GET_TABLES } from '../../app/routes';
+import { GET_PRODUCTS, GET_TABLES, GET_TABLE } from '../../app/routes';
 import {
   setTables,
   selectTables,
@@ -44,7 +44,7 @@ const Tables = () => {
   useEffect(() => {
     if (tables.length && isActiveParamValid(active, activeTable, tables)) {
       axios
-        .get(`${GET_TABLES}/${active ? active : tables[0].id}`)
+        .get(GET_TABLE.replace(':id', active ? active : tables[0].id))
         .then((res) => {
           dispatch(setActive(res.data));
         });
@@ -69,11 +69,11 @@ const Tables = () => {
 
   return (
     <Box pt={3}>
-      <Grid container justify="flex-end">
+      <Grid container justify='flex-end'>
         <Box pb={3}>
           <Button
-            variant="contained"
-            color="default"
+            variant='contained'
+            color='default'
             onClick={handleCreateTable}
           >
             Nueva mesa
