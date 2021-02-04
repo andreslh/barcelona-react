@@ -29,14 +29,14 @@ const Tables = () => {
 
   useEffect(() => {
     axios.get(GET_TABLES).then((res) => {
-      dispatch(setTables(res.data));
+      dispatch(setTables(res.data.tables));
     });
   }, [dispatch]);
 
   useEffect(() => {
     if (!products.length) {
       axios.get(GET_PRODUCTS).then((res) => {
-        dispatch(setProducts(res.data));
+        dispatch(setProducts(res.data.categories));
       });
     }
   }, [dispatch, products]);
@@ -46,7 +46,7 @@ const Tables = () => {
       axios
         .get(GET_TABLE.replace(':id', active ? active : tables[0].id))
         .then((res) => {
-          dispatch(setActive(res.data));
+          dispatch(setActive(res.data.table));
         });
     }
   }, [dispatch, active, tables, activeTable, activeTable?.id]);

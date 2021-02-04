@@ -42,10 +42,10 @@ export default function AddProducts() {
         categories.reduce((acc, category) => {
           return [
             ...acc,
-            ...category.subcategories.reduce((subcatAcc, subcategory) => {
+            ...category.Subcategories.reduce((subcatAcc, subcategory) => {
               return [
                 ...subcatAcc,
-                ...subcategory.products.map((product) => ({
+                ...subcategory.Products.map((product) => ({
                   id: product.id,
                   checked: false,
                   quantity: 1,
@@ -126,9 +126,9 @@ export default function AddProducts() {
   const categoriesList = [];
   categories.forEach((category, catIndex) => {
     const subcategories = [];
-    category.subcategories.forEach((subcategory) => {
+    category.Subcategories.forEach((subcategory) => {
       const productsElements = [];
-      subcategory.products.forEach((product) => {
+      subcategory.Products.forEach((product) => {
         productsElements.push(
           <TableRow data-testid='product' key={product.id}>
             <TableCell align='left'>

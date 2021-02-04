@@ -16,13 +16,13 @@ import { Link } from 'react-router-dom';
 export default function TablesList() {
   const tables = useSelector(selectTables);
   const active = useSelector(selectActive);
-
+  console.log(active?.id);
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="active tables">
+      <Table aria-label='active tables'>
         <TableHead>
           <TableRow>
-            <TableCell align="left">
+            <TableCell align='left'>
               <b>Mesas abiertas</b>
             </TableCell>
             <TableCell />
@@ -33,18 +33,18 @@ export default function TablesList() {
           {tables.map((table) => (
             <TableRow
               key={table.id}
-              data-testid="table"
+              data-testid='table'
               classes={{
                 root:
-                  active?.id === table.id.toString()
+                  active?.id === table.id
                     ? 'table-list-active'
                     : 'table-list-normal',
               }}
             >
-              <TableCell scope="row" size="small">
+              <TableCell scope='row' size='small'>
                 {table.id}
               </TableCell>
-              <TableCell align="left">
+              <TableCell align='left'>
                 <Link to={`/tables/${table.id}`}>{table.name}</Link>
               </TableCell>
             </TableRow>

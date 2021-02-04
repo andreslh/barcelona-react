@@ -15,7 +15,7 @@ const NewTable = () => {
 
   const handleConfirm = () => {
     axios.post(ADD_TABLE, { name }).then((response) => {
-      history.push(`/tables/${response.data.id}`);
+      history.push(`/tables/${response.data.table.id}`);
     });
   };
 
@@ -26,7 +26,7 @@ const NewTable = () => {
   return (
     <Grid
       container
-      justify="center"
+      justify='center'
       component={Paper}
       classes={{ root: 'flex-direction-column' }}
     >
@@ -36,10 +36,10 @@ const NewTable = () => {
         </Box>
         <Box m={2}>
           <TextField
-            id="outlined-basic"
-            label="Nombre de identificación"
+            id='outlined-basic'
+            label='Nombre de identificación'
             inputProps={{ 'data-testid': 'add-table-name' }}
-            variant="outlined"
+            variant='outlined'
             value={name}
             onChange={(e) => {
               setName(e.currentTarget.value);
@@ -48,17 +48,17 @@ const NewTable = () => {
         </Box>
         <Box m={2}>
           <Button
-            data-testid="confirm-add-table"
+            data-testid='confirm-add-table'
             disabled={!name.length}
-            variant="contained"
-            color="primary"
+            variant='contained'
+            color='primary'
             onClick={handleConfirm}
           >
             Agregar
           </Button>
           <Button
-            data-testid="cancel-add-table"
-            color="default"
+            data-testid='cancel-add-table'
+            color='default'
             onClick={handleReturn}
           >
             Cancelar

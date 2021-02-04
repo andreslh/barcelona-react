@@ -1,4 +1,4 @@
-export const API_URL = 'http://localhost:3001/';
+export const API_URL = 'http://localhost:3001/api/';
 
 export const GET_TABLES = `${API_URL}tables/open`;
 export const GET_TABLE = `${API_URL}tables/:id`;

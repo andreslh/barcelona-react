@@ -112,7 +112,7 @@ export default function ActiveTable({ onDelete, onComplete }) {
             </TableHead>
 
             <TableBody>
-              {table.products.map((product) => (
+              {table.Tableproducts.map((product) => (
                 <TableRow key={product.id} data-testid='product'>
                   <TableCell
                     align='left'
