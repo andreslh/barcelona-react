@@ -19,12 +19,12 @@ export const tablesSlice = createSlice({
       state.active = action.payload;
     },
     deleteTableProduct: (state, action) => {
-      const productToDeleteTotal = state.active.products.find(
+      const productToDeleteTotal = state.active.Tableproducts.find(
         (product) => product.id === action.payload
       ).total;
       state.active = {
         ...state.active,
-        products: state.active.products.filter(
+        Tableproducts: state.active.Tableproducts.filter(
           (product) => product.id !== action.payload
         ),
         total: state.active.total - productToDeleteTotal,

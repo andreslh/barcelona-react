@@ -29,7 +29,9 @@ const Tables = () => {
 
   useEffect(() => {
     axios.get(GET_TABLES).then((res) => {
-      dispatch(setTables(res.data.tables));
+      if (res?.data?.tables) {
+        dispatch(setTables(res.data.tables));
+      }
     });
   }, [dispatch]);
 
@@ -46,7 +48,9 @@ const Tables = () => {
       axios
         .get(GET_TABLE.replace(':id', active ? active : tables[0].id))
         .then((res) => {
-          dispatch(setActive(res.data.table));
+          if (res?.data?.table) {
+            dispatch(setActive(res.data.table));
+          }
         });
     }
   }, [dispatch, active, tables, activeTable, activeTable?.id]);

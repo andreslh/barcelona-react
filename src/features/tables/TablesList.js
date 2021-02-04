@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
 export default function TablesList() {
   const tables = useSelector(selectTables);
   const active = useSelector(selectActive);
-  console.log(active?.id);
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label='active tables'>
