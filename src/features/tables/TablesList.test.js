@@ -10,7 +10,7 @@ import tables from './mocks/tables.json';
 const mockStore = configureStore();
 const store = mockStore({
   tables: {
-    data: tables,
+    data: tables.tables,
   },
 });
 describe('TablesList', () => {
@@ -23,7 +23,7 @@ describe('TablesList', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getAllByTestId('table').length).toBe(3);
+    expect(screen.getAllByTestId('table-item').length).toBe(3);
     expect(screen.getByText('Andres')).toBeInTheDocument();
     expect(screen.getByText('Facundo')).toBeInTheDocument();
     expect(screen.getByText('Eduardo')).toBeInTheDocument();

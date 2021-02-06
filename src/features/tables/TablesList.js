@@ -33,7 +33,7 @@ export default function TablesList() {
           {tables.map((table) => (
             <TableRow
               key={table.id}
-              data-testid='table'
+              data-testid='table-item'
               classes={{
                 root:
                   active?.id === table.id

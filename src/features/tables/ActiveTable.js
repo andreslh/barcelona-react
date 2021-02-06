@@ -102,7 +102,6 @@ export default function ActiveTable({ onDelete, onComplete }) {
           <Table aria-label='active tables'>
             <TableHead>
               <TableRow>
-                <TableCell align='left'>ID</TableCell>
                 <TableCell align='left'>Cantidad</TableCell>
                 <TableCell align='left'>Producto</TableCell>
                 <TableCell align='left'>P. Unidad</TableCell>
@@ -114,14 +113,6 @@ export default function ActiveTable({ onDelete, onComplete }) {
             <TableBody>
               {table.Tableproducts.map((product) => (
                 <TableRow key={product.id} data-testid='product'>
-                  <TableCell
-                    align='left'
-                    component='th'
-                    scope='row'
-                    size='small'
-                  >
-                    {product.id}
-                  </TableCell>
                   <TableCell align='left'>{product.quantity}</TableCell>
                   <TableCell align='left'>{product.name}</TableCell>
                   <TableCell align='left'>${product.price}</TableCell>

@@ -1,14 +1,16 @@
-[
-  {
-    "id": 1,
-    "name": "Andres"
-  },
-  {
-    "id": 2,
-    "name": "Facundo"
-  },
-  {
-    "id": 3,
-    "name": "Eduardo"
-  }
-]
+{
+  "tables": [
+    {
+      "id": 1,
+      "name": "Andres"
+    },
+    {
+      "id": 2,
+      "name": "Facundo"
+    },
+    {
+      "id": 3,
+      "name": "Eduardo"
+    }
+  ]
+}

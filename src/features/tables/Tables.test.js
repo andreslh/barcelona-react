@@ -8,6 +8,7 @@ import createApiMock from '../../app/createApiMock';
 import { mockActiveTable, mockTables } from './mocks/tables';
 import Tables from './Tables';
 import { mockProducts } from '../products/mocks/products';
+import { GET_PRODUCTS } from '../../app/routes';
 
 describe('Tables', () => {
   let mock;
@@ -38,7 +39,7 @@ describe('Tables', () => {
   it('it requests tables and active data', async () => {
     render(
       <MemoryRouter initialEntries={['tables/2']}>
-        <Route path="tables/:active">
+        <Route path='tables/:active'>
           <Provider store={store}>
             <Tables />
           </Provider>
@@ -50,7 +51,7 @@ describe('Tables', () => {
       expect(mock.history.get).toHaveLength(3);
     });
 
-    expect(screen.getAllByTestId('table').length).toBe(3);
+    expect(screen.getAllByTestId('table-item').length).toBe(3);
     expect(screen.getAllByTestId('product').length).toBe(3);
     expect(mock.history.get[2].url).toContain('/tables/2');
   });

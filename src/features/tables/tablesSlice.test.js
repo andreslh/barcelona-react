@@ -5,7 +5,7 @@ describe('tablesSlice', () => {
   it('deletes product and updates total', () => {
     const state = {
       tables: tablesReducer(
-        { active: mockActiveTable },
+        { active: mockActiveTable.table },
         deleteTableProduct(14)
       ),
     };

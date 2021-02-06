@@ -26,7 +26,7 @@ jest.mock('material-ui-snackbar-provider', () => ({
 const mockStore = configureStore();
 const store = mockStore({
   tables: {
-    active: activeTable,
+    active: activeTable.table,
   },
 });
 

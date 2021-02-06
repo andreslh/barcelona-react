@@ -1,28 +1,30 @@
 {
-  "id": 1,
-  "name": "Andres",
-  "products": [
-    {
-      "id": 1,
-      "name": "IPA",
-      "quantity": 3,
-      "price": 210,
-      "total": 630
-    },
-    {
-      "id": 13,
-      "name": "Pizza",
-      "quantity": 1,
-      "price": 380,
-      "total": 380
-    },
-    {
-      "id": 14,
-      "name": "Burguer",
-      "quantity": 1,
-      "price": 380,
-      "total": 380
-    }
-  ],
-  "total": 1390
+  "table": {
+    "id": 1,
+    "name": "Andres",
+    "Tableproducts": [
+      {
+        "id": 1,
+        "name": "IPA",
+        "quantity": 3,
+        "price": 210,
+        "total": 630
+      },
+      {
+        "id": 13,
+        "name": "Pizza",
+        "quantity": 1,
+        "price": 380,
+        "total": 380
+      },
+      {
+        "id": 14,
+        "name": "Burguer",
+        "quantity": 1,
+        "price": 380,
+        "total": 380
+      }
+    ],
+    "total": 1390
+  }
 }

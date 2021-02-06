@@ -23,10 +23,10 @@ jest.mock('react-router-dom', () => ({
 const mockStore = configureStore();
 const store = mockStore({
   tables: {
-    active: activeTable,
+    active: activeTable.table,
   },
   products: {
-    data: products,
+    data: products.categories,
   },
 });
 
@@ -125,10 +125,10 @@ describe('AddProducts', () => {
     fireEvent.click(button);
 
     await waitFor(() => {
-      expect(mock.history.put).toHaveLength(1);
+      expect(mock.history.post).toHaveLength(1);
     });
 
-    expect(mock.history.put[0].data).toBe('[{"id":1,"quantity":"5"}]');
+    expect(mock.history.post[0].data).toBe('[{"id":1,"quantity":"5"}]');
     expect(mockHistoryPush).toHaveBeenCalledWith('/tables/1');
   });
 });

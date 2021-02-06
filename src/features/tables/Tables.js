@@ -36,12 +36,12 @@ const Tables = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!products.length) {
+    if (!products?.length) {
       axios.get(GET_PRODUCTS).then((res) => {
         dispatch(setProducts(res.data.categories));
       });
     }
-  }, [dispatch, products]);
+  }, [dispatch, products?.length]);
 
   useEffect(() => {
     if (tables.length && isActiveParamValid(active, activeTable, tables)) {
