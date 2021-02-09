@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -7,15 +6,16 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { useHistory } from 'react-router-dom';
 
-import { ADD_TABLE } from '../../app/routes';
+import TablesService from '../../services/tables';
+import { ACTIVE_TABLE } from '../../app/routes';
 
 const NewTable = () => {
   const [name, setName] = useState('');
   const history = useHistory();
 
   const handleConfirm = () => {
-    axios.post(ADD_TABLE, { name }).then((response) => {
-      history.push(`/tables/${response.data.table.id}`);
+    TablesService.create({ name }).then((response) => {
+      history.push(ACTIVE_TABLE.replace(':active', response.table.id));
     });
   };
 
@@ -26,7 +26,7 @@ const NewTable = () => {
   return (
     <Grid
       container
-      justify='center'
+      justify="center"
       component={Paper}
       classes={{ root: 'flex-direction-column' }}
     >
@@ -36,10 +36,10 @@ const NewTable = () => {
         </Box>
         <Box m={2}>
           <TextField
-            id='outlined-basic'
-            label='Nombre de identificación'
+            id="outlined-basic"
+            label="Nombre de identificación"
             inputProps={{ 'data-testid': 'add-table-name' }}
-            variant='outlined'
+            variant="outlined"
             value={name}
             onChange={(e) => {
               setName(e.currentTarget.value);
@@ -48,17 +48,17 @@ const NewTable = () => {
         </Box>
         <Box m={2}>
           <Button
-            data-testid='confirm-add-table'
+            data-testid="confirm-add-table"
             disabled={!name.length}
-            variant='contained'
-            color='primary'
+            variant="contained"
+            color="primary"
             onClick={handleConfirm}
           >
             Agregar
           </Button>
           <Button
-            data-testid='cancel-add-table'
-            color='default'
+            data-testid="cancel-add-table"
+            color="default"
             onClick={handleReturn}
           >
             Cancelar

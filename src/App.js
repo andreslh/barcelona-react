@@ -15,6 +15,7 @@ import NewTable from './features/tables/NewTable';
 import AddProducts from './features/tables/AddProducts';
 
 import './App.css';
+import { ACTIVE_TABLE, ADD_PRODUCTS, HOME, NEW_TABLE } from './app/routes';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -81,16 +82,16 @@ function App() {
       </AppBar>
 
       <Switch>
-        <Route path="/new-table">
+        <Route path={NEW_TABLE}>
           <NewTable />
         </Route>
-        <Route path="/tables/:active">
+        <Route path={ACTIVE_TABLE}>
           <Tables />
         </Route>
-        <Route path="/add-products">
+        <Route path={ADD_PRODUCTS}>
           <AddProducts />
         </Route>
-        <Route path="/">
+        <Route path={HOME}>
           <Tables />
         </Route>
       </Switch>

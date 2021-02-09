@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -25,7 +24,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import { selectActive, clearActive } from './tablesSlice';
 import { selectProducts } from '../products/productsSlice';
-import { ADD_PRODUCTS } from '../../app/routes';
+import TablesService from '../../services/tables';
+import { ACTIVE_TABLE, HOME } from '../../app/routes';
 
 export default function AddProducts() {
   const history = useHistory();
@@ -36,7 +36,7 @@ export default function AddProducts() {
 
   useEffect(() => {
     if (!categories.length) {
-      history.push('/');
+      history.push(HOME);
     } else if (!addedProducts.length) {
       setAddedProducts(
         categories.reduce((acc, category) => {
@@ -59,7 +59,7 @@ export default function AddProducts() {
   }, [addedProducts, history, categories]);
 
   const handleCancel = () => {
-    history.push(`/tables/${table.id}`);
+    history.push(ACTIVE_TABLE.replace(':active', table.id));
   };
 
   const handleProductChecked = (id) => {
@@ -104,20 +104,18 @@ export default function AddProducts() {
       : 1;
 
   const handleAddProducts = () => {
-    axios
-      .post(
-        ADD_PRODUCTS.replace(':id', table.id),
-        addedProducts
-          .filter((product) => product.checked)
-          .map((product) => ({
-            id: product.id,
-            quantity: product.quantity,
-          }))
-      )
-      .then(() => {
-        dispatch(clearActive());
-        history.push(`/tables/${table.id}`);
-      });
+    TablesService.addProducts({
+      id: table.id,
+      products: addedProducts
+        .filter((product) => product.checked)
+        .map((product) => ({
+          id: product.id,
+          quantity: product.quantity,
+        })),
+    }).then(() => {
+      dispatch(clearActive());
+      history.push(ACTIVE_TABLE.replace(':active', table.id));
+    });
   };
 
   const hasProductsToAdd = addedProducts.filter((product) => product.checked)
@@ -130,8 +128,8 @@ export default function AddProducts() {
       const productsElements = [];
       subcategory.Products.forEach((product) => {
         productsElements.push(
-          <TableRow data-testid='product' key={product.id}>
-            <TableCell align='left'>
+          <TableRow data-testid="product" key={product.id}>
+            <TableCell align="left">
               <FormGroup row>
                 <FormControlLabel
                   control={
@@ -146,14 +144,14 @@ export default function AddProducts() {
                 />
               </FormGroup>
             </TableCell>
-            <TableCell align='left'>
-              <Grid container justify='flex-start' alignItems='center'>
+            <TableCell align="left">
+              <Grid container justify="flex-start" alignItems="center">
                 <TextField
-                  id='outlined-basic'
+                  id="outlined-basic"
                   data-testid={`product-quantity-${product.id}`}
-                  variant='outlined'
+                  variant="outlined"
                   value={getProductQuantity(product.id)}
-                  type='number'
+                  type="number"
                   onChange={(e) =>
                     handleProductQuantity(
                       product.id,
@@ -164,7 +162,7 @@ export default function AddProducts() {
                 />
                 <Box>
                   <RemoveCircleOutlineIcon
-                    fontSize='large'
+                    fontSize="large"
                     data-testid={`product-reduce-quantity-${product.id}`}
                     classes={{ root: 'pointer' }}
                     onClick={() => {
@@ -172,7 +170,7 @@ export default function AddProducts() {
                     }}
                   />
                   <AddCircleOutlineIcon
-                    fontSize='large'
+                    fontSize="large"
                     data-testid={`product-add-quantity-${product.id}`}
                     classes={{ root: 'pointer' }}
                     onClick={() => {
@@ -188,18 +186,18 @@ export default function AddProducts() {
 
       subcategories.push(
         <Grid
-          data-testid='subcategory'
+          data-testid="subcategory"
           item
           xs={12}
           md={6}
           key={subcategory.id}
         >
           <h4>{subcategory.name}</h4>
-          <Table aria-label='active tables'>
+          <Table aria-label="active tables">
             <TableHead>
               <TableRow>
-                <TableCell align='left'>Producto</TableCell>
-                <TableCell align='left'>Cantidad</TableCell>
+                <TableCell align="left">Producto</TableCell>
+                <TableCell align="left">Cantidad</TableCell>
               </TableRow>
             </TableHead>
 
@@ -211,7 +209,7 @@ export default function AddProducts() {
 
     categoriesList.push(
       <Accordion
-        data-testid='category'
+        data-testid="category"
         key={catIndex}
         defaultExpanded={catIndex === 0}
       >
@@ -231,7 +229,7 @@ export default function AddProducts() {
 
   return (
     <TableContainer component={Paper}>
-      <Grid container justify='space-between' component={Paper}>
+      <Grid container justify="space-between" component={Paper}>
         <Grid item xs={6}>
           <Box pl={3}>
             <h4>
@@ -245,7 +243,7 @@ export default function AddProducts() {
           classes={{ root: 'flex-direction-row justify-content-end' }}
         >
           <Box pr={3} m={2}>
-            <Button color='default' onClick={handleCancel}>
+            <Button color="default" onClick={handleCancel}>
               Cancelar
             </Button>
           </Box>
@@ -253,8 +251,8 @@ export default function AddProducts() {
             <Button
               disabled={!hasProductsToAdd}
               ml={2}
-              variant='contained'
-              color='primary'
+              variant="contained"
+              color="primary"
               onClick={handleAddProducts}
             >
               Agregar productos
@@ -265,13 +263,13 @@ export default function AddProducts() {
 
       {categoriesList}
 
-      <Grid container justify='space-between' component={Paper}>
+      <Grid container justify="space-between" component={Paper}>
         <Box pr={3} m={2}>
           <Button
             disabled={!hasProductsToAdd}
-            data-testid='add-products-button'
-            variant='contained'
-            color='primary'
+            data-testid="add-products-button"
+            variant="contained"
+            color="primary"
             onClick={handleAddProducts}
           >
             Agregar productos
