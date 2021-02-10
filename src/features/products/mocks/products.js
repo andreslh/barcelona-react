@@ -1,5 +1,11 @@
-import { GET_PRODUCTS } from '../../../app/routes';
+import {
+  GET_PRODUCTS,
+  PRODUCTS_PREFIX,
+  urlBuilder,
+} from '../../../services/constants';
 import products from './products.json';
 
+const getUrl = urlBuilder(PRODUCTS_PREFIX);
+
 export const mockProducts = (mock) =>
-  mock.onGet(GET_PRODUCTS).reply(200, products);
+  mock.onGet(getUrl(GET_PRODUCTS)).reply(200, products);
