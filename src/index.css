@@ -12,6 +12,9 @@ code {
     monospace;
 }
 
+.flex-important {
+  display: flex !important;
+}
 .flex-direction-column {
   display: flex;
   flex-direction: column;
@@ -23,6 +26,14 @@ code {
 
 .justify-content-end {
   justify-content: flex-end;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.align-items-center {
+  align-items: center;
 }
 
 .pointer {

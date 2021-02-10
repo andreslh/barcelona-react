@@ -9,10 +9,13 @@ export const productsSlice = createSlice({
     setProducts: (state, action) => {
       state.data = action.payload;
     },
+    resetProducts: (state) => {
+      state.data = [];
+    },
   },
 });
 
-export const { setProducts } = productsSlice.actions;
+export const { setProducts, resetProducts } = productsSlice.actions;
 
 export const selectProducts = (state) => state.products.data;
 

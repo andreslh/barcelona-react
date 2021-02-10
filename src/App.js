@@ -13,9 +13,20 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Tables from './features/tables';
 import NewTable from './features/tables/NewTable';
 import AddProducts from './features/tables/AddProducts';
+import Products from './features/products';
+import AddProduct from './features/products/AddProduct';
+import {
+  ACTIVE_TABLE,
+  ADD_PRODUCT,
+  ADD_PRODUCTS,
+  HOME,
+  NEW_TABLE,
+  PRODUCTS,
+  EDIT_PRODUCT,
+} from './app/routes';
 
 import './App.css';
-import { ACTIVE_TABLE, ADD_PRODUCTS, HOME, NEW_TABLE } from './app/routes';
+import EditProduct from './features/products/EditProduct';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,10 +80,7 @@ function App() {
               <Link to="/">Mesas</Link>
             </MenuItem>
             <MenuItem onClick={handleClose}>
-              <Link to="/">Comidas</Link>
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <Link to="/">Bebidas</Link>
+              <Link to={PRODUCTS}>Productos</Link>
             </MenuItem>
             <MenuItem onClick={handleClose}>
               <Link to="/">Pedidos anteriores</Link>
@@ -90,6 +98,15 @@ function App() {
         </Route>
         <Route path={ADD_PRODUCTS}>
           <AddProducts />
+        </Route>
+        <Route path={PRODUCTS}>
+          <Products />
+        </Route>
+        <Route path={ADD_PRODUCT}>
+          <AddProduct />
+        </Route>
+        <Route path={EDIT_PRODUCT}>
+          <EditProduct />
         </Route>
         <Route path={HOME}>
           <Tables />

@@ -36,7 +36,7 @@ const NewTable = () => {
         </Box>
         <Box m={2}>
           <TextField
-            id="outlined-basic"
+            id="add-table-name"
             label="Nombre de identificación"
             inputProps={{ 'data-testid': 'add-table-name' }}
             variant="outlined"

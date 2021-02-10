@@ -9,5 +9,9 @@ export const ADD_TABLE = '';
 
 export const PRODUCTS_PREFIX = 'products/';
 export const GET_PRODUCTS = 'list';
+export const GET_PRODUCT = ':id';
+export const ADD_PRODUCT = '';
+export const UPDATE_PRODUCT = ':id';
+export const DELETE_PRODUCT = ':id';
 
 export const urlBuilder = (prefix) => (url) => `${prefix}${url}`;
