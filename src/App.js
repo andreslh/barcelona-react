@@ -15,6 +15,9 @@ import NewTable from './features/tables/NewTable';
 import AddProducts from './features/tables/AddProducts';
 import Products from './features/products';
 import AddProduct from './features/products/AddProduct';
+import EditProduct from './features/products/EditProduct';
+import AddSubcategory from './features/products/AddSubcategory';
+import EditSubcategory from './features/products/EditSubcategory';
 import {
   ACTIVE_TABLE,
   ADD_PRODUCT,
@@ -23,10 +26,11 @@ import {
   NEW_TABLE,
   PRODUCTS,
   EDIT_PRODUCT,
+  ADD_SUBCATEGORY,
+  EDIT_SUBCATEGORY,
 } from './app/routes';
 
 import './App.css';
-import EditProduct from './features/products/EditProduct';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,38 +56,38 @@ function App() {
   };
   return (
     <Container>
-      <AppBar classes={{ root: 'barcelona-app-bar' }} position="static">
+      <AppBar classes={{ root: 'barcelona-app-bar' }} position='static'>
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant='h6' className={classes.title}>
             Barcelona
           </Typography>
           <IconButton
-            edge="start"
+            edge='start'
             className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-            aria-controls="header-menu"
-            aria-haspopup="true"
+            color='inherit'
+            aria-label='menu'
+            aria-controls='header-menu'
+            aria-haspopup='true'
             onClick={handleClick}
-            data-testid="header-menu-icon"
+            data-testid='header-menu-icon'
           >
             <MenuIcon />
           </IconButton>
           <Menu
-            id="header-menu"
+            id='header-menu'
             anchorEl={anchorEl}
             keepMounted
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
             <MenuItem onClick={handleClose}>
-              <Link to="/">Mesas</Link>
+              <Link to='/'>Mesas</Link>
             </MenuItem>
             <MenuItem onClick={handleClose}>
               <Link to={PRODUCTS}>Productos</Link>
             </MenuItem>
             <MenuItem onClick={handleClose}>
-              <Link to="/">Pedidos anteriores</Link>
+              <Link to='/'>Pedidos anteriores</Link>
             </MenuItem>
           </Menu>
         </Toolbar>
@@ -107,6 +111,12 @@ function App() {
         </Route>
         <Route path={EDIT_PRODUCT}>
           <EditProduct />
+        </Route>
+        <Route path={ADD_SUBCATEGORY}>
+          <AddSubcategory />
+        </Route>
+        <Route path={EDIT_SUBCATEGORY}>
+          <EditSubcategory />
         </Route>
         <Route path={HOME}>
           <Tables />

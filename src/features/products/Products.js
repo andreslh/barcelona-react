@@ -17,8 +17,14 @@ import { useSnackbar } from 'material-ui-snackbar-provider';
 import { selectProducts, setProducts } from './productsSlice';
 import ProductsService from '../../services/products';
 import { useHistory } from 'react-router-dom';
-import { ADD_PRODUCT, EDIT_PRODUCT } from '../../app/routes';
+import {
+  ADD_PRODUCT,
+  ADD_SUBCATEGORY,
+  EDIT_PRODUCT,
+  EDIT_SUBCATEGORY,
+} from '../../app/routes';
 import Modal from '../../components/Modal';
+import SubcategoriesService from '../../services/subcategories';
 
 export default function Products() {
   const categories = useSelector(selectProducts);
@@ -27,6 +33,10 @@ export default function Products() {
   const snackbar = useSnackbar();
   const [showDeleteProductModal, setShowDeleteProductModal] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
+  const [showDeleteSubcategoryModal, setShowDeleteSubcategoryModal] = useState(
+    false
+  );
+  const [subcategoryToDelete, setSubcategoryToDelete] = useState(null);
 
   useEffect(() => {
     if (!categories?.length) {
@@ -35,6 +45,14 @@ export default function Products() {
       );
     }
   }, [dispatch, categories?.length]);
+
+  const handleAddSubcategory = (categoryId) => {
+    history.push(ADD_SUBCATEGORY.replace(':categoryId', categoryId));
+  };
+
+  const handleEditSubcategory = (subcategoryId) => {
+    history.push(EDIT_SUBCATEGORY.replace(':id', subcategoryId));
+  };
 
   const handleAddProduct = (subcategoryId) => {
     history.push(ADD_PRODUCT.replace(':subcategoryId', subcategoryId));
@@ -51,9 +69,23 @@ export default function Products() {
   const handleConfirmDeleteProductModal = () => {
     ProductsService.remove(productToDelete).then(() =>
       ProductsService.getList().then((res) => {
-        snackbar.showMessage('Producto agregado');
+        snackbar.showMessage('Producto eliminado');
         dispatch(setProducts(res.categories));
         handleDeleteProductModal();
+      })
+    );
+  };
+
+  const handleDeleteSubcategoryModal = () => {
+    setShowDeleteSubcategoryModal(!showDeleteSubcategoryModal);
+  };
+
+  const handleConfirmDeleteSubcategoryModal = () => {
+    SubcategoriesService.remove(subcategoryToDelete).then(() =>
+      ProductsService.getList().then((res) => {
+        snackbar.showMessage('Subcategoria eliminada');
+        dispatch(setProducts(res.categories));
+        handleDeleteSubcategoryModal();
       })
     );
   };
@@ -65,12 +97,12 @@ export default function Products() {
       const productsElements = [];
       subcategory.Products.forEach((product) => {
         productsElements.push(
-          <TableRow data-testid="product" key={product.id}>
-            <TableCell align="left">{product.name}</TableCell>
+          <TableRow data-testid='product' key={product.id}>
+            <TableCell align='left'>{product.name}</TableCell>
             <TableCell>${product.price}</TableCell>
-            <TableCell align="right">
+            <TableCell align='right'>
               <Button
-                color="default"
+                color='default'
                 onClick={() => {
                   handleEditProduct(product.id);
                 }}
@@ -78,7 +110,7 @@ export default function Products() {
                 Editar
               </Button>
               <Button
-                color="default"
+                color='default'
                 onClick={() => {
                   setProductToDelete(product.id);
                   handleDeleteProductModal();
@@ -93,22 +125,37 @@ export default function Products() {
 
       subcategories.push(
         <Grid
-          data-testid="subcategory"
+          data-testid='subcategory'
           item
           xs={12}
           md={6}
           key={subcategory.id}
         >
-          <Grid container justify="space-between">
+          <Grid container justify='space-between'>
             <h4>{subcategory.name}</h4>
             <Button
-              color="default"
+              color='default'
+              onClick={() => handleEditSubcategory(subcategory.id)}
+            >
+              Editar
+            </Button>
+            <Button
+              color='default'
+              onClick={() => {
+                setSubcategoryToDelete(subcategory.id);
+                handleDeleteSubcategoryModal();
+              }}
+            >
+              Eliminar
+            </Button>
+            <Button
+              color='default'
               onClick={() => handleAddProduct(subcategory.id)}
             >
-              Agregar
+              Agregar producto
             </Button>
           </Grid>
-          <Table aria-label="active tables">
+          <Table aria-label='active tables'>
             <TableBody>{productsElements}</TableBody>
           </Table>
         </Grid>
@@ -116,16 +163,22 @@ export default function Products() {
     });
 
     categoriesList.push(
-      <Accordion data-testid="category" key={catIndex} defaultExpanded>
+      <Accordion data-testid='category' key={catIndex} defaultExpanded>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls={`panel${category.id}-content`}
           id={`panel${category.id}-header`}
         >
-          <Grid container justify="space-between">
+          <Grid container justify='space-between'>
             <h3>{category.name}</h3>
-            <Button color="default" onClick={() => {}}>
-              Agregar
+            <Button
+              color='default'
+              onClick={(e) => {
+                e.stopPropagation();
+                handleAddSubcategory(category.id);
+              }}
+            >
+              Agregar subcategoria
             </Button>
           </Grid>
         </AccordionSummary>
@@ -143,10 +196,20 @@ export default function Products() {
       {categoriesList}
 
       <Modal
-        title="Eliminar producto"
-        body="¿Estás seguro de eliminar el producto?"
-        cancelButton="Cancelar"
-        confirmButton="Confirmar"
+        title='Eliminar subcategoria'
+        body='¿Estás seguro de eliminar la subcategoria?'
+        cancelButton='Cancelar'
+        confirmButton='Confirmar'
+        handleClose={handleDeleteSubcategoryModal}
+        handleConfirm={handleConfirmDeleteSubcategoryModal}
+        open={showDeleteSubcategoryModal}
+      />
+
+      <Modal
+        title='Eliminar producto'
+        body='¿Estás seguro de eliminar el producto?'
+        cancelButton='Cancelar'
+        confirmButton='Confirmar'
         handleClose={handleDeleteProductModal}
         handleConfirm={handleConfirmDeleteProductModal}
         open={showDeleteProductModal}

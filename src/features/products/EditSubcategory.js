@@ -7,35 +7,31 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { useSnackbar } from 'material-ui-snackbar-provider';
 
-import ProductForm from './ProductForm';
+import CategoryForm from './CategoryForm';
 import { resetProducts } from './productsSlice';
 import { PRODUCTS } from '../../app/routes';
-import ProductsService from '../../services/products';
+import SubcategoriesService from '../../services/subcategories';
 
-export default function EditProduct() {
+export default function EditSubcategory() {
   const { id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
   const snackbar = useSnackbar();
 
   const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
-  const [subcategoryId, setSubcategoryId] = useState('');
 
   useEffect(() => {
-    ProductsService.getById(id).then((response) => {
-      setName(response.product.name);
-      setPrice(response.product.price);
-      setSubcategoryId(response.product.subcategoryId);
+    SubcategoriesService.getById(id).then((response) => {
+      setName(response.subcategory.name);
     });
   }, [id]);
 
-  const disabled = useMemo(() => !name || !price, [name, price]);
+  const disabled = useMemo(() => !name, [name]);
 
   const handleSubmit = () => {
-    ProductsService.update({ id, subcategoryId, name, price }).then(() => {
+    SubcategoriesService.update({ id, name }).then(() => {
       dispatch(resetProducts());
-      snackbar.showMessage('Producto actualizado');
+      snackbar.showMessage('Subcategoria actualizada');
       history.push(PRODUCTS);
     });
   };
@@ -50,7 +46,7 @@ export default function EditProduct() {
       <Grid item mt={3}>
         <Box p={3}>
           <Grid container justify='space-between'>
-            <h3>Editar producto: {name}</h3>
+            <h3>Editar subcategoria: {name}</h3>
             <Button
               color='default'
               onClick={() => {
@@ -62,11 +58,9 @@ export default function EditProduct() {
           </Grid>
         </Box>
         <Box m={2}>
-          <ProductForm
+          <CategoryForm
             name={name}
-            price={price}
             onNameChange={(e) => setName(e.currentTarget.value)}
-            onPriceChange={(e) => setPrice(e.currentTarget.value)}
             onSubmit={handleSubmit}
             submitText={'Editar'}
             disabled={disabled}

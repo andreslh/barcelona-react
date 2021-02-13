@@ -5,3 +5,5 @@ export const ADD_PRODUCTS = '/add-products';
 export const PRODUCTS = '/products';
 export const ADD_PRODUCT = '/add-product/:subcategoryId';
 export const EDIT_PRODUCT = '/edit-product/:id';
+export const ADD_SUBCATEGORY = '/add-subcategory/:categoryId';
+export const EDIT_SUBCATEGORY = '/edit-subcategory/:id';

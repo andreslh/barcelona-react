@@ -14,4 +14,10 @@ export const ADD_PRODUCT = '';
 export const UPDATE_PRODUCT = ':id';
 export const DELETE_PRODUCT = ':id';
 
+export const SUBCATEGORIES_PREFIX = 'subcategories/';
+export const GET_SUBCATEGORY = ':id';
+export const ADD_SUBCATEGORY = '';
+export const UPDATE_SUBCATEGORY = ':id';
+export const DELETE_SUBCATEGORY = ':id';
+
 export const urlBuilder = (prefix) => (url) => `${prefix}${url}`;
