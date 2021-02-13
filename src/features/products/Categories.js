@@ -1,4 +1,12 @@
 import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Button from '@material-ui/core/Button';
+
+import { Subcategories } from './Subcategories';
 
 export function Categories({
   categories,
@@ -13,76 +21,6 @@ export function Categories({
 }) {
   const categoriesList = [];
   categories.forEach((category, catIndex) => {
-    const subcategories = [];
-    category.Subcategories.forEach((subcategory) => {
-      const productsElements = [];
-      subcategory.Products.forEach((product) => {
-        productsElements.push(
-          <TableRow data-testid='product' key={product.id}>
-            <TableCell align='left'>{product.name}</TableCell>
-            <TableCell>${product.price}</TableCell>
-            <TableCell align='right'>
-              <Button
-                color='default'
-                onClick={() => {
-                  handleEditProduct(product.id);
-                }}
-              >
-                Editar
-              </Button>
-              <Button
-                color='default'
-                onClick={() => {
-                  setProductToDelete(product.id);
-                  handleDeleteProductModal();
-                }}
-              >
-                Eliminar
-              </Button>
-            </TableCell>
-          </TableRow>
-        );
-      });
-
-      subcategories.push(
-        <Grid
-          data-testid='subcategory'
-          item
-          xs={12}
-          md={6}
-          key={subcategory.id}
-        >
-          <Grid container justify='space-between'>
-            <h4>{subcategory.name}</h4>
-            <Button
-              color='default'
-              onClick={() => handleEditSubcategory(subcategory.id)}
-            >
-              Editar
-            </Button>
-            <Button
-              color='default'
-              onClick={() => {
-                setSubcategoryToDelete(subcategory.id);
-                handleDeleteSubcategoryModal();
-              }}
-            >
-              Eliminar
-            </Button>
-            <Button
-              color='default'
-              onClick={() => handleAddProduct(subcategory.id)}
-            >
-              Agregar producto
-            </Button>
-          </Grid>
-          <Table aria-label='active tables'>
-            <TableBody>{productsElements}</TableBody>
-          </Table>
-        </Grid>
-      );
-    });
-
     categoriesList.push(
       <Accordion data-testid='category' key={catIndex} defaultExpanded>
         <AccordionSummary
@@ -105,10 +43,21 @@ export function Categories({
         </AccordionSummary>
         <AccordionDetails>
           <Grid container spacing={4}>
-            {subcategories}
+            <Subcategories
+              category={category}
+              handleEditProduct={handleEditProduct}
+              setProductToDelete={setProductToDelete}
+              handleDeleteProductModal={handleDeleteProductModal}
+              handleEditSubcategory={handleEditSubcategory}
+              setSubcategoryToDelete={setSubcategoryToDelete}
+              handleDeleteSubcategoryModal={handleDeleteSubcategoryModal}
+              handleAddProduct={handleAddProduct}
+            />
           </Grid>
         </AccordionDetails>
       </Accordion>
     );
   });
+
+  return categoriesList;
 }
