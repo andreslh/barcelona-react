@@ -16,6 +16,7 @@ import {
 import Modal from '../../components/Modal';
 import SubcategoriesService from '../../services/subcategories';
 import { Categories } from './Categories';
+import ProductsContext from './ProductsContext';
 
 export default function Products() {
   const categories = useSelector(selectProducts);
@@ -81,39 +82,43 @@ export default function Products() {
     );
   };
 
+  const context = {
+    categories,
+    handleEditProduct,
+    setProductToDelete,
+    handleDeleteProductModal,
+    handleEditSubcategory,
+    setSubcategoryToDelete,
+    handleDeleteSubcategoryModal,
+    handleAddProduct,
+    handleAddSubcategory,
+  };
+
   return (
-    <TableContainer component={Paper}>
-      <Categories
-        categories={categories}
-        handleEditProduct={handleEditProduct}
-        setProductToDelete={setProductToDelete}
-        handleDeleteProductModal={handleDeleteProductModal}
-        handleEditSubcategory={handleEditSubcategory}
-        setSubcategoryToDelete={setSubcategoryToDelete}
-        handleDeleteSubcategoryModal={handleDeleteSubcategoryModal}
-        handleAddProduct={handleAddProduct}
-        handleAddSubcategory={handleAddSubcategory}
-      />
+    <ProductsContext.Provider value={context}>
+      <TableContainer component={Paper}>
+        <Categories />
 
-      <Modal
-        title='Eliminar subcategoria'
-        body='¿Estás seguro de eliminar la subcategoria?'
-        cancelButton='Cancelar'
-        confirmButton='Confirmar'
-        handleClose={handleDeleteSubcategoryModal}
-        handleConfirm={handleConfirmDeleteSubcategoryModal}
-        open={showDeleteSubcategoryModal}
-      />
+        <Modal
+          title='Eliminar subcategoria'
+          body='¿Estás seguro de eliminar la subcategoria?'
+          cancelButton='Cancelar'
+          confirmButton='Confirmar'
+          handleClose={handleDeleteSubcategoryModal}
+          handleConfirm={handleConfirmDeleteSubcategoryModal}
+          open={showDeleteSubcategoryModal}
+        />
 
-      <Modal
-        title='Eliminar producto'
-        body='¿Estás seguro de eliminar el producto?'
-        cancelButton='Cancelar'
-        confirmButton='Confirmar'
-        handleClose={handleDeleteProductModal}
-        handleConfirm={handleConfirmDeleteProductModal}
-        open={showDeleteProductModal}
-      />
-    </TableContainer>
+        <Modal
+          title='Eliminar producto'
+          body='¿Estás seguro de eliminar el producto?'
+          cancelButton='Cancelar'
+          confirmButton='Confirmar'
+          handleClose={handleDeleteProductModal}
+          handleConfirm={handleConfirmDeleteProductModal}
+          open={showDeleteProductModal}
+        />
+      </TableContainer>
+    </ProductsContext.Provider>
   );
 }

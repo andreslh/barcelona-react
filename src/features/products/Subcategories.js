@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+
+import ProductsContext from './ProductsContext';
 import { SubcategoryProducts } from './SubcategoryProducts';
 
-export function Subcategories({
-  category,
-  handleEditProduct,
-  setProductToDelete,
-  handleDeleteProductModal,
-  handleEditSubcategory,
-  setSubcategoryToDelete,
-  handleDeleteSubcategoryModal,
-  handleAddProduct,
-}) {
+export function Subcategories({ category }) {
+  const {
+    handleEditSubcategory,
+    setSubcategoryToDelete,
+    handleDeleteSubcategoryModal,
+    handleAddProduct,
+  } = useContext(ProductsContext);
+
   const subcategories = [];
   category.Subcategories.forEach((subcategory) => {
     subcategories.push(
@@ -45,12 +45,7 @@ export function Subcategories({
         </Grid>
         <Table aria-label='active tables'>
           <TableBody>
-            <SubcategoryProducts
-              subcategory={subcategory}
-              handleEditProduct={handleEditProduct}
-              setProductToDelete={setProductToDelete}
-              handleDeleteProductModal={handleDeleteProductModal}
-            />
+            <SubcategoryProducts subcategory={subcategory} />
           </TableBody>
         </Table>
       </Grid>
