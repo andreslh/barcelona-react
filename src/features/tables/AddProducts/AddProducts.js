@@ -13,6 +13,13 @@ import TablesService from '../../../services/tables';
 import { ACTIVE_TABLE, HOME } from '../../../app/routes';
 import AddProductsContext from './AddProductsContext';
 import { Categories } from './Categories';
+import {
+  convertToProductsList,
+  getProductChecked,
+  getProductQuantity,
+  updateProductChecked,
+  updateProductQuantity,
+} from './utils';
 
 export default function AddProducts() {
   const history = useHistory();
@@ -25,23 +32,7 @@ export default function AddProducts() {
     if (!categories.length) {
       history.push(HOME);
     } else if (!addedProducts.length) {
-      setAddedProducts(
-        categories.reduce((acc, category) => {
-          return [
-            ...acc,
-            ...category.Subcategories.reduce((subcatAcc, subcategory) => {
-              return [
-                ...subcatAcc,
-                ...subcategory.Products.map((product) => ({
-                  id: product.id,
-                  checked: false,
-                  quantity: 1,
-                })),
-              ];
-            }, []),
-          ];
-        }, [])
-      );
+      setAddedProducts(convertToProductsList(categories));
     }
   }, [addedProducts, history, categories]);
 
@@ -49,46 +40,14 @@ export default function AddProducts() {
     history.push(ACTIVE_TABLE.replace(':active', table.id));
   };
 
-  const handleProductChecked = (id) => {
-    const newAddedProducts = [...addedProducts];
-    const productIndex = newAddedProducts.findIndex(
-      (product) => product.id === id
-    );
-    newAddedProducts[productIndex].checked = !newAddedProducts[productIndex]
-      .checked;
-
-    setAddedProducts([...newAddedProducts]);
-  };
+  const handleProductChecked = (id) =>
+    setAddedProducts(updateProductChecked(id, addedProducts));
 
   const handleProductQuantity = (id, action, quantity) => {
-    const newAddedProducts = [...addedProducts];
-    const productIndex = newAddedProducts.findIndex(
-      (product) => product.id === id
+    setAddedProducts(
+      updateProductQuantity(id, action, quantity, addedProducts)
     );
-    let newQuantity = newAddedProducts[productIndex].quantity;
-    if (action !== null) {
-      const currentQuantity = newAddedProducts[productIndex].quantity;
-      newQuantity = action ? currentQuantity + 1 : currentQuantity - 1;
-    } else {
-      newQuantity = quantity;
-    }
-
-    newAddedProducts[productIndex].quantity = newQuantity > 0 ? newQuantity : 1;
-    setAddedProducts([...newAddedProducts]);
   };
-
-  const getProductChecked = (id) =>
-    addedProducts.length &&
-    addedProducts[addedProducts.findIndex((product) => product.id === id)]
-      .checked
-      ? true
-      : false;
-
-  const getProductQuantity = (id) =>
-    addedProducts.length
-      ? addedProducts[addedProducts.findIndex((product) => product.id === id)]
-          .quantity
-      : 1;
 
   const handleAddProducts = () => {
     TablesService.addProducts({
@@ -110,9 +69,9 @@ export default function AddProducts() {
 
   const context = {
     categories,
-    getProductChecked,
+    getProductChecked: (id) => getProductChecked(id, addedProducts),
     handleProductChecked,
-    getProductQuantity,
+    getProductQuantity: (id) => getProductQuantity(id, addedProducts),
     handleProductQuantity,
   };
 
