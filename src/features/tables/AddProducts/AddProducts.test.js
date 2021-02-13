@@ -4,11 +4,11 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { MemoryRouter } from 'react-router-dom';
 
-import createApiMock from '../../app/createApiMock';
-import { mockAddProducts } from './mocks/tables';
+import createApiMock from '../../../app/createApiMock';
+import { mockAddProducts } from '../mocks/tables';
 import AddProducts from './AddProducts';
-import activeTable from './mocks/activeTable.json';
-import products from '../products/mocks/products.json';
+import activeTable from '../mocks/activeTable.json';
+import products from '../../products/mocks/products.json';
 import { fireEvent } from '@testing-library/dom';
 
 const mockHistoryPush = jest.fn();

@@ -12,7 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import Tables from './features/tables';
 import NewTable from './features/tables/NewTable';
-import AddProducts from './features/tables/AddProducts';
+import AddProducts from './features/tables/AddProducts/AddProducts';
 import Products from './features/products';
 import AddProduct from './features/products/AddProduct';
 import EditProduct from './features/products/EditProduct';
