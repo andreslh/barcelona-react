@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 
 import ProductsContext from './ProductsContext';
 import { Subcategories } from './Subcategories';
+import { CategoryTitle } from '../../components/Products/CategoryTitle';
 
 export function Categories() {
   const { categories, handleAddSubcategory } = useContext(ProductsContext);
@@ -15,6 +16,7 @@ export function Categories() {
   const categoriesList = [];
   categories.forEach((category, catIndex) => {
     categoriesList.push(
+<<<<<<< HEAD
       <Accordion data-testid='category' key={catIndex} defaultExpanded>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -35,6 +37,34 @@ export function Categories() {
             </Button>
           </Grid>
         </AccordionSummary>
+=======
+      <Accordion
+        data-testid="category"
+        key={catIndex}
+        defaultExpanded
+        elevation={0}
+      >
+        <CategoryTitle>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls={`panel${category.id}-content`}
+            id={`panel${category.id}-header`}
+          >
+            <Grid container justify="space-between">
+              <h3>{category.name}</h3>
+              <Button
+                color="default"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleAddSubcategory(category.id);
+                }}
+              >
+                Agregar subcategoria
+              </Button>
+            </Grid>
+          </AccordionSummary>
+        </CategoryTitle>
+>>>>>>> bc2f48d3cdf27946b061ecec9a32079086af978d
         <AccordionDetails>
           <Grid container spacing={4}>
             <Subcategories category={category} />

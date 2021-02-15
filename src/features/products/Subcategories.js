@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 
 import ProductsContext from './ProductsContext';
 import { SubcategoryProducts } from './SubcategoryProducts';
+import { SubcategoryTitleContainer } from '../../components/Products/SubcategoryTitle';
 
 export function Subcategories({ category }) {
   const {
@@ -18,32 +19,35 @@ export function Subcategories({ category }) {
   const subcategories = [];
   category.Subcategories.forEach((subcategory) => {
     subcategories.push(
-      <Grid data-testid='subcategory' item xs={12} md={6} key={subcategory.id}>
-        <Grid container justify='space-between'>
-          <h4>{subcategory.name}</h4>
-          <Button
-            color='default'
-            onClick={() => handleEditSubcategory(subcategory.id)}
-          >
-            Editar
-          </Button>
-          <Button
-            color='default'
-            onClick={() => {
-              setSubcategoryToDelete(subcategory.id);
-              handleDeleteSubcategoryModal();
-            }}
-          >
-            Eliminar
-          </Button>
-          <Button
-            color='default'
-            onClick={() => handleAddProduct(subcategory.id)}
-          >
-            Agregar producto
-          </Button>
+      <Grid data-testid="subcategory" item xs={12} md={6} key={subcategory.id}>
+        <Grid container justify="space-between">
+          <SubcategoryTitleContainer>
+            <h4>{subcategory.name}</h4>
+            <Button
+              color="default"
+              onClick={() => handleEditSubcategory(subcategory.id)}
+            >
+              Editar
+            </Button>
+            <Button
+              color="default"
+              onClick={() => {
+                setSubcategoryToDelete(subcategory.id);
+                handleDeleteSubcategoryModal();
+              }}
+            >
+              Eliminar
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleAddProduct(subcategory.id)}
+            >
+              Agregar producto
+            </Button>
+          </SubcategoryTitleContainer>
         </Grid>
-        <Table aria-label='active tables'>
+        <Table aria-label="active tables">
           <TableBody>
             <SubcategoryProducts subcategory={subcategory} />
           </TableBody>

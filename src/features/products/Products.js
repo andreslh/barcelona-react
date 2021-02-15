@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TableContainer from '@material-ui/core/TableContainer';
-import Paper from '@material-ui/core/Paper';
 import { useSnackbar } from 'material-ui-snackbar-provider';
 
 import { selectProducts, setProducts } from './productsSlice';
@@ -96,24 +95,24 @@ export default function Products() {
 
   return (
     <ProductsContext.Provider value={context}>
-      <TableContainer component={Paper}>
+      <TableContainer>
         <Categories />
 
         <Modal
-          title='Eliminar subcategoria'
-          body='¿Estás seguro de eliminar la subcategoria?'
-          cancelButton='Cancelar'
-          confirmButton='Confirmar'
+          title="Eliminar subcategoria"
+          body="¿Estás seguro de eliminar la subcategoria?"
+          cancelButton="Cancelar"
+          confirmButton="Confirmar"
           handleClose={handleDeleteSubcategoryModal}
           handleConfirm={handleConfirmDeleteSubcategoryModal}
           open={showDeleteSubcategoryModal}
         />
 
         <Modal
-          title='Eliminar producto'
-          body='¿Estás seguro de eliminar el producto?'
-          cancelButton='Cancelar'
-          confirmButton='Confirmar'
+          title="Eliminar producto"
+          body="¿Estás seguro de eliminar el producto?"
+          cancelButton="Cancelar"
+          confirmButton="Confirmar"
           handleClose={handleDeleteProductModal}
           handleConfirm={handleConfirmDeleteProductModal}
           open={showDeleteProductModal}

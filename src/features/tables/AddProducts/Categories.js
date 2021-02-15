@@ -7,6 +7,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import AddProductsContext from './AddProductsContext';
 import { Subcategories } from './Subcategories';
+import { CategoryTitle } from '../../../components/Products/CategoryTitle';
 
 export function Categories() {
   const { categories } = useContext(AddProductsContext);
@@ -15,17 +16,20 @@ export function Categories() {
   categories.forEach((category, catIndex) => {
     categoriesList.push(
       <Accordion
-        data-testid='category'
+        data-testid="category"
         key={catIndex}
         defaultExpanded={catIndex === 0}
+        elevation={0}
       >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls={`panel${category.id}-content`}
-          id={`panel${category.id}-header`}
-        >
-          <h3>{category.name}</h3>
-        </AccordionSummary>
+        <CategoryTitle>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls={`panel${category.id}-content`}
+            id={`panel${category.id}-header`}
+          >
+            <h3>{category.name}</h3>
+          </AccordionSummary>
+        </CategoryTitle>
         <AccordionDetails>
           <Grid container>
             <Subcategories category={category} />

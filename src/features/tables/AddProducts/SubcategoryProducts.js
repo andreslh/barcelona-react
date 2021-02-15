@@ -1,16 +1,18 @@
 import React, { useContext } from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
 import Checkbox from '@material-ui/core/Checkbox';
-import TextField from '@material-ui/core/TextField';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import AddProductsContext from './AddProductsContext';
+import {
+  ProductButtons,
+  ProductControls,
+  ProductQuantity,
+} from '../../../components/Products/ProductControls';
 
 export function SubcategoryProducts({ subcategory }) {
   const {
@@ -23,8 +25,8 @@ export function SubcategoryProducts({ subcategory }) {
   const productsElements = [];
   subcategory.Products.forEach((product) => {
     productsElements.push(
-      <TableRow data-testid='product' key={product.id}>
-        <TableCell align='left'>
+      <TableRow data-testid="product" key={product.id}>
+        <TableCell align="left">
           <FormGroup row>
             <FormControlLabel
               control={
@@ -39,21 +41,22 @@ export function SubcategoryProducts({ subcategory }) {
             />
           </FormGroup>
         </TableCell>
-        <TableCell align='left'>
-          <Grid container justify='flex-start' alignItems='center'>
-            <TextField
-              id='outlined-basic'
+        <TableCell>
+          <ProductControls>
+            <ProductQuantity
+              id="outlined-basic"
               data-testid={`product-quantity-${product.id}`}
-              variant='outlined'
+              variant="outlined"
               value={getProductQuantity(product.id)}
-              type='number'
+              type="number"
               onChange={(e) =>
                 handleProductQuantity(product.id, null, e.currentTarget.value)
               }
+              className="product-quantity"
             />
-            <Box>
+            <ProductButtons>
               <RemoveCircleOutlineIcon
-                fontSize='large'
+                fontSize="large"
                 data-testid={`product-reduce-quantity-${product.id}`}
                 classes={{ root: 'pointer' }}
                 onClick={() => {
@@ -61,15 +64,15 @@ export function SubcategoryProducts({ subcategory }) {
                 }}
               />
               <AddCircleOutlineIcon
-                fontSize='large'
+                fontSize="large"
                 data-testid={`product-add-quantity-${product.id}`}
                 classes={{ root: 'pointer' }}
                 onClick={() => {
                   handleProductQuantity(product.id, true);
                 }}
               />
-            </Box>
-          </Grid>
+            </ProductButtons>
+          </ProductControls>
         </TableCell>
       </TableRow>
     );

@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import { useSnackbar } from 'material-ui-snackbar-provider';
 
 import { selectActive, clearActive } from '../tablesSlice';
 import { selectProducts } from '../../products/productsSlice';
@@ -27,6 +28,7 @@ export default function AddProducts() {
   const categories = useSelector(selectProducts);
   const [addedProducts, setAddedProducts] = useState([]);
   const dispatch = useDispatch();
+  const snackbar = useSnackbar();
 
   useEffect(() => {
     if (!categories.length) {
@@ -50,15 +52,19 @@ export default function AddProducts() {
   };
 
   const handleAddProducts = () => {
+    const products = addedProducts
+      .filter((product) => product.checked)
+      .map((product) => ({
+        id: product.id,
+        quantity: product.quantity,
+      }));
     TablesService.addProducts({
       id: table.id,
-      products: addedProducts
-        .filter((product) => product.checked)
-        .map((product) => ({
-          id: product.id,
-          quantity: product.quantity,
-        })),
+      products,
     }).then(() => {
+      snackbar.showMessage(
+        products.length > 1 ? 'Productos agregados' : 'Producto agregado'
+      );
       dispatch(clearActive());
       history.push(ACTIVE_TABLE.replace(':active', table.id));
     });
@@ -77,8 +83,12 @@ export default function AddProducts() {
 
   return (
     <AddProductsContext.Provider value={context}>
-      <TableContainer component={Paper}>
-        <Grid container justify='space-between' component={Paper}>
+      <TableContainer classes={{ root: 'add-products' }}>
+        <Grid
+          container
+          justify="space-between"
+          classes={{ root: 'table-header' }}
+        >
           <Grid item xs={6}>
             <Box pl={3}>
               <h4>
@@ -92,7 +102,7 @@ export default function AddProducts() {
             classes={{ root: 'flex-direction-row justify-content-end' }}
           >
             <Box pr={3} m={2}>
-              <Button color='default' onClick={handleCancel}>
+              <Button color="default" onClick={handleCancel}>
                 Cancelar
               </Button>
             </Box>
@@ -100,8 +110,8 @@ export default function AddProducts() {
               <Button
                 disabled={!hasProductsToAdd}
                 ml={2}
-                variant='contained'
-                color='primary'
+                variant="contained"
+                color="primary"
                 onClick={handleAddProducts}
               >
                 Agregar productos
@@ -112,13 +122,13 @@ export default function AddProducts() {
 
         <Categories />
 
-        <Grid container justify='space-between' component={Paper}>
+        <Grid container justify="space-between" component={Paper}>
           <Box pr={3} m={2}>
             <Button
               disabled={!hasProductsToAdd}
-              data-testid='add-products-button'
-              variant='contained'
-              color='primary'
+              data-testid="add-products-button"
+              variant="contained"
+              color="primary"
               onClick={handleAddProducts}
             >
               Agregar productos

@@ -15,12 +15,12 @@ export function SubcategoryProducts({ subcategory }) {
   const productsElements = [];
   subcategory.Products.forEach((product) => {
     productsElements.push(
-      <TableRow data-testid='product' key={product.id}>
-        <TableCell align='left'>{product.name}</TableCell>
+      <TableRow data-testid="product" key={product.id}>
+        <TableCell align="left">{product.name}</TableCell>
         <TableCell>${product.price}</TableCell>
-        <TableCell align='right'>
+        <TableCell align="right">
           <Button
-            color='default'
+            color="default"
             onClick={() => {
               handleEditProduct(product.id);
             }}
@@ -28,7 +28,7 @@ export function SubcategoryProducts({ subcategory }) {
             Editar
           </Button>
           <Button
-            color='default'
+            color="secondary"
             onClick={() => {
               setProductToDelete(product.id);
               handleDeleteProductModal();
