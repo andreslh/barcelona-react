@@ -14,12 +14,10 @@ import { selectActive, selectTables } from './tablesSlice';
 
 import './TablesList.css';
 
-const TableLink = styled.div`
-  a {
-    display: flex;
-    flex-grow: 1;
-    justify-content: space-between;
-  }
+const TableLink = styled(Link)`
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
 `;
 
 export default function TablesList() {
@@ -50,11 +48,9 @@ export default function TablesList() {
               }}
             >
               <TableCell align="left">
-                <TableLink>
-                  <Link to={`/tables/${table.id}`}>
-                    <span>{table.name}</span>
-                    <span>${table.total}</span>
-                  </Link>
+                <TableLink to={`/tables/${table.id}`}>
+                  <span>{table.name}</span>
+                  <span>${table.total}</span>
                 </TableLink>
               </TableCell>
             </TableRow>

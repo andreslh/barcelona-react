@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
-import TextField from '@material-ui/core/TextField';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -44,19 +43,17 @@ export function SubcategoryProducts({ subcategory }) {
         </TableCell>
         <TableCell>
           <ProductControls>
-            <ProductQuantity>
-              <TextField
-                id="outlined-basic"
-                data-testid={`product-quantity-${product.id}`}
-                variant="outlined"
-                value={getProductQuantity(product.id)}
-                type="number"
-                onChange={(e) =>
-                  handleProductQuantity(product.id, null, e.currentTarget.value)
-                }
-                className="product-quantity"
-              />
-            </ProductQuantity>
+            <ProductQuantity
+              id="outlined-basic"
+              data-testid={`product-quantity-${product.id}`}
+              variant="outlined"
+              value={getProductQuantity(product.id)}
+              type="number"
+              onChange={(e) =>
+                handleProductQuantity(product.id, null, e.currentTarget.value)
+              }
+              className="product-quantity"
+            />
             <ProductButtons>
               <RemoveCircleOutlineIcon
                 fontSize="large"
