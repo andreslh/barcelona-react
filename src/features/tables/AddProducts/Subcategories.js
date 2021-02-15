@@ -7,13 +7,14 @@ import TableRow from '@material-ui/core/TableRow';
 import Grid from '@material-ui/core/Grid';
 
 import { SubcategoryProducts } from './SubcategoryProducts';
+import { SubcategoryTitle } from '../../../components/Products/SubcategoryTitle';
 
 export function Subcategories({ category }) {
   const subcategories = [];
   category.Subcategories.forEach((subcategory) => {
     subcategories.push(
       <Grid data-testid="subcategory" item xs={12} md={6} key={subcategory.id}>
-        <h4 className="subcategory-title">{subcategory.name}</h4>
+        <SubcategoryTitle>{subcategory.name}</SubcategoryTitle>
         <Table aria-label="active tables">
           <TableHead>
             <TableRow>

@@ -147,7 +147,7 @@ export default function ActiveTable({ onDelete, onComplete }) {
             <Box pr={3} m={2}>
               <Button
                 data-testid="delete-table"
-                color="default"
+                color="secondary"
                 onClick={handleDeleteModal}
               >
                 Eliminar

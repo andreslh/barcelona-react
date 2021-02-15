@@ -21,8 +21,6 @@ import {
   updateProductQuantity,
 } from './utils';
 
-import './Products.css';
-
 export default function AddProducts() {
   const history = useHistory();
   const table = useSelector(selectActive);
