@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import { useSnackbar } from 'material-ui-snackbar-provider';
 
 import { selectActive, clearActive } from '../tablesSlice';
 import { selectProducts } from '../../products/productsSlice';
@@ -27,6 +28,7 @@ export default function AddProducts() {
   const categories = useSelector(selectProducts);
   const [addedProducts, setAddedProducts] = useState([]);
   const dispatch = useDispatch();
+  const snackbar = useSnackbar();
 
   useEffect(() => {
     if (!categories.length) {
@@ -50,15 +52,19 @@ export default function AddProducts() {
   };
 
   const handleAddProducts = () => {
+    const products = addedProducts
+      .filter((product) => product.checked)
+      .map((product) => ({
+        id: product.id,
+        quantity: product.quantity,
+      }));
     TablesService.addProducts({
       id: table.id,
-      products: addedProducts
-        .filter((product) => product.checked)
-        .map((product) => ({
-          id: product.id,
-          quantity: product.quantity,
-        })),
+      products,
     }).then(() => {
+      snackbar.showMessage(
+        products.length > 1 ? 'Productos agregados' : 'Producto agregado'
+      );
       dispatch(clearActive());
       history.push(ACTIVE_TABLE.replace(':active', table.id));
     });

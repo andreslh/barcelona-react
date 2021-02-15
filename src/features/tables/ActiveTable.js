@@ -81,9 +81,7 @@ export default function ActiveTable({ onDelete, onComplete }) {
             classes={{ root: 'table-header' }}
           >
             <Box pl={3}>
-              <h4>
-                Mesa: {table.id} - {table.name}
-              </h4>
+              <h4>Mesa: {table.name}</h4>
             </Box>
             <Box pr={3} m={2}>
               <Button
@@ -113,7 +111,7 @@ export default function ActiveTable({ onDelete, onComplete }) {
                   <TableCell align="left">{product.name}</TableCell>
                   <TableCell align="left">${product.price}</TableCell>
                   <TableCell align="left">${product.total}</TableCell>
-                  <TableCell align="left">
+                  <TableCell align="right">
                     <Button
                       data-testid="delete-table-product"
                       variant="contained"
