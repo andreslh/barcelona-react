@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -7,15 +8,18 @@ import Grid from '@material-ui/core/Grid';
 import { useHistory } from 'react-router-dom';
 
 import TablesService from '../../services/tables';
-import { ACTIVE_TABLE } from '../../app/routes';
+import { ADD_PRODUCTS } from '../../app/routes';
+import { setActive } from './tablesSlice';
 
 const NewTable = () => {
   const [name, setName] = useState('');
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleConfirm = () => {
     TablesService.create({ name }).then((response) => {
-      history.push(ACTIVE_TABLE.replace(':active', response.table.id));
+      dispatch(setActive(response.table));
+      history.push(ADD_PRODUCTS);
     });
   };
 
