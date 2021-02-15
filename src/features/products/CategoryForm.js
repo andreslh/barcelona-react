@@ -16,6 +16,7 @@ export default function CategoryForm({
       <Box m={2}>
         <TextField
           id='category-name'
+          data-testid='category-name'
           label='Nombre de identificación'
           inputProps={{ 'data-testid': 'category-name' }}
           variant='outlined'
@@ -25,7 +26,7 @@ export default function CategoryForm({
       </Box>
       <Box m={2}>
         <Button
-          data-testid='confirm-add-category'
+          data-testid='submit-category-btn'
           disabled={disabled}
           variant='contained'
           color='primary'

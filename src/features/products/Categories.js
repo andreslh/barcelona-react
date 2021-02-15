@@ -24,6 +24,7 @@ export function Categories() {
           <Grid container justify='space-between'>
             <h3>{category.name}</h3>
             <Button
+              data-testid='add-subcategory-btn'
               color='default'
               onClick={(e) => {
                 e.stopPropagation();
