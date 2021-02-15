@@ -12,6 +12,14 @@ import products from '../../products/mocks/products.json';
 import { fireEvent } from '@testing-library/dom';
 
 const mockHistoryPush = jest.fn();
+const mockShowMessage = jest.fn();
+
+jest.mock('material-ui-snackbar-provider', () => ({
+  ...jest.requireActual('material-ui-snackbar-provider'),
+  useSnackbar: () => ({
+    showMessage: mockShowMessage,
+  }),
+}));
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),

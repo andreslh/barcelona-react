@@ -16,30 +16,8 @@ export function Categories() {
   const categoriesList = [];
   categories.forEach((category, catIndex) => {
     categoriesList.push(
-<<<<<<< HEAD
-      <Accordion data-testid='category' key={catIndex} defaultExpanded>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls={`panel${category.id}-content`}
-          id={`panel${category.id}-header`}
-        >
-          <Grid container justify='space-between'>
-            <h3>{category.name}</h3>
-            <Button
-              data-testid='add-subcategory-btn'
-              color='default'
-              onClick={(e) => {
-                e.stopPropagation();
-                handleAddSubcategory(category.id);
-              }}
-            >
-              Agregar subcategoria
-            </Button>
-          </Grid>
-        </AccordionSummary>
-=======
       <Accordion
-        data-testid="category"
+        data-testid='category'
         key={catIndex}
         defaultExpanded
         elevation={0}
@@ -50,10 +28,11 @@ export function Categories() {
             aria-controls={`panel${category.id}-content`}
             id={`panel${category.id}-header`}
           >
-            <Grid container justify="space-between">
+            <Grid container justify='space-between'>
               <h3>{category.name}</h3>
               <Button
-                color="default"
+                data-testid='add-subcategory-btn'
+                color='default'
                 onClick={(e) => {
                   e.stopPropagation();
                   handleAddSubcategory(category.id);
@@ -64,7 +43,6 @@ export function Categories() {
             </Grid>
           </AccordionSummary>
         </CategoryTitle>
->>>>>>> bc2f48d3cdf27946b061ecec9a32079086af978d
         <AccordionDetails>
           <Grid container spacing={4}>
             <Subcategories category={category} />

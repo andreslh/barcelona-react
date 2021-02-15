@@ -63,6 +63,6 @@ describe('NewTable', () => {
 
     expect(mock.history.post[0].data).toBe('{"name":"Andres"}');
 
-    expect(mockHistoryPush).toHaveBeenCalled();
+    expect(mockHistoryPush).toHaveBeenCalledWith('/add-products');
   });
 });
