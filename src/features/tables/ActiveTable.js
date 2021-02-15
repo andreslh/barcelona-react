@@ -75,7 +75,11 @@ export default function ActiveTable({ onDelete, onComplete }) {
     (table && table.id && (
       <>
         <TableContainer component={Paper}>
-          <Grid container justify="space-between" component={Paper}>
+          <Grid
+            container
+            justify="space-between"
+            classes={{ root: 'table-header' }}
+          >
             <Box pl={3}>
               <h4>
                 Mesa: {table.id} - {table.name}

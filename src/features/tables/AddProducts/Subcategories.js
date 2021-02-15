@@ -12,13 +12,13 @@ export function Subcategories({ category }) {
   const subcategories = [];
   category.Subcategories.forEach((subcategory) => {
     subcategories.push(
-      <Grid data-testid='subcategory' item xs={12} md={6} key={subcategory.id}>
-        <h4>{subcategory.name}</h4>
-        <Table aria-label='active tables'>
+      <Grid data-testid="subcategory" item xs={12} md={6} key={subcategory.id}>
+        <h4 className="subcategory-title">{subcategory.name}</h4>
+        <Table aria-label="active tables">
           <TableHead>
             <TableRow>
-              <TableCell align='left'>Producto</TableCell>
-              <TableCell align='left'>Cantidad</TableCell>
+              <TableCell align="left">Producto</TableCell>
+              <TableCell align="left">Cantidad</TableCell>
             </TableRow>
           </TableHead>
 

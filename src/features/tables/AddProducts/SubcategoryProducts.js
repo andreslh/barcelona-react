@@ -23,8 +23,8 @@ export function SubcategoryProducts({ subcategory }) {
   const productsElements = [];
   subcategory.Products.forEach((product) => {
     productsElements.push(
-      <TableRow data-testid='product' key={product.id}>
-        <TableCell align='left'>
+      <TableRow data-testid="product" key={product.id}>
+        <TableCell align="left">
           <FormGroup row>
             <FormControlLabel
               control={
@@ -39,37 +39,36 @@ export function SubcategoryProducts({ subcategory }) {
             />
           </FormGroup>
         </TableCell>
-        <TableCell align='left'>
-          <Grid container justify='flex-start' alignItems='center'>
-            <TextField
-              id='outlined-basic'
-              data-testid={`product-quantity-${product.id}`}
-              variant='outlined'
-              value={getProductQuantity(product.id)}
-              type='number'
-              onChange={(e) =>
-                handleProductQuantity(product.id, null, e.currentTarget.value)
-              }
+        <TableCell className="product-controls-container">
+          <TextField
+            id="outlined-basic"
+            data-testid={`product-quantity-${product.id}`}
+            variant="outlined"
+            value={getProductQuantity(product.id)}
+            type="number"
+            onChange={(e) =>
+              handleProductQuantity(product.id, null, e.currentTarget.value)
+            }
+            className="product-quantity"
+          />
+          <Box className="product-controls">
+            <RemoveCircleOutlineIcon
+              fontSize="large"
+              data-testid={`product-reduce-quantity-${product.id}`}
+              classes={{ root: 'pointer' }}
+              onClick={() => {
+                handleProductQuantity(product.id, false);
+              }}
             />
-            <Box>
-              <RemoveCircleOutlineIcon
-                fontSize='large'
-                data-testid={`product-reduce-quantity-${product.id}`}
-                classes={{ root: 'pointer' }}
-                onClick={() => {
-                  handleProductQuantity(product.id, false);
-                }}
-              />
-              <AddCircleOutlineIcon
-                fontSize='large'
-                data-testid={`product-add-quantity-${product.id}`}
-                classes={{ root: 'pointer' }}
-                onClick={() => {
-                  handleProductQuantity(product.id, true);
-                }}
-              />
-            </Box>
-          </Grid>
+            <AddCircleOutlineIcon
+              fontSize="large"
+              data-testid={`product-add-quantity-${product.id}`}
+              classes={{ root: 'pointer' }}
+              onClick={() => {
+                handleProductQuantity(product.id, true);
+              }}
+            />
+          </Box>
         </TableCell>
       </TableRow>
     );

@@ -19,13 +19,12 @@ export default function TablesList() {
 
   return (
     <TableContainer component={Paper}>
-      <Table aria-label='active tables'>
-        <TableHead>
+      <Table aria-label="active tables">
+        <TableHead classes={{ root: 'table-header' }}>
           <TableRow>
-            <TableCell align='left'>
+            <TableCell align="left">
               <b>Mesas abiertas</b>
             </TableCell>
-            <TableCell />
           </TableRow>
         </TableHead>
 
@@ -33,7 +32,7 @@ export default function TablesList() {
           {tables.map((table) => (
             <TableRow
               key={table.id}
-              data-testid='table-item'
+              data-testid="table-item"
               classes={{
                 root:
                   active?.id === table.id
@@ -41,11 +40,10 @@ export default function TablesList() {
                     : 'table-list-normal',
               }}
             >
-              <TableCell scope='row' size='small'>
-                {table.id}
-              </TableCell>
-              <TableCell align='left'>
-                <Link to={`/tables/${table.id}`}>{table.name}</Link>
+              <TableCell align="left">
+                <Link to={`/tables/${table.id}`}>
+                  {table.id} - {table.name}
+                </Link>
               </TableCell>
             </TableRow>
           ))}

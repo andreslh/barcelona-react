@@ -21,6 +21,8 @@ import {
   updateProductQuantity,
 } from './utils';
 
+import './Products.css';
+
 export default function AddProducts() {
   const history = useHistory();
   const table = useSelector(selectActive);
@@ -77,8 +79,12 @@ export default function AddProducts() {
 
   return (
     <AddProductsContext.Provider value={context}>
-      <TableContainer component={Paper}>
-        <Grid container justify='space-between' component={Paper}>
+      <TableContainer classes={{ root: 'add-products' }}>
+        <Grid
+          container
+          justify="space-between"
+          classes={{ root: 'table-header' }}
+        >
           <Grid item xs={6}>
             <Box pl={3}>
               <h4>
@@ -92,7 +98,7 @@ export default function AddProducts() {
             classes={{ root: 'flex-direction-row justify-content-end' }}
           >
             <Box pr={3} m={2}>
-              <Button color='default' onClick={handleCancel}>
+              <Button color="default" onClick={handleCancel}>
                 Cancelar
               </Button>
             </Box>
@@ -100,8 +106,8 @@ export default function AddProducts() {
               <Button
                 disabled={!hasProductsToAdd}
                 ml={2}
-                variant='contained'
-                color='primary'
+                variant="contained"
+                color="primary"
                 onClick={handleAddProducts}
               >
                 Agregar productos
@@ -112,13 +118,13 @@ export default function AddProducts() {
 
         <Categories />
 
-        <Grid container justify='space-between' component={Paper}>
+        <Grid container justify="space-between" component={Paper}>
           <Box pr={3} m={2}>
             <Button
               disabled={!hasProductsToAdd}
-              data-testid='add-products-button'
-              variant='contained'
-              color='primary'
+              data-testid="add-products-button"
+              variant="contained"
+              color="primary"
               onClick={handleAddProducts}
             >
               Agregar productos
