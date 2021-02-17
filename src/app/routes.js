@@ -9,3 +9,4 @@ export const EDIT_PRODUCT = '/edit-product/:id';
 export const ADD_SUBCATEGORY = '/add-subcategory/:categoryId';
 export const EDIT_SUBCATEGORY = '/edit-subcategory/:id';
 export const LOGIN = '/login';
+export const CHANGE_PASSWORD = '/change-password';

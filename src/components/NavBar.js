@@ -10,9 +10,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { PRODUCTS, LOGIN } from '../app/routes';
+import { PRODUCTS, LOGIN, CHANGE_PASSWORD } from '../app/routes';
 import { logout, selectRole, selectTokens } from '../features/users/usersSlice';
 import { ROLES } from '../app/constants';
+import UsersService from '../services/users';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,22 +30,25 @@ const useStyles = makeStyles((theme) => ({
 function NavBar() {
   const dispatch = useDispatch();
   const role = useSelector(selectRole);
-  const isLoggedIn = useSelector(selectTokens).accessToken != null;
+  const tokens = useSelector(selectTokens);
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const isLoggedIn = tokens.accessToken != null;
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   const handleLogout = () => {
-    dispatch(logout());
-    setAnchorEl(null);
-    history.push(LOGIN);
+    UsersService.logout({ token: tokens.refreshToken }).then(() => {
+      dispatch(logout());
+      setAnchorEl(null);
+      history.push(LOGIN);
+    });
   };
 
   const isAdmin = (role) => parseInt(role, 10) === ROLES.admin;
@@ -87,6 +91,9 @@ function NavBar() {
               )}
               <MenuItem onClick={handleClose}>
                 <Link to="/">Pedidos anteriores</Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link to={CHANGE_PASSWORD}>Cambiar contraseña</Link>
               </MenuItem>
               <MenuItem onClick={handleLogout}>
                 <Link to="#">Cerrar sesión</Link>

@@ -25,6 +25,7 @@ export const usersSlice = createSlice({
       state.role = null;
       localStorage.removeItem(ACCESS_TOKEN);
       localStorage.removeItem(REFRESH_TOKEN);
+      localStorage.removeItem(STORED_ROLE);
     },
     updateAccessToken: (state, action) => {
       const accessToken = action.payload;

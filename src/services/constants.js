@@ -25,6 +25,6 @@ export const LOGIN = 'login';
 export const SIGUNUP = 'signup';
 export const TOKEN = 'token';
 export const LOGOUT = 'logout';
-export const CHANGE_PASSWORD = 'change-passowrd';
+export const CHANGE_PASSWORD = 'change-password';
 
 export const urlBuilder = (prefix) => (url) => `${prefix}${url}`;

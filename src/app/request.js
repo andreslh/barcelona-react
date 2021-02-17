@@ -40,7 +40,9 @@ const request = function (options) {
     }
 
     console.error('Request Failed:', error.config);
-    alert('Hubo un error al realizar la acción');
+    alert(
+      'Hubo un error al realizar la acción: ' + error.response.data.message
+    );
 
     if (error.response) {
       console.error('Status:', error.response.status);

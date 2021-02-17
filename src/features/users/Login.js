@@ -54,7 +54,7 @@ const Login = () => {
         <Box m={2}>
           <TextField
             id="login-password"
-            label="Password"
+            label="Contraseña"
             inputProps={{ 'data-testid': 'login-password', type: 'password' }}
             variant="outlined"
             value={password}

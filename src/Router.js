@@ -22,7 +22,9 @@ import {
   ADD_SUBCATEGORY,
   EDIT_SUBCATEGORY,
   LOGIN,
+  CHANGE_PASSWORD,
 } from './app/routes';
+import ChangePassword from './features/users/ChangePassword';
 
 function Router() {
   return (
@@ -36,6 +38,7 @@ function Router() {
       <PrivateRoute path={ADD_SUBCATEGORY} component={AddSubcategory} />
       <PrivateRoute path={EDIT_SUBCATEGORY} component={EditSubcategory} />
       <Route path={LOGIN} component={Login} />
+      <PrivateRoute path={CHANGE_PASSWORD} component={ChangePassword} />
       <PrivateRoute path={HOME} component={Tables} />
     </Switch>
   );
