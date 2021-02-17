@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
 import ProductsContext from './ProductsContext';
@@ -31,28 +32,34 @@ export function Subcategories({ category }) {
         <Grid container justify="space-between">
           <SubcategoryTitleContainer>
             <h4>{subcategory.name}</h4>
-            <Button
-              color="default"
-              onClick={() => handleEditSubcategory(subcategory.id)}
-            >
-              Editar
-            </Button>
-            <Button
-              color="default"
-              onClick={() => {
-                setSubcategoryToDelete(subcategory.id);
-                handleDeleteSubcategoryModal();
+            <Box
+              classes={{
+                root: 'flex-important justify-content-end align-items-center',
               }}
             >
-              Eliminar
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => handleAddProduct(subcategory.id)}
-            >
-              Agregar producto
-            </Button>
+              <Button
+                color="default"
+                onClick={() => handleEditSubcategory(subcategory.id)}
+              >
+                Editar
+              </Button>
+              <Button
+                color="default"
+                onClick={() => {
+                  setSubcategoryToDelete(subcategory.id);
+                  handleDeleteSubcategoryModal();
+                }}
+              >
+                Eliminar
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => handleAddProduct(subcategory.id)}
+              >
+                Agregar producto
+              </Button>
+            </Box>
           </SubcategoryTitleContainer>
         </Grid>
         <Table aria-label="active tables">
