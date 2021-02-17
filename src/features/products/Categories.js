@@ -17,7 +17,7 @@ export function Categories() {
   categories.forEach((category, catIndex) => {
     categoriesList.push(
       <Accordion
-        data-testid="category"
+        data-testid='category'
         key={catIndex}
         defaultExpanded
         elevation={0}
@@ -28,10 +28,11 @@ export function Categories() {
             aria-controls={`panel${category.id}-content`}
             id={`panel${category.id}-header`}
           >
-            <Grid container justify="space-between">
+            <Grid container justify='space-between'>
               <h3>{category.name}</h3>
               <Button
-                color="default"
+                data-testid='add-subcategory-btn'
+                color='default'
                 onClick={(e) => {
                   e.stopPropagation();
                   handleAddSubcategory(category.id);
