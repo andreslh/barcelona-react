@@ -91,9 +91,7 @@ export default function AddProducts() {
         >
           <Grid item xs={6}>
             <Box pl={3}>
-              <h4>
-                Agregar productos a mesa: {table.id} - {table.name}
-              </h4>
+              <h4>Agregar productos a mesa: {table.name}</h4>
             </Box>
           </Grid>
           <Grid

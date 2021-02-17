@@ -6,6 +6,7 @@ export const DELETE_TABLE = ':id';
 export const COMPLETE_TABLE = ':id/complete';
 export const DELETE_TABLE_PRODUCT = ':id/products/:productId';
 export const ADD_TABLE = '';
+export const UPDATE_TABLE = ':id';
 
 export const PRODUCTS_PREFIX = 'products/';
 export const GET_PRODUCTS = 'list';

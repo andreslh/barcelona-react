@@ -16,7 +16,7 @@ import { useSnackbar } from 'material-ui-snackbar-provider';
 import { deleteTableProduct, selectActive } from './tablesSlice';
 import Modal from '../../components/Modal';
 import TablesService from '../../services/tables';
-import { ADD_PRODUCTS } from '../../app/routes';
+import { ADD_PRODUCTS, EDIT_TABLE } from '../../app/routes';
 
 export default function ActiveTable({ onDelete, onComplete }) {
   const history = useHistory();
@@ -71,6 +71,10 @@ export default function ActiveTable({ onDelete, onComplete }) {
     history.push(ADD_PRODUCTS);
   }
 
+  function handleEditTable() {
+    history.push(EDIT_TABLE.replace(':id', table.id));
+  }
+
   return (
     (table && table.id && (
       <>
@@ -84,6 +88,9 @@ export default function ActiveTable({ onDelete, onComplete }) {
               <h4>Mesa: {table.name}</h4>
             </Box>
             <Box pr={3} m={2}>
+              <Button color="default" onClick={handleEditTable}>
+                Editar
+              </Button>
               <Button
                 variant="contained"
                 color="primary"

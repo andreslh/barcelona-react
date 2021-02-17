@@ -7,6 +7,7 @@ import {
   DELETE_TABLE_PRODUCT,
   GET_TABLE,
   GET_TABLES,
+  UPDATE_TABLE,
   TABLES_PREFIX,
   urlBuilder,
 } from './constants';
@@ -61,6 +62,14 @@ function create(data) {
   });
 }
 
+function update(data) {
+  return request({
+    url: getUrl(UPDATE_TABLE.replace(':id', data.id)),
+    method: 'PUT',
+    data,
+  });
+}
+
 function addProducts({ id, products }) {
   return request({
     url: getUrl(ADD_PRODUCTS.replace(':id', id)),
@@ -76,6 +85,7 @@ const TablesService = {
   removeProduct,
   complete,
   create,
+  update,
   addProducts,
 };
 

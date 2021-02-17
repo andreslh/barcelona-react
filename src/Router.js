@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
+import PrivateRoute from './components/PrivateRoute';
 import Tables from './features/tables';
 import NewTable from './features/tables/NewTable';
 import AddProducts from './features/tables/AddProducts/AddProducts';
@@ -10,7 +11,8 @@ import EditProduct from './features/products/EditProduct';
 import AddSubcategory from './features/products/AddSubcategory';
 import EditSubcategory from './features/products/EditSubcategory';
 import Login from './features/users/Login';
-import PrivateRoute from './components/PrivateRoute';
+import ChangePassword from './features/users/ChangePassword';
+import EditTable from './features/tables/EditTable';
 import {
   ACTIVE_TABLE,
   ADD_PRODUCT,
@@ -23,8 +25,8 @@ import {
   EDIT_SUBCATEGORY,
   LOGIN,
   CHANGE_PASSWORD,
+  EDIT_TABLE,
 } from './app/routes';
-import ChangePassword from './features/users/ChangePassword';
 
 function Router() {
   return (
@@ -32,6 +34,7 @@ function Router() {
       <PrivateRoute path={NEW_TABLE} component={NewTable} />
       <PrivateRoute path={ADD_PRODUCTS} component={AddProducts} />
       <PrivateRoute path={ACTIVE_TABLE} component={Tables} />
+      <PrivateRoute path={EDIT_TABLE} component={EditTable} />
       <PrivateRoute path={PRODUCTS} component={Products} />
       <PrivateRoute path={ADD_PRODUCT} component={AddProduct} />
       <PrivateRoute path={EDIT_PRODUCT} component={EditProduct} />

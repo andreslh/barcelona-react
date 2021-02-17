@@ -16,6 +16,9 @@ export const tablesSlice = createSlice({
     setActive: (state, action) => {
       state.active = action.payload;
     },
+    updateActiveName: (state, action) => {
+      state.active.name = action.payload;
+    },
     deleteTableProduct: (state, action) => {
       const productToDeleteTotal = state.active.Tableproducts.find(
         (product) => product.id === action.payload
@@ -40,6 +43,7 @@ export const {
   clearActive,
   deleteTable,
   deleteTableProduct,
+  updateActiveName,
 } = tablesSlice.actions;
 
 export const selectTables = (state) => state.tables.data;
