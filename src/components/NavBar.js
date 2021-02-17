@@ -44,8 +44,8 @@ function NavBar() {
   };
 
   const handleLogout = () => {
+    dispatch(logout());
     UsersService.logout({ token: tokens.refreshToken }).then(() => {
-      dispatch(logout());
       setAnchorEl(null);
       history.push(LOGIN);
     });

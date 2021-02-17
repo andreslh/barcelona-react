@@ -36,6 +36,7 @@ const NewTable = () => {
         <Box m={2}>
           <h3>Agregar mesa</h3>
           <Button
+            data-testid="cancel-add-table"
             color="default"
             onClick={() => {
               history.goBack();

@@ -36,12 +36,12 @@ describe('NewTable', () => {
   });
 
   it('prevents submit with empty name', () => {
-    const nameInput = screen.getByTestId('add-table-name');
+    const nameInput = screen.getByTestId('table-name');
     fireEvent.change(nameInput, { target: { value: 'A' } });
-    expect(screen.getByTestId('confirm-add-table')).toBeEnabled();
+    expect(screen.getByTestId('submit-table-btn')).toBeEnabled();
 
     fireEvent.change(nameInput, { target: { value: '' } });
-    expect(screen.getByTestId('confirm-add-table')).not.toBeEnabled();
+    expect(screen.getByTestId('submit-table-btn')).not.toBeEnabled();
   });
 
   it('goes back if cancel is pressed', () => {
@@ -52,9 +52,9 @@ describe('NewTable', () => {
   });
 
   it('sends post request and redirects if it is succesful', async () => {
-    const nameInput = screen.getByTestId('add-table-name');
+    const nameInput = screen.getByTestId('table-name');
     fireEvent.change(nameInput, { target: { value: 'Andres' } });
-    const button = screen.getByTestId('confirm-add-table');
+    const button = screen.getByTestId('submit-table-btn');
     fireEvent.click(button);
 
     await waitFor(() => {

@@ -16,7 +16,6 @@ export default function TableForm({
       <Box m={2}>
         <TextField
           id="table-name"
-          data-testid="table-name"
           label="Nombre"
           inputProps={{ 'data-testid': 'table-name' }}
           variant="outlined"
