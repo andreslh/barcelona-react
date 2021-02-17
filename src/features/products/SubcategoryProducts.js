@@ -1,16 +1,21 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 
 import ProductsContext from './ProductsContext';
+import { EDIT_PRODUCT } from '../../app/routes';
 
 export function SubcategoryProducts({ subcategory }) {
-  const {
-    handleEditProduct,
-    setProductToDelete,
-    handleDeleteProductModal,
-  } = useContext(ProductsContext);
+  const history = useHistory();
+  const { setProductToDelete, handleDeleteProductModal } = useContext(
+    ProductsContext
+  );
+
+  const handleEditProduct = (productId) => {
+    history.push(EDIT_PRODUCT.replace(':id', productId));
+  };
 
   const productsElements = [];
   subcategory.Products.forEach((product) => {

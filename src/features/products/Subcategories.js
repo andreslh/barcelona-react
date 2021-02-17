@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import Grid from '@material-ui/core/Grid';
@@ -7,14 +8,21 @@ import Button from '@material-ui/core/Button';
 import ProductsContext from './ProductsContext';
 import { SubcategoryProducts } from './SubcategoryProducts';
 import { SubcategoryTitleContainer } from '../../components/Products/SubcategoryTitle';
+import { ADD_PRODUCT, EDIT_SUBCATEGORY } from '../../app/routes';
 
 export function Subcategories({ category }) {
-  const {
-    handleEditSubcategory,
-    setSubcategoryToDelete,
-    handleDeleteSubcategoryModal,
-    handleAddProduct,
-  } = useContext(ProductsContext);
+  const history = useHistory();
+  const { setSubcategoryToDelete, handleDeleteSubcategoryModal } = useContext(
+    ProductsContext
+  );
+
+  const handleAddProduct = (subcategoryId) => {
+    history.push(ADD_PRODUCT.replace(':subcategoryId', subcategoryId));
+  };
+
+  const handleEditSubcategory = (subcategoryId) => {
+    history.push(EDIT_SUBCATEGORY.replace(':id', subcategoryId));
+  };
 
   const subcategories = [];
   category.Subcategories.forEach((subcategory) => {

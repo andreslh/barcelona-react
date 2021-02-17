@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import TableContainer from '@material-ui/core/TableContainer';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import { useSnackbar } from 'material-ui-snackbar-provider';
 
 import { selectProducts, setProducts } from './productsSlice';
 import ProductsService from '../../services/products';
-import { useHistory } from 'react-router-dom';
-import {
-  ADD_PRODUCT,
-  ADD_SUBCATEGORY,
-  EDIT_PRODUCT,
-  EDIT_SUBCATEGORY,
-} from '../../app/routes';
+import { ADD_CATEGORY } from '../../app/routes';
 import Modal from '../../components/Modal';
 import SubcategoriesService from '../../services/subcategories';
+import CategoriesService from '../../services/categories';
 import { Categories } from './Categories';
 import ProductsContext from './ProductsContext';
 
@@ -28,6 +27,8 @@ export default function Products() {
     false
   );
   const [subcategoryToDelete, setSubcategoryToDelete] = useState(null);
+  const [showDeleteCategoryModal, setShowDeleteCategoryModal] = useState(false);
+  const [categoryToDelete, setCategoryToDelete] = useState(null);
 
   useEffect(() => {
     if (!categories?.length) {
@@ -36,22 +37,6 @@ export default function Products() {
       );
     }
   }, [dispatch, categories?.length]);
-
-  const handleAddSubcategory = (categoryId) => {
-    history.push(ADD_SUBCATEGORY.replace(':categoryId', categoryId));
-  };
-
-  const handleEditSubcategory = (subcategoryId) => {
-    history.push(EDIT_SUBCATEGORY.replace(':id', subcategoryId));
-  };
-
-  const handleAddProduct = (subcategoryId) => {
-    history.push(ADD_PRODUCT.replace(':subcategoryId', subcategoryId));
-  };
-
-  const handleEditProduct = (productId) => {
-    history.push(EDIT_PRODUCT.replace(':id', productId));
-  };
 
   const handleDeleteProductModal = () => {
     setShowDeleteProductModal(!showDeleteProductModal);
@@ -81,20 +66,49 @@ export default function Products() {
     );
   };
 
+  const handleDeleteCategoryModal = () => {
+    setShowDeleteCategoryModal(!showDeleteCategoryModal);
+  };
+
+  const handleConfirmDeleteCategoryModal = () => {
+    CategoriesService.remove(categoryToDelete).then(() =>
+      ProductsService.getList().then((res) => {
+        snackbar.showMessage('Categoria eliminada');
+        dispatch(setProducts(res.categories));
+        handleDeleteCategoryModal();
+      })
+    );
+  };
+
+  const handleAddCategory = () => {
+    history.push(ADD_CATEGORY);
+  };
+
   const context = {
     categories,
-    handleEditProduct,
     setProductToDelete,
     handleDeleteProductModal,
-    handleEditSubcategory,
     setSubcategoryToDelete,
     handleDeleteSubcategoryModal,
-    handleAddProduct,
-    handleAddSubcategory,
+    setCategoryToDelete,
+    handleDeleteCategoryModal,
   };
 
   return (
     <ProductsContext.Provider value={context}>
+      <Box pt={3}>
+        <Grid container justify="flex-end">
+          <Box pb={3}>
+            <Button
+              variant="contained"
+              color="default"
+              onClick={handleAddCategory}
+            >
+              Nueva categoría
+            </Button>
+          </Box>
+        </Grid>
+      </Box>
       <TableContainer>
         <Categories />
 
@@ -116,6 +130,16 @@ export default function Products() {
           handleClose={handleDeleteProductModal}
           handleConfirm={handleConfirmDeleteProductModal}
           open={showDeleteProductModal}
+        />
+
+        <Modal
+          title="Eliminar categoria"
+          body="¿Estás seguro de eliminar la categoria?"
+          cancelButton="Cancelar"
+          confirmButton="Confirmar"
+          handleClose={handleDeleteCategoryModal}
+          handleConfirm={handleConfirmDeleteCategoryModal}
+          open={showDeleteCategoryModal}
         />
       </TableContainer>
     </ProductsContext.Provider>

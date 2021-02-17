@@ -21,6 +21,12 @@ export const ADD_SUBCATEGORY = '';
 export const UPDATE_SUBCATEGORY = ':id';
 export const DELETE_SUBCATEGORY = ':id';
 
+export const CATEGORIES_PREFIX = 'categories/';
+export const GET_CATEGORY = ':id';
+export const ADD_CATEGORY = '';
+export const UPDATE_CATEGORY = ':id';
+export const DELETE_CATEGORY = ':id';
+
 export const USERS_PREFIX = 'users/';
 export const LOGIN = 'login';
 export const SIGUNUP = 'signup';

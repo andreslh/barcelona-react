@@ -13,6 +13,8 @@ import EditSubcategory from './features/products/EditSubcategory';
 import Login from './features/users/Login';
 import ChangePassword from './features/users/ChangePassword';
 import EditTable from './features/tables/EditTable';
+import AddCategory from './features/products/AddCategory';
+import EditCategory from './features/products/EditCategory';
 import {
   ACTIVE_TABLE,
   ADD_PRODUCT,
@@ -26,22 +28,33 @@ import {
   LOGIN,
   CHANGE_PASSWORD,
   EDIT_TABLE,
+  ADD_CATEGORY,
+  EDIT_CATEGORY,
 } from './app/routes';
 
 function Router() {
   return (
     <Switch>
       <PrivateRoute path={NEW_TABLE} component={NewTable} />
+
       <PrivateRoute path={ADD_PRODUCTS} component={AddProducts} />
+
       <PrivateRoute path={ACTIVE_TABLE} component={Tables} />
       <PrivateRoute path={EDIT_TABLE} component={EditTable} />
+
       <PrivateRoute path={PRODUCTS} component={Products} />
       <PrivateRoute path={ADD_PRODUCT} component={AddProduct} />
       <PrivateRoute path={EDIT_PRODUCT} component={EditProduct} />
+
+      <PrivateRoute path={ADD_CATEGORY} component={AddCategory} />
+      <PrivateRoute path={EDIT_CATEGORY} component={EditCategory} />
+
       <PrivateRoute path={ADD_SUBCATEGORY} component={AddSubcategory} />
       <PrivateRoute path={EDIT_SUBCATEGORY} component={EditSubcategory} />
+
       <Route path={LOGIN} component={Login} />
       <PrivateRoute path={CHANGE_PASSWORD} component={ChangePassword} />
+
       <PrivateRoute path={HOME} component={Tables} />
     </Switch>
   );
