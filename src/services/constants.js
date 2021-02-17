@@ -20,4 +20,11 @@ export const ADD_SUBCATEGORY = '';
 export const UPDATE_SUBCATEGORY = ':id';
 export const DELETE_SUBCATEGORY = ':id';
 
+export const USERS_PREFIX = 'users/';
+export const LOGIN = 'login';
+export const SIGUNUP = 'signup';
+export const TOKEN = 'token';
+export const LOGOUT = 'logout';
+export const CHANGE_PASSWORD = 'change-passowrd';
+
 export const urlBuilder = (prefix) => (url) => `${prefix}${url}`;
