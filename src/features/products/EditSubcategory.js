@@ -19,17 +19,19 @@ export default function EditSubcategory() {
   const snackbar = useSnackbar();
 
   const [name, setName] = useState('');
+  const [categoryId, setCategoryId] = useState('');
 
   useEffect(() => {
     SubcategoriesService.getById(id).then((response) => {
       setName(response.subcategory.name);
+      setCategoryId(response.subcategory.categoryId);
     });
   }, [id]);
 
   const disabled = useMemo(() => !name, [name]);
 
   const handleSubmit = () => {
-    SubcategoriesService.update({ id, name }).then(() => {
+    SubcategoriesService.update({ id, name, categoryId }).then(() => {
       dispatch(resetProducts());
       snackbar.showMessage('Subcategoria actualizada');
       history.push(PRODUCTS);
@@ -39,16 +41,16 @@ export default function EditSubcategory() {
   return (
     <Grid
       container
-      justify='center'
+      justify="center"
       component={Paper}
       classes={{ root: 'flex-direction-column' }}
     >
       <Grid item mt={3}>
         <Box p={3}>
-          <Grid container justify='space-between'>
+          <Grid container justify="space-between">
             <h3>Editar subcategoria: {name}</h3>
             <Button
-              color='default'
+              color="default"
               onClick={() => {
                 history.push(PRODUCTS);
               }}

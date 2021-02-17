@@ -39,10 +39,10 @@ const request = function (options) {
       return refreshTokenAndRetry(options);
     }
 
-    console.error('Request Failed:', error.config);
     alert(
-      'Hubo un error al realizar la acción: ' + error.response.data.message
+      error.response?.data?.message || 'Hubo un error al realizar la acción'
     );
+    console.error('Request Failed:', error.config);
 
     if (error.response) {
       console.error('Status:', error.response.status);
