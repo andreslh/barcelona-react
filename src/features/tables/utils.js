@@ -31,8 +31,12 @@ const isNormalTable = (id) =>
 export const getTableTypeTitle = (table) =>
   isNormalTable(table.waiterId) ? 'Mesa' : 'Pedido';
 
-export const getActiveTableTitle = (table, waiters) =>
-  `${getTableTypeTitle(table)}: ${table.name} (${getWaiterName(
-    waiters,
-    table.waiterId
-  )})`;
+export const getActiveTableTitle = (table, waiters) => {
+  let title = `${getTableTypeTitle(table)}: ${table.name} `;
+  if (isNormalTable(table.waiterId)) {
+    title += ` - Atendida por: ${getWaiterName(waiters, table.waiterId)}`;
+  } else {
+    title += ` - ${getWaiterName(waiters, table.waiterId)}`;
+  }
+  return title;
+};
