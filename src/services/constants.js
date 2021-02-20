@@ -27,6 +27,14 @@ export const ADD_CATEGORY = '';
 export const UPDATE_CATEGORY = ':id';
 export const DELETE_CATEGORY = ':id';
 
+export const WAITERS_PREFIX = 'waiters/';
+export const GET_WAITERS = '';
+export const GET_WAITERS_WITH_TABLES = 'tables';
+export const GET_WAITER = ':id';
+export const ADD_WAITER = '';
+export const UPDATE_WAITER = ':id';
+export const DELETE_WAITER = ':id';
+
 export const USERS_PREFIX = 'users/';
 export const LOGIN = 'login';
 export const SIGUNUP = 'signup';

@@ -12,24 +12,30 @@ import {
   selectTables,
   setActive,
   selectActive,
-  deleteTable,
 } from './tablesSlice';
 import { selectProducts, setProducts } from '../products/productsSlice';
-import { isActiveParamValid } from './utils';
+import { getFirstTable, isActiveParamValid } from './utils';
 import TablesService from '../../services/tables';
 import ProductsService from '../../services/products';
-import { ACTIVE_TABLE, HOME, NEW_TABLE } from '../../app/routes';
+import { HOME, NEW_TABLE } from '../../app/routes';
+import WaitersService from '../../services/waiters';
+import { setWaiters } from '../waiters/waitersSlice';
 
 const Tables = () => {
   const history = useHistory();
   const { active } = useParams();
-  const tables = useSelector(selectTables);
+  const waitersWithTables = useSelector(selectTables);
   const activeTable = useSelector(selectActive);
   const products = useSelector(selectProducts);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    TablesService.getOpen().then((res) => dispatch(setTables(res.tables)));
+    WaitersService.getWithTables().then((res) =>
+      dispatch(setTables(res.waiters))
+    );
+    WaitersService.get().then((response) => {
+      dispatch(setWaiters(response.waiters));
+    });
   }, [dispatch]);
 
   useEffect(() => {
@@ -41,21 +47,27 @@ const Tables = () => {
   }, [dispatch, products?.length]);
 
   useEffect(() => {
-    if (tables.length && isActiveParamValid(active, activeTable, tables)) {
-      TablesService.getById(active ? active : tables[0].id).then((res) =>
-        dispatch(setActive(res.table))
-      );
+    if (
+      waitersWithTables.length &&
+      isActiveParamValid(active, activeTable, waitersWithTables)
+    ) {
+      TablesService.getById(
+        active ? active : getFirstTable(waitersWithTables).id
+      ).then((res) => dispatch(setActive(res.table)));
     }
-  }, [dispatch, active, tables, activeTable, activeTable?.id]);
+  }, [dispatch, active, waitersWithTables, activeTable, activeTable?.id]);
 
   function onDeleteOrCompleteTable() {
-    const nextActiveTable = tables.find((table) => table.id !== activeTable.id);
-    dispatch(deleteTable(activeTable.id));
-    if (nextActiveTable) {
-      history.push(ACTIVE_TABLE.replace(':active', nextActiveTable.id));
-    } else {
+    WaitersService.getWithTables().then((res) => {
+      dispatch(setTables(res.waiters));
+      const firstTable = getFirstTable(res.waiters);
+      if (firstTable) {
+        TablesService.getById(firstTable.id).then((res) =>
+          dispatch(setActive(res.table))
+        );
+      }
       history.push(HOME);
-    }
+    });
   }
 
   function handleCreateTable() {
@@ -64,18 +76,18 @@ const Tables = () => {
 
   return (
     <Box pt={3}>
-      <Grid container justify="flex-end">
+      <Grid container justify='flex-end'>
         <Box pb={3}>
           <Button
-            variant="contained"
-            color="default"
+            variant='contained'
+            color='default'
             onClick={handleCreateTable}
           >
             Nueva mesa
           </Button>
         </Box>
       </Grid>
-      {(tables.length && (
+      {(waitersWithTables.length && (
         <Grid container spacing={3}>
           <Grid item xs={12} md={3}>
             <TablesList />

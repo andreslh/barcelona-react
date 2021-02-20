@@ -21,25 +21,26 @@ const TableLink = styled(Link)`
 `;
 
 export default function TablesList() {
-  const tables = useSelector(selectTables);
+  const tablesByWaiter = useSelector(selectTables);
   const active = useSelector(selectActive);
 
-  return (
-    <TableContainer component={Paper}>
-      <Table aria-label="active tables">
+  const tablesList = [];
+  tablesByWaiter.forEach((waiter) => {
+    tablesList.push(
+      <Table key={waiter.id} aria-label='active tables'>
         <TableHead classes={{ root: 'table-header' }}>
           <TableRow>
-            <TableCell align="left">
-              <b>Mesas abiertas</b>
+            <TableCell align='left'>
+              <b>{waiter.name}</b>
             </TableCell>
           </TableRow>
         </TableHead>
 
         <TableBody>
-          {tables.map((table) => (
+          {waiter.Tables.map((table) => (
             <TableRow
               key={table.id}
-              data-testid="table-item"
+              data-testid='table-item'
               classes={{
                 root:
                   active?.id === table.id
@@ -47,7 +48,7 @@ export default function TablesList() {
                     : 'table-list-normal',
               }}
             >
-              <TableCell align="left">
+              <TableCell align='left'>
                 <TableLink to={`/tables/${table.id}`}>
                   <span>{table.name}</span>
                   <span>${table.total}</span>
@@ -57,6 +58,8 @@ export default function TablesList() {
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
-  );
+    );
+  });
+
+  return <TableContainer component={Paper}>{tablesList}</TableContainer>;
 }
