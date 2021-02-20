@@ -16,5 +16,9 @@ export const EDIT_CATEGORY = '/edit-category/:id';
 export const ADD_SUBCATEGORY = '/add-subcategory/:categoryId';
 export const EDIT_SUBCATEGORY = '/edit-subcategory/:id';
 
+export const WAITERS = '/waiters';
+export const ADD_WAITER = '/add-waiter/';
+export const EDIT_WAITER = '/edit-waiter/:id';
+
 export const LOGIN = '/login';
 export const CHANGE_PASSWORD = '/change-password';

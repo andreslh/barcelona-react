@@ -15,6 +15,9 @@ import ChangePassword from './features/users/ChangePassword';
 import EditTable from './features/tables/EditTable';
 import AddCategory from './features/products/AddCategory';
 import EditCategory from './features/products/EditCategory';
+import Waiters from './features/waiters/Waiters';
+import NewWaiter from './features/waiters/NewWaiter';
+import EditWaiter from './features/waiters/EditWaiter';
 import {
   ACTIVE_TABLE,
   ADD_PRODUCT,
@@ -30,6 +33,9 @@ import {
   EDIT_TABLE,
   ADD_CATEGORY,
   EDIT_CATEGORY,
+  WAITERS,
+  ADD_WAITER,
+  EDIT_WAITER,
 } from './app/routes';
 
 function Router() {
@@ -51,6 +57,10 @@ function Router() {
 
       <PrivateRoute path={ADD_SUBCATEGORY} component={AddSubcategory} />
       <PrivateRoute path={EDIT_SUBCATEGORY} component={EditSubcategory} />
+
+      <PrivateRoute path={WAITERS} component={Waiters} />
+      <PrivateRoute path={ADD_WAITER} component={NewWaiter} />
+      <PrivateRoute path={EDIT_WAITER} component={EditWaiter} />
 
       <Route path={LOGIN} component={Login} />
       <PrivateRoute path={CHANGE_PASSWORD} component={ChangePassword} />

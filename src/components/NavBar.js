@@ -10,7 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { PRODUCTS, LOGIN, CHANGE_PASSWORD } from '../app/routes';
+import { PRODUCTS, LOGIN, CHANGE_PASSWORD, WAITERS } from '../app/routes';
 import { logout, selectRole, selectTokens } from '../features/users/usersSlice';
 import { ROLES } from '../app/constants';
 import UsersService from '../services/users';
@@ -54,49 +54,54 @@ function NavBar() {
   const isAdmin = (role) => parseInt(role, 10) === ROLES.admin;
 
   return (
-    <AppBar classes={{ root: 'barcelona-app-bar' }} position="static">
+    <AppBar classes={{ root: 'barcelona-app-bar' }} position='static'>
       <Toolbar>
-        <Typography variant="h6" className={classes.title}>
+        <Typography variant='h6' className={classes.title}>
           Barcelona
         </Typography>
         {isLoggedIn && (
           <>
             <IconButton
-              edge="start"
+              edge='start'
               className={classes.menuButton}
-              color="inherit"
-              aria-label="menu"
-              aria-controls="header-menu"
-              aria-haspopup="true"
+              color='inherit'
+              aria-label='menu'
+              aria-controls='header-menu'
+              aria-haspopup='true'
               onClick={handleClick}
-              data-testid="header-menu-icon"
+              data-testid='header-menu-icon'
             >
               <MenuIcon />
             </IconButton>
 
             <Menu
-              id="header-menu"
+              id='header-menu'
               anchorEl={anchorEl}
               keepMounted
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
               <MenuItem onClick={handleClose}>
-                <Link to="/">Mesas</Link>
+                <Link to='/'>Mesas</Link>
               </MenuItem>
               {isAdmin(role) && (
                 <MenuItem onClick={handleClose}>
                   <Link to={PRODUCTS}>Productos</Link>
                 </MenuItem>
               )}
+              {isAdmin(role) && (
+                <MenuItem onClick={handleClose}>
+                  <Link to={WAITERS}>Mozos</Link>
+                </MenuItem>
+              )}
               <MenuItem onClick={handleClose}>
-                <Link to="/">Pedidos anteriores</Link>
+                <Link to='/'>Pedidos anteriores</Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
                 <Link to={CHANGE_PASSWORD}>Cambiar contraseña</Link>
               </MenuItem>
               <MenuItem onClick={handleLogout}>
-                <Link to="#">Cerrar sesión</Link>
+                <Link to='#'>Cerrar sesión</Link>
               </MenuItem>
             </Menu>
           </>

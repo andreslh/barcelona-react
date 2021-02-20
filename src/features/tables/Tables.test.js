@@ -38,7 +38,7 @@ describe('Tables', () => {
   it('it requests tables and active data', async () => {
     render(
       <MemoryRouter initialEntries={['tables/2']}>
-        <Route path="tables/:active">
+        <Route path='tables/:active'>
           <Provider store={store}>
             <Tables />
           </Provider>
@@ -47,7 +47,7 @@ describe('Tables', () => {
     );
 
     await waitFor(() => {
-      expect(mock.history.get).toHaveLength(3);
+      expect(mock.history.get).toHaveLength(2);
     });
 
     expect(screen.getAllByTestId('table-item').length).toBe(3);
