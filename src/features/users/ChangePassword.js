@@ -41,20 +41,20 @@ const ChangePassword = () => {
   return (
     <Grid
       container
-      justify="center"
+      justify='center'
       component={Paper}
       classes={{ root: 'flex-direction-column' }}
     >
       <Grid item mt={3}>
         <Box m={2}>
-          <h3>Iniciar sesión</h3>
+          <h3>Cambiar contraseña</h3>
         </Box>
         <Box m={2}>
           <TextField
-            id="login-password"
-            label="Contraseña actual"
+            id='login-password'
+            label='Contraseña actual'
             inputProps={{ 'data-testid': 'login-password', type: 'password' }}
-            variant="outlined"
+            variant='outlined'
             value={currentPassword}
             onChange={(e) => {
               setCurrentPassword(e.currentTarget.value);
@@ -63,10 +63,10 @@ const ChangePassword = () => {
         </Box>
         <Box m={2}>
           <TextField
-            id="login-password"
-            label="Nueva contraseña"
+            id='login-password'
+            label='Nueva contraseña'
             inputProps={{ 'data-testid': 'login-password', type: 'password' }}
-            variant="outlined"
+            variant='outlined'
             value={newPassword}
             onChange={(e) => {
               setNewPassword(e.currentTarget.value);
@@ -75,10 +75,10 @@ const ChangePassword = () => {
         </Box>
         <Box m={2}>
           <TextField
-            id="login-password"
-            label="Repetir nueva contraseña"
+            id='login-password'
+            label='Repetir nueva contraseña'
             inputProps={{ 'data-testid': 'login-password', type: 'password' }}
-            variant="outlined"
+            variant='outlined'
             value={repeatNewPassword}
             onChange={(e) => {
               setRepeatNewPassword(e.currentTarget.value);
@@ -87,17 +87,17 @@ const ChangePassword = () => {
         </Box>
         <Box m={2}>
           <Button
-            data-testid="confirm-add-table"
+            data-testid='confirm-add-table'
             disabled={isValid()}
-            variant="contained"
-            color="primary"
+            variant='contained'
+            color='primary'
             onClick={handleLogin}
           >
             Cambiar contraseña
           </Button>
           <Button
-            data-testid="cancel-add-table"
-            color="default"
+            data-testid='cancel-add-table'
+            color='default'
             onClick={handleReturn}
           >
             Cancelar
