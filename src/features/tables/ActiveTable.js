@@ -17,12 +17,15 @@ import { deleteTableProduct, selectActive } from './tablesSlice';
 import Modal from '../../components/Modal';
 import TablesService from '../../services/tables';
 import { ADD_PRODUCTS, EDIT_TABLE } from '../../app/routes';
+import { selectWaiters } from '../waiters/waitersSlice';
+import { getActiveTableTitle } from './utils';
 
 export default function ActiveTable({ onDelete, onComplete }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const snackbar = useSnackbar();
   const table = useSelector(selectActive);
+  const waiters = useSelector(selectWaiters);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showDeleteProductModal, setShowDeleteProductModal] = useState(false);
   const [showCompleteModal, setShowCompleteModal] = useState(false);
@@ -85,7 +88,7 @@ export default function ActiveTable({ onDelete, onComplete }) {
             classes={{ root: 'table-header' }}
           >
             <Box pl={3}>
-              <h4>Mesa: {table.name}</h4>
+              <h4>{getActiveTableTitle(table, waiters)}</h4>
             </Box>
             <Box m={2}>
               <Button color='default' onClick={handleEditTable}>

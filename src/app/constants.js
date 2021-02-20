@@ -8,3 +8,8 @@ export const ROLES = {
   admin: 1,
   manager: 2,
 };
+
+export const TABLE_TYPES = {
+  delivery: 1,
+  takeAway: 2,
+};
