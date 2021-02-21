@@ -18,6 +18,8 @@ import EditCategory from './features/products/EditCategory';
 import Waiters from './features/waiters/Waiters';
 import NewWaiter from './features/waiters/NewWaiter';
 import EditWaiter from './features/waiters/EditWaiter';
+import ClosedTables from './features/closedTables/ClosedTables';
+import ClosedTable from './features/closedTables/ClosedTable';
 import {
   ACTIVE_TABLE,
   ADD_PRODUCT,
@@ -36,11 +38,15 @@ import {
   WAITERS,
   ADD_WAITER,
   EDIT_WAITER,
+  CLOSED_TABLES,
+  CLOSED_TABLE,
 } from './app/routes';
 
 function Router() {
   return (
     <Switch>
+      <PrivateRoute path={CLOSED_TABLE} component={ClosedTable} />
+      <PrivateRoute path={CLOSED_TABLES} component={ClosedTables} />
       <PrivateRoute path={NEW_TABLE} component={NewTable} />
 
       <PrivateRoute path={ADD_PRODUCTS} component={AddProducts} />

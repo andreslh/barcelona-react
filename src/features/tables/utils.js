@@ -23,7 +23,7 @@ export const getFirstTable = (waitersWithTables) =>
   waitersWithTables.find((waiter) => waiter.Tables.length).Tables[0];
 
 export const getWaiterName = (waiters, waiterId) =>
-  waiters.find((waiter) => waiter.id === waiterId).name;
+  waiters?.find((waiter) => waiter.id === waiterId).name;
 
 const isNormalTable = (id) =>
   id !== TABLE_TYPES.delivery && id !== TABLE_TYPES.takeAway;

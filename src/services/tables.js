@@ -10,6 +10,7 @@ import {
   UPDATE_TABLE,
   TABLES_PREFIX,
   urlBuilder,
+  GET_CLOSED_TABLES,
 } from './constants';
 
 const getUrl = urlBuilder(TABLES_PREFIX);
@@ -18,6 +19,14 @@ function getOpen() {
   return request({
     url: getUrl(GET_TABLES),
     method: 'GET',
+  });
+}
+
+function getClosed(data) {
+  return request({
+    url: getUrl(GET_CLOSED_TABLES),
+    data,
+    method: 'POST',
   });
 }
 
@@ -80,6 +89,7 @@ function addProducts({ id, products }) {
 
 const TablesService = {
   getOpen,
+  getClosed,
   getById,
   remove,
   removeProduct,

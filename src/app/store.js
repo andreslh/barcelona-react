@@ -3,6 +3,7 @@ import tablesReducer from '../features/tables/tablesSlice';
 import productsReducer from '../features/products/productsSlice';
 import usersReducer from '../features/users/usersSlice';
 import waitersReducer from '../features/waiters/waitersSlice';
+import closedTablesReducer from '../features/closedTables/closedTablesSlice';
 
 export default configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
     products: productsReducer,
     users: usersReducer,
     waiters: waitersReducer,
+    closedTables: closedTablesReducer,
   },
 });

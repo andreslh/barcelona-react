@@ -10,7 +10,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { PRODUCTS, LOGIN, CHANGE_PASSWORD, WAITERS } from '../app/routes';
+import {
+  PRODUCTS,
+  LOGIN,
+  CHANGE_PASSWORD,
+  WAITERS,
+  CLOSED_TABLES,
+} from '../app/routes';
 import { logout, selectRole, selectTokens } from '../features/users/usersSlice';
 import { ROLES } from '../app/constants';
 import UsersService from '../services/users';
@@ -95,7 +101,7 @@ function NavBar() {
                 </MenuItem>
               )}
               <MenuItem onClick={handleClose}>
-                <Link to='/'>Pedidos anteriores</Link>
+                <Link to={CLOSED_TABLES}>Mesas cerradas</Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
                 <Link to={CHANGE_PASSWORD}>Cambiar contraseña</Link>

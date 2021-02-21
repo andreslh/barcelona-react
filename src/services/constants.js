@@ -1,5 +1,6 @@
 export const TABLES_PREFIX = 'tables/';
 export const GET_TABLES = 'open';
+export const GET_CLOSED_TABLES = 'closed';
 export const GET_TABLE = ':id';
 export const ADD_PRODUCTS = ':id/products';
 export const DELETE_TABLE = ':id';
