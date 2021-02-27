@@ -13,6 +13,7 @@ import styled from 'styled-components';
 import { selectActive, selectTables } from './tablesSlice';
 
 import './TablesList.css';
+import { ACTIVE_TABLE } from '../../app/routes';
 
 const TableLink = styled(Link)`
   display: flex;
@@ -49,7 +50,7 @@ export default function TablesList() {
               }}
             >
               <TableCell align='left'>
-                <TableLink to={`/tables/${table.id}`}>
+                <TableLink to={ACTIVE_TABLE.replace(':active', table.id)}>
                   <span>{table.name}</span>
                   <span>${table.total}</span>
                 </TableLink>

@@ -51,7 +51,7 @@ const NewTable = () => {
     >
       <Grid container justify='space-between' alignItems={'center'}>
         <Box m={2}>
-          <h3>Agregar mesa</h3>
+          <h3>Agregar mesa o pedido</h3>
         </Box>
         <Box m={2}>
           <Button

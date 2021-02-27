@@ -18,7 +18,7 @@ import Modal from '../../components/Modal';
 import TablesService from '../../services/tables';
 import { ADD_PRODUCTS, EDIT_TABLE } from '../../app/routes';
 import { selectWaiters } from '../waiters/waitersSlice';
-import { getActiveTableTitle } from './utils';
+import { getActiveTableTitle, isNormalTable } from './utils';
 
 export default function ActiveTable({ onDelete, onComplete }) {
   const history = useHistory();
@@ -149,7 +149,7 @@ export default function ActiveTable({ onDelete, onComplete }) {
                 color='primary'
                 onClick={handleCompleteModal}
               >
-                Cerrar mesa
+                {`Cerrar ${isNormalTable(table.waiterId) ? 'mesa' : 'pedido'}`}
               </Button>
             </Box>
             <Box pr={3} m={2}>

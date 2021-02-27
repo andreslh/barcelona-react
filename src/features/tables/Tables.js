@@ -83,7 +83,7 @@ const Tables = () => {
             color='default'
             onClick={handleCreateTable}
           >
-            Nueva mesa
+            Nueva mesa o pedido
           </Button>
         </Box>
       </Grid>

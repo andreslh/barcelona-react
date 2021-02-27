@@ -25,7 +25,7 @@ export const getFirstTable = (waitersWithTables) =>
 export const getWaiterName = (waiters, waiterId) =>
   waiters?.find((waiter) => waiter.id === waiterId).name;
 
-const isNormalTable = (id) =>
+export const isNormalTable = (id) =>
   id !== TABLE_TYPES.delivery && id !== TABLE_TYPES.takeAway;
 
 export const getTableTypeTitle = (table) =>
