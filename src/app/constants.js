@@ -18,3 +18,5 @@ export const TABLE_TYPES_TITLES = {
   delivery: 'Delivery',
   takeAway: 'Para retirar',
 };
+
+export const ORDER_TYPE_MAX = 2;

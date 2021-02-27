@@ -10,14 +10,13 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
 import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 import TablesService from '../../services/tables';
-import { TABLE_TYPES, TABLE_TYPES_TITLES } from '../../app/constants';
 import { useHistory } from 'react-router-dom';
 import { CLOSED_TABLE } from '../../app/routes';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,27 +29,27 @@ import {
   setEndDate,
   setStartDate,
 } from './closedTablesSlice';
-
-const TYPES = {
-  tables: 'tables',
-  orders: 'orders',
-};
-
-const isOrder = (type) => type === TYPES.orders;
-
-const getOrderTypeTitle = (waiterId) =>
-  waiterId === TABLE_TYPES.delivery
-    ? TABLE_TYPES_TITLES.delivery
-    : TABLE_TYPES_TITLES.takeAway;
+import {
+  getFiltersList,
+  getOrderTypeTitle,
+  getTotal,
+  getWaiterId,
+  isOrder,
+  TYPES,
+} from './helpers';
+import Datepicker from '../../components/Datepicker';
 
 export default function ClosedTables() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [tables, setTables] = useState([]);
   const startDate = useSelector(selectStartDate);
   const endDate = useSelector(selectEndDate);
-  const [type, setType] = useState(TYPES.tables);
   const waiters = useSelector(selectWaiters);
+  const [tables, setTables] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [type, setType] = useState(TYPES.tables);
+  const [selectedFilter, setSelectedFilter] = useState(TYPES.tables);
+  const [submittedType, setSubmittedType] = useState(TYPES.tables);
   const [firstRender, setFirstRender] = useState(true);
 
   useEffect(() => {
@@ -67,21 +66,35 @@ export default function ClosedTables() {
         startDate,
         endDate,
         type: TYPES.tables,
-      }).then((response) => {
-        setTables(response.tables);
+        waiterId: null,
+      }).then(({ tables }) => {
+        setTables(tables);
+        setTotal(getTotal(tables));
       });
       setFirstRender(false);
     }
   }, [startDate, endDate, firstRender]);
 
-  const handleRequest = (listType) => {
+  const handleRequest = () => {
     TablesService.getClosed({
       startDate,
       endDate,
-      type: listType,
-    }).then((response) => {
-      setTables(response.tables);
+      type,
+      waiterId: getWaiterId(selectedFilter),
+    }).then(({ tables }) => {
+      setSubmittedType(type);
+      setTables(tables);
+      setTotal(getTotal(tables));
     });
+  };
+
+  const handleWaiterChange = (e) => {
+    const type = e.currentTarget[e.currentTarget.selectedIndex].getAttribute(
+      'data-type'
+    );
+    const value = e.currentTarget.value;
+    setType(type);
+    setSelectedFilter(value);
   };
 
   const handleStartDateChange = (date) => {
@@ -95,6 +108,8 @@ export default function ClosedTables() {
   const handleViewDetails = (id) => {
     history.push(CLOSED_TABLE.replace(':id', id));
   };
+
+  const filtersList = getFiltersList(waiters);
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -111,55 +126,42 @@ export default function ClosedTables() {
             </Box>
             <Box m={2}>
               <Grid container justify='space-between' alignItems='center'>
-                <KeyboardDatePicker
-                  disableToolbar
-                  variant='inline'
-                  format='dd-MM-yyyy'
-                  margin='normal'
-                  id='date-picker-start'
+                <Datepicker
                   label='Fecha desde'
                   value={startDate}
                   onChange={handleStartDateChange}
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                  }}
                 />
-                <KeyboardDatePicker
-                  disableToolbar
-                  variant='inline'
-                  format='dd-MM-yyyy'
-                  margin='normal'
-                  id='date-picker-end'
+                <Datepicker
                   label='Fecha hasta'
                   value={endDate}
                   onChange={handleEndDateChange}
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                  }}
                 />
-                <Box ml={2}>
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    onClick={() => {
-                      setType(TYPES.tables);
-                      handleRequest(TYPES.tables);
-                    }}
-                  >
-                    Ver mesas
-                  </Button>
+                <Box m={2}>
+                  <FormControl variant='filled'>
+                    <InputLabel htmlFor='waiters-list'>Ver filtrado</InputLabel>
+                    <Select
+                      native
+                      value={selectedFilter || ''}
+                      onChange={handleWaiterChange}
+                      inputProps={{
+                        name: 'filter-list',
+                        id: 'filter-list',
+                      }}
+                    >
+                      <option aria-label='None' value='' />
+                      {filtersList}
+                    </Select>
+                  </FormControl>
                 </Box>
 
-                <Box ml={2}>
+                <Box m={2}>
                   <Button
+                    data-testid='submit-table-btn'
                     variant='contained'
                     color='primary'
-                    onClick={() => {
-                      setType(TYPES.orders);
-                      handleRequest(TYPES.orders);
-                    }}
+                    onClick={handleRequest}
                   >
-                    Ver pedidos
+                    Buscar
                   </Button>
                 </Box>
               </Grid>
@@ -173,7 +175,7 @@ export default function ClosedTables() {
                 <TableCell align='left'>Nombre</TableCell>
                 <TableCell align='left'>Total</TableCell>
                 <TableCell align='left'>
-                  {isOrder(type) ? 'Tipo' : 'Atendida por'}
+                  {isOrder(submittedType) ? 'Tipo' : 'Atendida por'}
                 </TableCell>
                 <TableCell align='left'></TableCell>
               </TableRow>
@@ -190,7 +192,7 @@ export default function ClosedTables() {
                   <TableCell align='left'>{table.name}</TableCell>
                   <TableCell align='left'>${table.total}</TableCell>
                   <TableCell align='left'>
-                    {isOrder(type)
+                    {isOrder(submittedType)
                       ? getOrderTypeTitle(table.waiterId)
                       : getWaiterName(waiters, table.waiterId)}
                   </TableCell>
@@ -210,6 +212,12 @@ export default function ClosedTables() {
             </TableBody>
           </Table>
         </TableContainer>
+
+        <Grid container justify='space-between' component={Paper}>
+          <Box pl={3}>
+            <h4>Total: ${total}</h4>
+          </Box>
+        </Grid>
       </Box>
     </MuiPickersUtilsProvider>
   );
