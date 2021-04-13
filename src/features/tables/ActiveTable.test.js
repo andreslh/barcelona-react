@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 
 import activeTable from './mocks/activeTable.json';
+import waiters from './mocks/waiters.json';
 import ActiveTable from './ActiveTable';
 import createApiMock from '../../app/createApiMock';
 import {
@@ -27,6 +28,9 @@ const mockStore = configureStore();
 const store = mockStore({
   tables: {
     active: activeTable.table,
+  },
+  waiters: {
+    data: waiters.waiters,
   },
 });
 

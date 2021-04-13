@@ -6,10 +6,12 @@ import { MemoryRouter } from 'react-router-dom';
 import createApiMock from '../../app/createApiMock';
 import store from '../../app/store';
 import { mockAddTable } from './mocks/tables';
+import { mockWaiters } from './mocks/waiters';
 import NewTable from './NewTable';
 
 const mockHistoryPush = jest.fn();
 const mockHistoryGoBack = jest.fn();
+const mockShowMessage = jest.fn();
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -19,12 +21,20 @@ jest.mock('react-router-dom', () => ({
   }),
 }));
 
+jest.mock('material-ui-snackbar-provider', () => ({
+  ...jest.requireActual('material-ui-snackbar-provider'),
+  useSnackbar: () => ({
+    showMessage: mockShowMessage,
+  }),
+}));
+
 describe('NewTable', () => {
   let mock;
 
   beforeEach(() => {
     mock = createApiMock();
     mockAddTable(mock);
+    mockWaiters(mock);
 
     render(
       <MemoryRouter>
@@ -38,9 +48,17 @@ describe('NewTable', () => {
   it('prevents submit with empty name', () => {
     const nameInput = screen.getByTestId('table-name');
     fireEvent.change(nameInput, { target: { value: 'A' } });
+    const waitersList = screen.getByTestId('waiters-list');
+    fireEvent.change(waitersList, { target: { value: '1' } });
     expect(screen.getByTestId('submit-table-btn')).toBeEnabled();
 
     fireEvent.change(nameInput, { target: { value: '' } });
+    expect(screen.getByTestId('submit-table-btn')).not.toBeEnabled();
+  });
+
+  it('prevents submit with empty waiter', () => {
+    const nameInput = screen.getByTestId('table-name');
+    fireEvent.change(nameInput, { target: { value: 'A' } });
     expect(screen.getByTestId('submit-table-btn')).not.toBeEnabled();
   });
 
@@ -54,15 +72,16 @@ describe('NewTable', () => {
   it('sends post request and redirects if it is succesful', async () => {
     const nameInput = screen.getByTestId('table-name');
     fireEvent.change(nameInput, { target: { value: 'Andres' } });
+    const waitersList = screen.getByTestId('waiters-list');
+    fireEvent.change(waitersList, { target: { value: '1' } });
     const button = screen.getByTestId('submit-table-btn');
     fireEvent.click(button);
 
     await waitFor(() => {
-      expect(mock.history.post.length).toBe(1);
+      expect(mockHistoryPush).toHaveBeenCalledWith('/agregar-productos');
     });
 
-    expect(mock.history.post[0].data).toBe('{"name":"Andres"}');
-
-    expect(mockHistoryPush).toHaveBeenCalledWith('/add-products');
+    expect(mock.history.post.length).toBe(1);
+    expect(mock.history.post[0].data).toBe('{"name":"Andres","waiterId":"1"}');
   });
 });

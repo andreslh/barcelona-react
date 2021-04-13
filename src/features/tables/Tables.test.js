@@ -8,6 +8,7 @@ import createApiMock from '../../app/createApiMock';
 import { mockActiveTable, mockTables } from './mocks/tables';
 import Tables from './Tables';
 import { mockProducts } from '../products/mocks/products';
+import { mockWaiters, mockWaitersWithTables } from './mocks/waiters';
 
 describe('Tables', () => {
   let mock;
@@ -15,6 +16,8 @@ describe('Tables', () => {
   beforeEach(() => {
     mock = createApiMock();
     mockTables(mock);
+    mockWaiters(mock);
+    mockWaitersWithTables(mock);
     mockProducts(mock);
     mockActiveTable(mock, 1);
     mockActiveTable(mock, 2);
@@ -30,15 +33,15 @@ describe('Tables', () => {
     );
 
     await waitFor(() => {
-      expect(mock.history.get).toHaveLength(3);
-      expect(mock.history.get[2].url).toContain('tables/1');
+      expect(mock.history.get).toHaveLength(4);
+      expect(mock.history.get[3].url).toContain('tables/1');
     });
   });
 
   it('it requests tables and active data', async () => {
     render(
-      <MemoryRouter initialEntries={['tables/2']}>
-        <Route path='tables/:active'>
+      <MemoryRouter initialEntries={['mesas/2']}>
+        <Route path="mesas/:active">
           <Provider store={store}>
             <Tables />
           </Provider>
@@ -47,7 +50,7 @@ describe('Tables', () => {
     );
 
     await waitFor(() => {
-      expect(mock.history.get).toHaveLength(2);
+      expect(mock.history.get).toHaveLength(4);
     });
 
     expect(screen.getAllByTestId('table-item').length).toBe(3);

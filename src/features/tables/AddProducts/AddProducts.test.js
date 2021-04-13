@@ -137,7 +137,7 @@ describe('AddProducts', () => {
     });
 
     expect(mock.history.post[0].data).toBe('[{"id":1,"quantity":"5"}]');
-    expect(mockHistoryPush).toHaveBeenCalledWith('/tables/1');
+    expect(mockHistoryPush).toHaveBeenCalledWith('/mesas/1');
   });
 });
 
