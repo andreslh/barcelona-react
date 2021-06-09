@@ -17,9 +17,10 @@ import { selectProducts, setProducts } from '../products/productsSlice';
 import { getFirstTable, isActiveParamValid } from './utils';
 import TablesService from '../../services/tables';
 import ProductsService from '../../services/products';
-import { HOME, NEW_TABLE } from '../../app/routes';
+import { HOME, LOGIN, NEW_TABLE } from '../../app/routes';
 import WaitersService from '../../services/waiters';
 import { setWaiters } from '../waiters/waitersSlice';
+import { selectForceLogin } from '../users/usersSlice';
 
 const Tables = () => {
   const history = useHistory();
@@ -27,6 +28,7 @@ const Tables = () => {
   const waitersWithTables = useSelector(selectTables);
   const activeTable = useSelector(selectActive);
   const products = useSelector(selectProducts);
+  const forceLogin = useSelector(selectForceLogin);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -57,6 +59,12 @@ const Tables = () => {
     }
   }, [dispatch, active, waitersWithTables, activeTable, activeTable?.id]);
 
+  useEffect(() => {
+    if (forceLogin) {
+      history.push(LOGIN);
+    }
+  }, [history, forceLogin]);
+
   function onDeleteOrCompleteTable() {
     WaitersService.getWithTables().then((res) => {
       dispatch(setTables(res.waiters));
@@ -76,11 +84,11 @@ const Tables = () => {
 
   return (
     <Box pt={3}>
-      <Grid container justify='flex-end'>
+      <Grid container justify="flex-end">
         <Box pb={3}>
           <Button
-            variant='contained'
-            color='default'
+            variant="contained"
+            color="default"
             onClick={handleCreateTable}
           >
             Nueva mesa o pedido

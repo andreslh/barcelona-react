@@ -8,7 +8,7 @@
  */
 
 import axios from 'axios';
-import { updateAccessToken } from '../features/users/usersSlice';
+import { forceLogin, updateAccessToken } from '../features/users/usersSlice';
 import {
   ACCESS_TOKEN,
   API_URL,
@@ -64,10 +64,15 @@ const refreshTokenAndRetry = (options) => {
     method: 'POST',
     url: '/users/token',
     data: { token: refreshToken },
-  }).then((response) => {
-    store.dispatch(updateAccessToken(response.data.accessToken));
-    return request(options);
-  });
+  })
+    .then((response) => {
+      store.dispatch(updateAccessToken(response.data.accessToken));
+      return request(options);
+    })
+    .catch(() => {
+      store.dispatch(forceLogin());
+      return Promise.reject();
+    });
 };
 
 export default request;

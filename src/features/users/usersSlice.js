@@ -8,6 +8,7 @@ export const usersSlice = createSlice({
     accessToken: '',
     refreshToken: '',
     role: null,
+    forceLogin: false,
   },
   reducers: {
     login: (state, action) => {
@@ -15,6 +16,7 @@ export const usersSlice = createSlice({
       state.accessToken = accessToken;
       state.refreshToken = refreshToken;
       state.role = role;
+      state.forceLogin = false;
       localStorage.setItem(ACCESS_TOKEN, accessToken);
       localStorage.setItem(REFRESH_TOKEN, refreshToken);
       localStorage.setItem(STORED_ROLE, role);
@@ -23,6 +25,7 @@ export const usersSlice = createSlice({
       state.accessToken = '';
       state.refreshToken = '';
       state.role = null;
+      state.forceLogin = false;
       localStorage.removeItem(ACCESS_TOKEN);
       localStorage.removeItem(REFRESH_TOKEN);
       localStorage.removeItem(STORED_ROLE);
@@ -30,17 +33,18 @@ export const usersSlice = createSlice({
     updateAccessToken: (state, action) => {
       const accessToken = action.payload;
       state.accessToken = accessToken;
+      state.forceLogin = false;
       localStorage.setItem(ACCESS_TOKEN, accessToken);
+    },
+    forceLogin: (state) => {
+      console.log('forced');
+      state.forceLogin = true;
     },
   },
 });
 
-export const {
-  setTokens,
-  login,
-  logout,
-  updateAccessToken,
-} = usersSlice.actions;
+export const { setTokens, login, logout, updateAccessToken, forceLogin } =
+  usersSlice.actions;
 
 export const selectTokens = (state) => ({
   accessToken: state.users.accessToken || localStorage.getItem(ACCESS_TOKEN),
@@ -48,5 +52,6 @@ export const selectTokens = (state) => ({
 });
 export const selectRole = (state) =>
   state.users.role || localStorage.getItem(STORED_ROLE);
+export const selectForceLogin = (state) => state.users.forceLogin;
 
 export default usersSlice.reducer;
