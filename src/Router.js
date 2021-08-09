@@ -20,6 +20,8 @@ import NewWaiter from './features/waiters/NewWaiter';
 import EditWaiter from './features/waiters/EditWaiter';
 import ClosedTables from './features/closedTables/ClosedTables';
 import ClosedTable from './features/closedTables/ClosedTable';
+import Users from './features/users/Users';
+import ResetPassword from './features/users/ResetPassword';
 import {
   ACTIVE_TABLE,
   ADD_PRODUCT,
@@ -40,6 +42,8 @@ import {
   EDIT_WAITER,
   CLOSED_TABLES,
   CLOSED_TABLE,
+  USERS,
+  RESET_PASSWORD,
 } from './app/routes';
 
 function Router() {
@@ -67,6 +71,9 @@ function Router() {
       <PrivateRoute path={WAITERS} component={Waiters} />
       <PrivateRoute path={ADD_WAITER} component={NewWaiter} />
       <PrivateRoute path={EDIT_WAITER} component={EditWaiter} />
+
+      <PrivateRoute path={USERS} component={Users} />
+      <PrivateRoute path={RESET_PASSWORD} component={ResetPassword} />
 
       <Route path={LOGIN} component={Login} />
       <PrivateRoute path={CHANGE_PASSWORD} component={ChangePassword} />

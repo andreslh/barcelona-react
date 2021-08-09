@@ -16,6 +16,7 @@ import {
   CHANGE_PASSWORD,
   WAITERS,
   CLOSED_TABLES,
+  USERS,
 } from '../app/routes';
 import { logout, selectRole, selectTokens } from '../features/users/usersSlice';
 import { ROLES } from '../app/constants';
@@ -98,6 +99,11 @@ function NavBar() {
               {isAdmin(role) && (
                 <MenuItem onClick={handleClose}>
                   <Link to={WAITERS}>Mozos</Link>
+                </MenuItem>
+              )}
+              {isAdmin(role) && (
+                <MenuItem onClick={handleClose}>
+                  <Link to={USERS}>Usuarios</Link>
                 </MenuItem>
               )}
               <MenuItem onClick={handleClose}>

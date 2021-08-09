@@ -1,32 +1,33 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { useHistory } from 'react-router-dom';
+import { useSnackbar } from 'material-ui-snackbar-provider';
 
-import { TABLES } from '../../app/routes';
+import { USERS } from '../../app/routes';
 import UsersService from '../../services/users';
-import { login } from './usersSlice';
 
-const Login = () => {
-  const [email, setEmail] = useState('admin@admin.com');
-  const [password, setPassword] = useState('admin');
+const ResetPassword = () => {
+  const [newPassword, setNewPassword] = useState('');
+  const { id, email } = useParams();
   const history = useHistory();
-  const dispatch = useDispatch();
+  const snackbar = useSnackbar();
 
-  const handleLogin = () => {
-    UsersService.login({ email, password }).then((response) => {
-      dispatch(login(response));
-      history.push(TABLES);
+  const handleChangePassword = () => {
+    UsersService.resetPassword({ id, newPassword }).then(() => {
+      snackbar.showMessage('Contraseña reseteada');
+      history.push(USERS);
     });
   };
 
   const handleReturn = () => {
     history.goBack();
   };
+
+  const isValid = () => !newPassword.length;
 
   return (
     <Grid
@@ -37,41 +38,29 @@ const Login = () => {
     >
       <Grid item mt={3}>
         <Box m={2}>
-          <h3>Iniciar sesión</h3>
-        </Box>
-        <Box m={2}>
-          <TextField
-            id='login-email'
-            label='Email'
-            inputProps={{ 'data-testid': 'login-email', type: 'email' }}
-            variant='outlined'
-            value={email}
-            onChange={(e) => {
-              setEmail(e.currentTarget.value);
-            }}
-          />
+          <h3>Resetear contraseña de: {email}</h3>
         </Box>
         <Box m={2}>
           <TextField
             id='login-password'
-            label='Contraseña'
+            label='Nueva contraseña'
             inputProps={{ 'data-testid': 'login-password', type: 'password' }}
             variant='outlined'
-            value={password}
+            value={newPassword}
             onChange={(e) => {
-              setPassword(e.currentTarget.value);
+              setNewPassword(e.currentTarget.value);
             }}
           />
         </Box>
         <Box m={2}>
           <Button
             data-testid='confirm-add-table'
-            disabled={!email.length || !password.length}
+            disabled={isValid()}
             variant='contained'
             color='primary'
-            onClick={handleLogin}
+            onClick={handleChangePassword}
           >
-            Iniciar sesión
+            Cambiar contraseña
           </Button>
           <Button
             data-testid='cancel-add-table'
@@ -86,4 +75,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ResetPassword;

@@ -20,7 +20,7 @@ const ChangePassword = () => {
   const dispatch = useDispatch();
   const snackbar = useSnackbar();
 
-  const handleLogin = () => {
+  const handleChangePassword = () => {
     UsersService.changePassword({ currentPassword, newPassword }).then(() => {
       snackbar.showMessage('Contraseña actualizada');
       dispatch(logout());
@@ -91,7 +91,7 @@ const ChangePassword = () => {
             disabled={isValid()}
             variant='contained'
             color='primary'
-            onClick={handleLogin}
+            onClick={handleChangePassword}
           >
             Cambiar contraseña
           </Button>

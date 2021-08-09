@@ -22,5 +22,8 @@ export const WAITERS = '/mozos';
 export const ADD_WAITER = '/agregar-mozo/';
 export const EDIT_WAITER = '/editar-mozo/:id';
 
+export const USERS = '/usuarios';
+export const RESET_PASSWORD = '/resetear-password/:id/:email';
+
 export const LOGIN = '/login';
 export const CHANGE_PASSWORD = '/change-password';

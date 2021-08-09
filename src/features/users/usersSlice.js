@@ -8,6 +8,7 @@ export const usersSlice = createSlice({
     accessToken: '',
     refreshToken: '',
     role: null,
+    usersByRole: [],
   },
   reducers: {
     login: (state, action) => {
@@ -32,15 +33,14 @@ export const usersSlice = createSlice({
       state.accessToken = accessToken;
       localStorage.setItem(ACCESS_TOKEN, accessToken);
     },
+    setUsersByRole: (state, action) => {
+      state.usersByRole = action.payload;
+    },
   },
 });
 
-export const {
-  setTokens,
-  login,
-  logout,
-  updateAccessToken,
-} = usersSlice.actions;
+export const { setTokens, login, logout, updateAccessToken, setUsersByRole } =
+  usersSlice.actions;
 
 export const selectTokens = (state) => ({
   accessToken: state.users.accessToken || localStorage.getItem(ACCESS_TOKEN),
@@ -48,5 +48,6 @@ export const selectTokens = (state) => ({
 });
 export const selectRole = (state) =>
   state.users.role || localStorage.getItem(STORED_ROLE);
+export const selectUserByRole = (state) => state.users.usersByRole;
 
 export default usersSlice.reducer;

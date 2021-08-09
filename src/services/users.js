@@ -6,6 +6,8 @@ import {
   urlBuilder,
   CHANGE_PASSWORD,
   LOGOUT,
+  RESET_PASSWORD,
+  GET_BY_ROLE,
 } from './constants';
 
 const getUrl = urlBuilder(USERS_PREFIX);
@@ -42,11 +44,28 @@ function changePassword(data) {
   });
 }
 
+function getByRole(role) {
+  return request({
+    url: getUrl(GET_BY_ROLE.replace(':role', role)),
+    method: 'GET',
+  });
+}
+
+function resetPassword(data) {
+  return request({
+    url: getUrl(RESET_PASSWORD),
+    method: 'PUT',
+    data,
+  });
+}
+
 const UsersService = {
   login,
   token,
   logout,
   changePassword,
+  getByRole,
+  resetPassword,
 };
 
 export default UsersService;
