@@ -1,0 +1,28 @@
+{
+  "waiters": [
+    {
+      "id": 1,
+      "name": "Delivery",
+      "createdAt": "2021-04-09T14:57:55.352Z",
+      "updatedAt": "2021-04-09T14:57:55.352Z"
+    },
+    {
+      "id": 2,
+      "name": "Para retirar",
+      "createdAt": "2021-04-09T14:57:55.352Z",
+      "updatedAt": "2021-04-09T14:57:55.352Z"
+    },
+    {
+      "id": 3,
+      "name": "Eduardo",
+      "createdAt": "2021-04-09T14:57:55.352Z",
+      "updatedAt": "2021-04-09T14:57:55.352Z"
+    },
+    {
+      "id": 4,
+      "name": "Nuevo mozo",
+      "createdAt": "2021-04-09T14:57:55.352Z",
+      "updatedAt": "2021-04-09T14:57:55.352Z"
+    }
+  ]
+}

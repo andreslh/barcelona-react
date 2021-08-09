@@ -31,18 +31,18 @@ export default function TableForm({
       <Grid container mt={3} justify={'flex-start'}>
         <Box m={2}>
           <TextField
-            id='table-name'
-            label='Nombre'
+            id="table-name"
+            label="Nombre"
             inputProps={{ 'data-testid': 'table-name' }}
-            variant='outlined'
+            variant="outlined"
             value={name}
             onChange={onNameChange}
           />
         </Box>
         {waiters && (
           <Box m={2}>
-            <FormControl variant='filled'>
-              <InputLabel htmlFor='waiters-list'>Mozo</InputLabel>
+            <FormControl variant="filled">
+              <InputLabel htmlFor="waiters-list">Mozo</InputLabel>
               <Select
                 native
                 value={selectedWaiter || ''}
@@ -50,9 +50,10 @@ export default function TableForm({
                 inputProps={{
                   name: 'waiters-list',
                   id: 'waiters-list',
+                  'data-testid': 'waiters-list',
                 }}
               >
-                <option aria-label='None' value='' />
+                <option aria-label="None" value="" />
                 {waitersList}
               </Select>
             </FormControl>
@@ -61,10 +62,10 @@ export default function TableForm({
       </Grid>
       <Box m={2}>
         <Button
-          data-testid='submit-table-btn'
+          data-testid="submit-table-btn"
           disabled={disabled}
-          variant='contained'
-          color='primary'
+          variant="contained"
+          color="primary"
           onClick={onSubmit}
         >
           {submitText}
