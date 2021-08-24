@@ -45,9 +45,10 @@ export default function AddProducts() {
   const handleProductChecked = (id) =>
     setAddedProducts(updateProductChecked(id, addedProducts));
 
-  const handleProductQuantity = (id, action, quantity) => {
+  const handleProductQuantity = ({ id, action, quantity, isHalf }) => {
+    console.log(isHalf);
     setAddedProducts(
-      updateProductQuantity(id, action, quantity, addedProducts)
+      updateProductQuantity(id, action, quantity, addedProducts, isHalf)
     );
   };
 

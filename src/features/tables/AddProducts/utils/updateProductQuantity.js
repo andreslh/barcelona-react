@@ -1,12 +1,14 @@
-const updateProductQuantity = (id, action, quantity, addedProducts) => {
+const updateProductQuantity = (id, action, quantity, addedProducts, isHalf) => {
   const newAddedProducts = [...addedProducts];
+  console.log(isHalf);
+  const newAddedOrSubstractedQuantity = isHalf ? 0.5 : 1;
   const productIndex = newAddedProducts.findIndex(
     (product) => product.id === id
   );
   let newQuantity = newAddedProducts[productIndex].quantity;
   if (action !== null) {
     const currentQuantity = newAddedProducts[productIndex].quantity;
-    newQuantity = action ? currentQuantity + 1 : currentQuantity - 1;
+    newQuantity = action ? currentQuantity + newAddedOrSubstractedQuantity : currentQuantity - newAddedOrSubstractedQuantity;
   } else {
     newQuantity = quantity;
   }

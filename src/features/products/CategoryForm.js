@@ -1,12 +1,17 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import { FormControlLabel, FormGroup } from '@material-ui/core';
 
 export default function CategoryForm({
   name,
   onNameChange,
+  isSubcategory,
+  allowHalf,
+  onAllowHalfChange,
   onSubmit,
   submitText,
   disabled,
@@ -23,6 +28,11 @@ export default function CategoryForm({
           value={name}
           onChange={onNameChange}
         />
+        {isSubcategory && (
+          <FormGroup>
+            <FormControlLabel control={<Checkbox checked={allowHalf} onChange={onAllowHalfChange} />} label="Permitir mitad" />
+          </FormGroup>
+        )}
       </Box>
       <Box m={2}>
         <Button

@@ -20,6 +20,7 @@ export default function AddSubcategory() {
   const snackbar = useSnackbar();
 
   const [name, setName] = useState('');
+  const [allowHalf, setAllowHalf] = useState(false);
   const [categoryName, setCategoryName] = useState('');
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export default function AddSubcategory() {
   const disabled = useMemo(() => !name, [name]);
 
   const handleSubmit = () => {
-    SubcategoriesService.create({ categoryId, name }).then(() => {
+    SubcategoriesService.create({ categoryId, name, allowHalf }).then(() => {
       dispatch(resetProducts());
       snackbar.showMessage('Subcategoria agregada');
       history.push(PRODUCTS);
@@ -66,6 +67,9 @@ export default function AddSubcategory() {
           <CategoryForm
             name={name}
             onNameChange={(e) => setName(e.currentTarget.value)}
+            isSubcategory={true}
+            allowHalf={allowHalf}
+            onAllowHalfChange={(e) => { console.log(e.target.checked); setAllowHalf(e.target.checked) }}
             onSubmit={handleSubmit}
             submitText={'Agregar'}
             disabled={disabled}

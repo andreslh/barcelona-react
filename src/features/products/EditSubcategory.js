@@ -19,11 +19,13 @@ export default function EditSubcategory() {
   const snackbar = useSnackbar();
 
   const [name, setName] = useState('');
+  const [allowHalf, setAllowHalf] = useState(false);
   const [categoryId, setCategoryId] = useState('');
 
   useEffect(() => {
     SubcategoriesService.getById(id).then((response) => {
       setName(response.subcategory.name);
+      setAllowHalf(response.subcategory.allowHalf || false);
       setCategoryId(response.subcategory.categoryId);
     });
   }, [id]);
@@ -31,7 +33,7 @@ export default function EditSubcategory() {
   const disabled = useMemo(() => !name, [name]);
 
   const handleSubmit = () => {
-    SubcategoriesService.update({ id, name, categoryId }).then(() => {
+    SubcategoriesService.update({ id, name, categoryId, allowHalf }).then(() => {
       dispatch(resetProducts());
       snackbar.showMessage('Subcategoria actualizada');
       history.push(PRODUCTS);
@@ -63,6 +65,9 @@ export default function EditSubcategory() {
           <CategoryForm
             name={name}
             onNameChange={(e) => setName(e.currentTarget.value)}
+            isSubcategory={true}
+            allowHalf={allowHalf}
+            onAllowHalfChange={(e) => setAllowHalf(e.target.checked)}
             onSubmit={handleSubmit}
             submitText={'Editar'}
             disabled={disabled}

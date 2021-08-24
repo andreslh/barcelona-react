@@ -16,3 +16,9 @@ export const ProductButtons = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
+export const ProductButtonsHalf = styled.div`
+  width: 50px;
+  display: flex;
+  justify-content: space-between;
+`;

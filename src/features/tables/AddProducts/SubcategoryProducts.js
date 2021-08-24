@@ -10,6 +10,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AddProductsContext from './AddProductsContext';
 import {
   ProductButtons,
+  ProductButtonsHalf,
   ProductControls,
   ProductQuantity,
 } from '../../../components/Products/ProductControls';
@@ -50,17 +51,39 @@ export function SubcategoryProducts({ subcategory }) {
               value={getProductQuantity(product.id)}
               type="number"
               onChange={(e) =>
-                handleProductQuantity(product.id, null, e.currentTarget.value)
+                handleProductQuantity({ id: product.id, quantity: e.currentTarget.value })
               }
               className="product-quantity"
             />
+            {
+              subcategory.allowHalf && (
+                <ProductButtonsHalf>
+                  <RemoveCircleOutlineIcon
+                    fontSize="small"
+                    data-testid={`product-reduce-quantity-${product.id}`}
+                    classes={{ root: 'pointer' }}
+                    onClick={() => {
+                      handleProductQuantity({id: product.id, action: false, isHalf: true });
+                    }}
+                  />
+                  <AddCircleOutlineIcon
+                    fontSize="small"
+                    data-testid={`product-add-quantity-${product.id}`}
+                    classes={{ root: 'pointer' }}
+                    onClick={() => {
+                      handleProductQuantity({id: product.id, action: true, isHalf: true });
+                    }}
+                  />
+                </ProductButtonsHalf>
+              )
+            }
             <ProductButtons>
               <RemoveCircleOutlineIcon
                 fontSize="large"
                 data-testid={`product-reduce-quantity-${product.id}`}
                 classes={{ root: 'pointer' }}
                 onClick={() => {
-                  handleProductQuantity(product.id, false);
+                  handleProductQuantity({id: product.id, action: false });
                 }}
               />
               <AddCircleOutlineIcon
@@ -68,7 +91,7 @@ export function SubcategoryProducts({ subcategory }) {
                 data-testid={`product-add-quantity-${product.id}`}
                 classes={{ root: 'pointer' }}
                 onClick={() => {
-                  handleProductQuantity(product.id, true);
+                  handleProductQuantity({id: product.id, action: true });
                 }}
               />
             </ProductButtons>
