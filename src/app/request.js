@@ -44,6 +44,7 @@ const request = function (options) {
     );
     console.error('Request Failed:', error.config);
 
+    console.log('1')
     if (error.response) {
       console.error('Status:', error.response.status);
       console.error('Data:', error.response.data);
@@ -52,6 +53,7 @@ const request = function (options) {
       console.error('Error Message:', error.message);
     }
 
+    console.log('here');
     return Promise.reject(error.response || error.message);
   };
 

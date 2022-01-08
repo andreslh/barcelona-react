@@ -21,7 +21,8 @@ const Login = () => {
     UsersService.login({ email, password }).then((response) => {
       dispatch(login(response));
       history.push(TABLES);
-    });
+    })
+    .catch(e => console.log(e));
   };
 
   const handleReturn = () => {

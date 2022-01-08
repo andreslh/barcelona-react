@@ -10,6 +10,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
+import getInt from '../utils/getInt';
+
 import {
   PRODUCTS,
   LOGIN,
@@ -52,13 +54,14 @@ function NavBar() {
 
   const handleLogout = () => {
     dispatch(logout());
+    setAnchorEl(null);
     UsersService.logout({ token: tokens.refreshToken }).then(() => {
-      setAnchorEl(null);
       history.push(LOGIN);
-    });
+    })    
+    .catch(e => console.log(e));;
   };
 
-  const isAdmin = (role) => parseInt(role, 10) === ROLES.admin;
+  const isAdmin = (role) => getInt(role) === ROLES.admin;
 
   return (
     <AppBar classes={{ root: 'barcelona-app-bar' }} position='static'>

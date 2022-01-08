@@ -9,6 +9,7 @@ import { useSnackbar } from 'material-ui-snackbar-provider';
 
 import { WAITERS } from '../../app/routes';
 import WaitersService from '../../services/waiters';
+import getInt from '../../utils/getInt';
 import WaiterForm from './WaiterForm';
 import { selectWaiters, setWaiters } from './waitersSlice';
 import { getWaiter } from './utils/getWaiter';
@@ -19,7 +20,7 @@ export default function NewWaiter() {
   const history = useHistory();
   const dispatch = useDispatch();
   const snackbar = useSnackbar();
-  const [name, setName] = useState(getWaiter(waiters, parseInt(id, 10)).name);
+  const [name, setName] = useState(getWaiter(waiters, getInt(id)).name);
 
   useEffect(() => {
     if (!waiters.length) {

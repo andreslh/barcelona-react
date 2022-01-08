@@ -97,8 +97,11 @@ export default function Products() {
   return (
     <ProductsContext.Provider value={context}>
       <Box pt={3}>
-        <Grid container justify="flex-end">
+        <Grid container justify="space-between">
           <Box pb={3}>
+            <h2>Gestionar menú</h2>  
+          </Box>
+          <Box>
             <Button
               variant="contained"
               color="default"
