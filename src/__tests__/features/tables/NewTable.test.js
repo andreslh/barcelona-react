@@ -3,11 +3,11 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
-import createApiMock from '../../app/createApiMock';
-import store from '../../app/store';
-import { mockAddTable } from './mocks/tables';
-import { mockWaiters } from './mocks/waiters';
-import NewTable from './NewTable';
+import store from '../../../app/store';
+import NewTable from '../../../features/tables/NewTable';
+import createApiMock from '../../../__mocks__/createApiMock';
+import { mockAddTable } from '../../../__mocks__/tables';
+import { mockWaiters } from '../../../__mocks__/waiters';
 
 const mockHistoryPush = jest.fn();
 const mockHistoryGoBack = jest.fn();

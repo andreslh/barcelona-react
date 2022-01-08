@@ -51,7 +51,7 @@ export function SubcategoryProducts({ subcategory }) {
               value={getProductQuantity(product.id)}
               type="number"
               onChange={(e) =>
-                handleProductQuantity({ id: product.id, quantity: e.currentTarget.value })
+                handleProductQuantity({ id: product.id, action: null, quantity: e.currentTarget.value })
               }
               className="product-quantity"
             />

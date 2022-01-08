@@ -2,7 +2,7 @@ import {
   GET_PRODUCTS,
   PRODUCTS_PREFIX,
   urlBuilder,
-} from '../../../services/constants';
+} from '../services/constants';
 import products from './products.json';
 
 const getUrl = urlBuilder(PRODUCTS_PREFIX);

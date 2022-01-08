@@ -3,12 +3,12 @@ import { MemoryRouter, Route } from 'react-router-dom';
 import { render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 
-import store from '../../app/store';
-import createApiMock from '../../app/createApiMock';
-import { mockActiveTable, mockTables } from './mocks/tables';
-import Tables from './Tables';
-import { mockProducts } from '../products/mocks/products';
-import { mockWaiters, mockWaitersWithTables } from './mocks/waiters';
+import store from '../../../app/store';
+import Tables from '../../../features/tables/Tables';
+import createApiMock from '../../../__mocks__/createApiMock';
+import { mockProducts } from '../../../__mocks__/products';
+import { mockActiveTable, mockTables } from '../../../__mocks__/tables';
+import { mockWaiters, mockWaitersWithTables } from '../../../__mocks__/waiters';
 
 describe('Tables', () => {
   let mock;

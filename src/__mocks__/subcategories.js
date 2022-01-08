@@ -2,8 +2,7 @@ import {
   ADD_SUBCATEGORY,
   SUBCATEGORIES_PREFIX,
   urlBuilder,
-} from '../../../services/constants';
-import products from './products.json';
+} from '../services/constants';
 
 const getUrl = urlBuilder(SUBCATEGORIES_PREFIX);
 

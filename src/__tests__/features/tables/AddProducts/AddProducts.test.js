@@ -3,13 +3,13 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { MemoryRouter } from 'react-router-dom';
-
-import createApiMock from '../../../app/createApiMock';
-import { mockAddProducts } from '../mocks/tables';
-import AddProducts from './AddProducts';
-import activeTable from '../mocks/activeTable.json';
-import products from '../../products/mocks/products.json';
 import { fireEvent } from '@testing-library/dom';
+
+import AddProducts from '../../../../features/tables/AddProducts/AddProducts';
+import createApiMock from '../../../../__mocks__/createApiMock';
+import { mockAddProducts } from '../../../../__mocks__/tables';
+import products from '../../../../__mocks__/products.json';
+import activeTable from '../../../../__mocks__/activeTable.json';
 
 const mockHistoryPush = jest.fn();
 const mockShowMessage = jest.fn();

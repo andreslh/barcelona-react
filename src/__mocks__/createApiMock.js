@@ -1,4 +1,4 @@
-import { client } from './request';
+import { client } from '../app/request';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import MockAdapter from 'axios-mock-adapter';
 

@@ -3,7 +3,7 @@ import {
   WAITERS_PREFIX,
   urlBuilder,
   GET_WAITERS_WITH_TABLES,
-} from '../../../services/constants';
+} from '../services/constants';
 import waiters from './waiters.json';
 import waitersWithTables from './waitersWithTables.json';
 

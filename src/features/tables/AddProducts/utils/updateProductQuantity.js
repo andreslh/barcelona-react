@@ -1,6 +1,5 @@
 const updateProductQuantity = (id, action, quantity, addedProducts, isHalf) => {
   const newAddedProducts = [...addedProducts];
-  console.log(isHalf);
   const newAddedOrSubstractedQuantity = isHalf ? 0.5 : 1;
   const productIndex = newAddedProducts.findIndex(
     (product) => product.id === id

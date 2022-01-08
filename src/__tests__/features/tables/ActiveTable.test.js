@@ -3,15 +3,15 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 
-import activeTable from './mocks/activeTable.json';
-import waiters from './mocks/waiters.json';
-import ActiveTable from './ActiveTable';
-import createApiMock from '../../app/createApiMock';
+import ActiveTable from '../../../features/tables/ActiveTable';
+import createApiMock from '../../../__mocks__/createApiMock';
 import {
   mockCompleteTable,
   mockDeleteTable,
   mockDeleteTableProduct,
-} from './mocks/tables';
+} from '../../../__mocks__/tables';
+import activeTable from '../../../__mocks__/activeTable.json';
+import waiters from '../../../__mocks__/waiters.json';
 
 const mockShowMessage = jest.fn();
 const mockOnDelete = jest.fn();

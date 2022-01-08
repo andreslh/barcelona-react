@@ -8,7 +8,7 @@ import {
   GET_TABLES,
   TABLES_PREFIX,
   urlBuilder,
-} from '../../../services/constants';
+} from '../services/constants';
 import activeTable from './activeTable.json';
 import tables from './tables.json';
 

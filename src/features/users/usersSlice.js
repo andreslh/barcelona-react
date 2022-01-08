@@ -41,7 +41,6 @@ export const usersSlice = createSlice({
       state.usersByRole = action.payload;
     },
     forceLogin: (state) => {
-      console.log('forced');
       state.forceLogin = true;
     },
   },

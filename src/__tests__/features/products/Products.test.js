@@ -3,10 +3,10 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
-import store from '../../app/store';
-import createApiMock from '../../app/createApiMock';
-import { mockProducts } from './mocks/products';
-import Products from './Products';
+import store from '../../../app/store';
+import Products from '../../../features/products/Products';
+import createApiMock from '../../../__mocks__/createApiMock';
+import { mockProducts } from '../../../__mocks__/products';
 
 const mockHistoryPush = jest.fn();
 

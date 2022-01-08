@@ -1,5 +1,5 @@
-import tablesReducer, { selectActive, deleteTableProduct } from './tablesSlice';
-import mockActiveTable from './mocks/activeTable.json';
+import tablesReducer, { selectActive, deleteTableProduct } from '../../../features/tables/tablesSlice';
+import mockActiveTable from '../../../__mocks__/activeTable.json';
 
 describe('tablesSlice', () => {
   it('deletes product and updates total', () => {
