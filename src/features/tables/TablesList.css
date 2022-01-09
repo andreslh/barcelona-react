@@ -1,3 +1,6 @@
+.table-list-hidden {
+  display: none !important;
+}
 .table-list-active td {
   font-weight: bold;
 }
@@ -10,4 +13,8 @@
 
 .table-list-normal td:hover {
   text-decoration: underline;
+}
+
+.chevron-down {
+  transform: rotate(90deg);
 }
