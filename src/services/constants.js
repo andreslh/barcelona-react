@@ -14,6 +14,7 @@ export const GET_PRODUCTS = 'list';
 export const GET_PRODUCT = ':id';
 export const ADD_PRODUCT = '';
 export const UPDATE_PRODUCT = ':id';
+export const UPDATE_PRODUCTS = 'list'
 export const DELETE_PRODUCT = ':id';
 
 export const SUBCATEGORIES_PREFIX = 'subcategories/';

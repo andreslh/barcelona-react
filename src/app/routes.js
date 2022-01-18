@@ -11,6 +11,7 @@ export const ADD_PRODUCTS = '/agregar-productos';
 export const PRODUCTS = '/productos';
 export const ADD_PRODUCT = '/agregar-producto/:subcategoryId';
 export const EDIT_PRODUCT = '/editar-producto/:id';
+export const EDIT_PRODUCTS = '/editar-productos';
 
 export const ADD_CATEGORY = '/agregar-categoria';
 export const EDIT_CATEGORY = '/editar-categoria/:id';

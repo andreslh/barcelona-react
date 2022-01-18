@@ -6,6 +6,7 @@ import {
   urlBuilder,
   GET_PRODUCT,
   UPDATE_PRODUCT,
+  UPDATE_PRODUCTS,
   DELETE_PRODUCT,
 } from './constants';
 
@@ -41,6 +42,14 @@ function update(data) {
   });
 }
 
+function updateAll(data) {
+  return request({
+    url: getUrl(UPDATE_PRODUCTS),
+    method: 'PUT',
+    data,
+  });
+}
+
 function remove(id) {
   return request({
     url: getUrl(DELETE_PRODUCT.replace(':id', id)),
@@ -53,6 +62,7 @@ const ProductsService = {
   getById,
   create,
   update,
+  updateAll,
   remove,
 };
 

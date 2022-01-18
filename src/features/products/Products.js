@@ -9,7 +9,7 @@ import { useSnackbar } from 'material-ui-snackbar-provider';
 
 import { selectProducts, setProducts } from './productsSlice';
 import ProductsService from '../../services/products';
-import { ADD_CATEGORY } from '../../app/routes';
+import { ADD_CATEGORY, EDIT_PRODUCTS } from '../../app/routes';
 import Modal from '../../components/Modal';
 import SubcategoriesService from '../../services/subcategories';
 import CategoriesService from '../../services/categories';
@@ -80,6 +80,10 @@ export default function Products() {
     );
   };
 
+  const handleEditProducts = () => {
+    history.push(EDIT_PRODUCTS);
+  };
+
   const handleAddCategory = () => {
     history.push(ADD_CATEGORY);
   };
@@ -104,6 +108,13 @@ export default function Products() {
           <Box>
             <Button
               variant="contained"
+              color="default"
+              onClick={handleEditProducts}
+            >
+              Editar productos
+            </Button>
+            <Button
+              variant="outlined"
               color="default"
               onClick={handleAddCategory}
             >

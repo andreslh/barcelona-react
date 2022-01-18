@@ -8,6 +8,7 @@ import AddProducts from './features/tables/AddProducts/AddProducts';
 import Products from './features/products';
 import AddProduct from './features/products/AddProduct';
 import EditProduct from './features/products/EditProduct';
+import EditProducts from './features/products/EditProducts';
 import AddSubcategory from './features/products/AddSubcategory';
 import EditSubcategory from './features/products/EditSubcategory';
 import Login from './features/users/Login';
@@ -44,6 +45,7 @@ import {
   CLOSED_TABLE,
   USERS,
   RESET_PASSWORD,
+  EDIT_PRODUCTS,
 } from './app/routes';
 
 function Router() {
@@ -61,6 +63,7 @@ function Router() {
       <PrivateRoute path={PRODUCTS} component={Products} />
       <PrivateRoute path={ADD_PRODUCT} component={AddProduct} />
       <PrivateRoute path={EDIT_PRODUCT} component={EditProduct} />
+      <PrivateRoute path={EDIT_PRODUCTS} component={EditProducts} />
 
       <PrivateRoute path={ADD_CATEGORY} component={AddCategory} />
       <PrivateRoute path={EDIT_CATEGORY} component={EditCategory} />
