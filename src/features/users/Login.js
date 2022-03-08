@@ -44,6 +44,7 @@ const Login = () => {
           <TextField
             id='login-email'
             label='Email'
+            name='email'
             inputProps={{ 'data-testid': 'login-email', type: 'email' }}
             variant='outlined'
             value={email}
@@ -56,6 +57,7 @@ const Login = () => {
           <TextField
             id='login-password'
             label='Contraseña'
+            name='password'
             inputProps={{ 'data-testid': 'login-password', type: 'password' }}
             variant='outlined'
             value={password}
@@ -66,6 +68,7 @@ const Login = () => {
         </Box>
         <Box m={2}>
           <Button
+            name='login'
             data-testid='confirm-add-table'
             disabled={!email.length || !password.length}
             variant='contained'
